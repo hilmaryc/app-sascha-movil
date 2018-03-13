@@ -6,6 +6,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
+import firebase from 'firebase';
+import { Unsubscribe } from '@firebase/util';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,24 +19,40 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen) {
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
+     firebase.initializeApp({
+      apiKey: "AIzaSyB-JoyYYCMqG6nwepNr9miggpIIcLviFk8",
+      authDomain: "app-sascha-movil-a631e.firebaseapp.com",
+      databaseURL: "https://app-sascha-movil-a631e.firebaseio.com",
+      projectId: "app-sascha-movil-a631e",
+      storageBucket: "app-sascha-movil-a631e.appspot.com",
+      messagingSenderId: "688850941863"
+    });
 
-  }
+    const unsubscribe: Unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.rootPage = HomePage;
+        unsubscribe();
+         this.pages = [
+          { title: 'Home', component: HomePage },
+          { title: 'List', component: ListPage }
+        ];
+      } else {
+        this.rootPage = 'LoginPage';
+        unsubscribe();
+      }
+    });
 
-  initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+
   }
 
   openPage(page) {

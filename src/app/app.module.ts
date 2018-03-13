@@ -10,7 +10,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RemoteProvider } from '../providers/remote/remote';
-//import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import { RemoteProvider } from '../providers/remote/remote';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RemoteProvider
+    RemoteProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}

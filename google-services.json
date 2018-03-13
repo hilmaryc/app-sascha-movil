@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "688850941863",
+    "firebase_url": "https://app-sascha-movil-a631e.firebaseio.com",
+    "project_id": "app-sascha-movil-a631e",
+    "storage_bucket": "app-sascha-movil-a631e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688850941863:android:115ce391e1b554b8",
+        "android_client_info": {
+          "package_name": "com.ionic.sascha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688850941863-f5necskorakr2vaiap26f1r6b4tun5l2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUqm3ORqwFgkGYmnUkrg94ScpMsxEn23M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

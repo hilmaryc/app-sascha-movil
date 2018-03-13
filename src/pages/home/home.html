@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>Users: {{users}}</h1>
   <ion-list>
     <ion-item *ngFor="let u of users">
       <!--ion-avatar item-left>
