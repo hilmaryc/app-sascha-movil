@@ -13,7 +13,9 @@
     "git:remote": "git remote add upstream https://github.com/SaschaNutric/app-sascha-movil.git",
     "git:fetch": "git fetch upstream",
     "git:merge": "git merge upstream/master",
-    "repo:update": "npm run git:remote && npm run git:fetch && npm run git:merge"
+    "repo:update": "npm run git:remote && npm run git:fetch && npm run git:merge",
+    "git:config": "echo -n 'ingrese su user.email--> '; read USER_EMAIL; git config --global user.email $USER_EMAIL",
+    "git:user": "echo 'Usuario git global: '$(git config --global user.email)"
   },
   "dependencies": {
     "@angular/common": "5.0.3",
