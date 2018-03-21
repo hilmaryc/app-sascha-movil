@@ -4,7 +4,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { PerfilPage } from '../pages/perfil/perfil';
+import { ServicioPage } from '../pages/servicio/servicio';
+import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
+import { PromocionesPage } from '../pages/promociones/promociones';
+import { LogoutPage } from '../pages/logout/logout';
 
 import firebase from 'firebase';
 import { Unsubscribe } from '@firebase/util';
@@ -34,17 +38,32 @@ export class MyApp {
     });
 
     const unsubscribe: Unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      /*
       if (user) {
         this.rootPage = HomePage;
         unsubscribe();
          this.pages = [
           { title: 'Home', component: HomePage },
-          { title: 'List', component: ListPage }
+          { title: 'Notificaciones', component: NotificacionesPage },
+          { title: 'Perfil', component: PerfilPage },
+          { title: 'Cerrar Sesion', component: LogoutPage }
         ];
       } else {
         this.rootPage = 'LoginPage';
         unsubscribe();
       }
+      */
+      this.rootPage = HomePage;
+      this.pages = [
+          { title: 'Sascha', component: HomePage },
+          { title: 'Notificaciones', component: NotificacionesPage },
+          { title: 'Promociones', component: PromocionesPage },
+          { title: 'Servicio', component: ServicioPage },
+          { title: 'Perfil', component: PerfilPage },
+          { title: 'Ayuda', component: NotificacionesPage },
+          { title: 'Cerrar Sesion', component: LogoutPage }
+      ];
+
     });
 
     this.platform.ready().then(() => {
@@ -60,4 +79,5 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
 }

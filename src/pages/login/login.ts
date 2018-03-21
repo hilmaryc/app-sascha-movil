@@ -76,4 +76,10 @@ export class LoginPage {
       }
     }
   }
+
+  logout(): void {
+    console.log("POLICE");
+    firebase.auth().signOut();
+  }
+
 }

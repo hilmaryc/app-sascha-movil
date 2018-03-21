@@ -3,8 +3,11 @@
     <ion-title>Inicio sesion</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="auth-page">
-  <img src="http://placehold.it/300x150" alt="Banner for the login page" />
+<ion-content >
+<div padding class="auth-page" >
+
+ <img src="assets/imgs/lsascha.png" class="logo" alt="sascha" class="img-logo">
+
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
     <ion-item [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.touched"
       [class.valid]="loginForm.controls.email.valid && loginForm.controls.email.touched">
@@ -34,10 +37,11 @@
   </form>
 
   <button ion-button block clear (click)="goToSignup()">
-    Crear una Cuenta
+    Suscribirse a Sascha
   </button>
 
-  <button ion-button block clear (click)="goToResetPassword()">
+  <button ion-button block clear (click)="logout()">
     No recuerdo mi contraseña :(
   </button>
+</div>
 </ion-content>

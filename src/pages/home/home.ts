@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
+//import { LoadingController } from 'ionic-angular';
 import { RemoteProvider } from '../../providers/remote/remote';
 
 @Component({
@@ -12,33 +12,32 @@ export class HomePage {
   public users: any;
   errorMessage: string;
 
-  constructor(public navCtrl: NavController, public proveedor: RemoteProvider, private load : LoadingController) { 
+  constructor(public navCtrl: NavController, public proveedor: RemoteProvider) { 
+    //, private load : LoadingController
   }
 
   ionViewDidEnter(){
-
+/*
   let progress = this.load.create({
       content: 'Please wait…'
     });
 
   progress.present();
+*/
 
+/*
   this.proveedor.getUsers()
        .subscribe(
         (data)=>{
           this.users = data;
-          progress.dismiss();
+  //        progress.dismiss();
           console.log(" POLICIA");
           console.log(data);
         },
         (error)=>{console.log(error);}
        
        )
-    /*
-    this.peopleSearch.load().then(data1 => { 
-        this.users = data1;
-    });
-    */
+*/
   }
 
 }
