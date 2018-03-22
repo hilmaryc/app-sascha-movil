@@ -7,6 +7,38 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="list-avatar-page">
+  <ion-list>
+
+    <ion-list-header>Hoy</ion-list-header>
+ <ion-card *ngFor="let item of items" (click)="itemSelected(item)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/lsascha.png">
+      </ion-avatar>
+       {{ item }}
+      <ion-card-content>
+        <p> Descripcion de la notificacion</p>
+      </ion-card-content>
+      <ion-note item-end>3:43 pm</ion-note>
+    </ion-item>
+ </ion-card>
+
+
+  <ion-list-header>Ayer</ion-list-header>
+ <ion-card *ngFor="let item of items" (click)="itemSelected(item)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/lsascha.png">
+      </ion-avatar>
+     {{ item }}
+      <p> Descripcion de la notificacion</p>
+      <ion-note item-end>10:30 am</ion-note>
+    </ion-item>
+ </ion-card>
+
+
+</ion-list>
 
 </ion-content>
+

@@ -57,11 +57,13 @@ export class MyApp {
       */
      // this.rootPage = HomePage;
       this.pages = [
-          { title: 'Sascha', component: HomePage },
+          { title: 'Inicio', component: HomePage },
+          { title: 'Mi Perfil', component: PerfilPage },
+          { title: 'Mi Plan', component: ServicioPage },
           { title: 'Notificaciones', component: NotificacionesPage },
           { title: 'Promociones', component: PromocionesPage },
-          { title: 'Servicio', component: ServicioPage },
-          { title: 'Perfil', component: PerfilPage },
+          
+         
           { title: 'Ayuda', component: NotificacionesPage }
       ];
 

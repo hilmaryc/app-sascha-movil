@@ -3,17 +3,45 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let u of users">
-      <!--ion-avatar item-left>
-        <img src="{{c.flag}}">
-      </ion-avatar-->
-      <h2>{{u.username}}</h2>
+    <ion-item>
+        <ion-card>
+          <ion-avatar item-start>
+            <img src="img/avatar-cher.png">
+          </ion-avatar>
+          <h2 align="center">Consulta Nutricional</h2>
+          <p>Un nutricionista calificado realiza </p> 
+          <p>una evaluación de tu estado</p>   
+          <p>nutricional</p>
+        </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/obesidad.jpg">
+          </ion-avatar>
+        </ion-item>
+        <h2 align="center">Control de obesidad</h2>
+        <p> Consejos alimenticios y planes</p> 
+        <p>nutricionales para el control</p>
+        <p>de peso.</p>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-avatar item-start>
+            <img src="">
+        </ion-avatar>
+        <h2 align="center">Nutrición Deportiva</h2>
+        <p>Planes de nutrición especializados</p> 
+        <p>para deportistas.</p> 
+      </ion-card>
     </ion-item>
   </ion-list>
 </ion-content>
