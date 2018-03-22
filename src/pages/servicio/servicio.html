@@ -1,13 +1,23 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Servicio</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
 
-<ion-content padding>
-<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+<ion-card>
 
+  <ion-item>
+      <h2>Consulta Nutricional</h2>
+  </ion-item>
+  <img src="../../assets/imgs/consulta.jpg">
+
+  <ion-card-content>
+    <p>En la primera cita, el nutricionista realizará tu historia clínica, revisando tus problemas de salud, antecedentes familiares, cirugías, suplementación y medicación, etc. Revisará contigo tu estilo de vida, tu tipo de trabajo, actividad física y deporte que realizas, horarios y demás aspectos de interés.</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col center text-center>
+      <h2>
+        Precio $100
+      </h2>
+      <button ion-button color="primary" block clear>Solicitar Cita</button>
+    </ion-col>
+  </ion-row>
+ </ion-card>
 </ion-content>
