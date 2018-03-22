@@ -12,7 +12,7 @@
     <ion-item [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.touched"
       [class.valid]="loginForm.controls.email.valid && loginForm.controls.email.touched">
       <ion-label stacked>Correo</ion-label>
-      <ion-input formControlName="email" type="email" placeholder="tu correo electronico">
+      <ion-input formControlName="email" type="email" placeholder="Tu correo electronico">
       </ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid &&
@@ -31,17 +31,15 @@
       <p>Tu contraseña debe ser de mas de 6 caracteres.</p>
     </ion-item>
 
+    <ion-label stacked class="ion-label-oc" (click)="logout()" > ¿Olvidaste tu Contraseña? </ion-label>
+
     <button ion-button block type="submit" [disabled]="!loginForm.valid">
-      Inicio Sesion
+      Ingresar
     </button>
+
+    <ion-label stacked (click)="goToSignup()" > Suscribirse a sascha </ion-label>
+
   </form>
-
-  <button ion-button block clear (click)="goToSignup()">
-    Suscribirse a Sascha
-  </button>
-
-  <button ion-button block clear (click)="logout()">
-    No recuerdo mi contraseña :(
-  </button>
+  <div padding ></div>
 </div>
 </ion-content>

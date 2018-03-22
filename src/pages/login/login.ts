@@ -59,6 +59,22 @@ export class LoginPage {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
 
+     console.log("POLICE"); 
+     console.log(email + "  " + password);
+
+     if( email == 'saschanutric@gmail.com' && password == '123456' ){
+        await loading.dismiss();
+        this.navCtrl.setRoot(HomePage);
+     }else{
+        await loading.dismiss();
+        const alert: Alert = this.alertCtrl.create({
+          message: 'error.message',
+          buttons: [{ text: 'Ok', role: 'cancelar' }]
+        });
+        alert.present();
+     }
+
+/*
       try {
         const loginUser: firebase.User = await this.authProvider.loginUser(
           email,
@@ -70,10 +86,11 @@ export class LoginPage {
         await loading.dismiss();
         const alert: Alert = this.alertCtrl.create({
           message: error.message,
-          buttons: [{ text: 'Ok', role: 'cancel' }]
+          buttons: [{ text: 'Ok', role: 'cancelar' }]
         });
         alert.present();
       }
+      */
     }
   }
 

@@ -8,7 +8,8 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
-import { LogoutPage } from '../pages/logout/logout';
+
+import { AuthProvider } from '../providers/auth/auth';
 
 import firebase from 'firebase';
 import { Unsubscribe } from '@firebase/util';
@@ -26,7 +27,8 @@ export class MyApp {
   constructor(
     public platform: Platform, 
     public statusBar: StatusBar, 
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,
+    public auth: AuthProvider) {
 
      firebase.initializeApp({
       apiKey: "AIzaSyB-JoyYYCMqG6nwepNr9miggpIIcLviFk8",
@@ -53,15 +55,14 @@ export class MyApp {
         unsubscribe();
       }
       */
-      this.rootPage = HomePage;
+     // this.rootPage = HomePage;
       this.pages = [
           { title: 'Sascha', component: HomePage },
           { title: 'Notificaciones', component: NotificacionesPage },
           { title: 'Promociones', component: PromocionesPage },
           { title: 'Servicio', component: ServicioPage },
           { title: 'Perfil', component: PerfilPage },
-          { title: 'Ayuda', component: NotificacionesPage },
-          { title: 'Cerrar Sesion', component: LogoutPage }
+          { title: 'Ayuda', component: NotificacionesPage }
       ];
 
     });
@@ -78,6 +79,11 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logout() {
+    this.auth.logoutUser();
+    this.rootPage = 'LoginPage';
   }
 
 }

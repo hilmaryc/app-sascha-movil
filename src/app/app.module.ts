@@ -9,7 +9,6 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
-import { LogoutPage } from '../pages/logout/logout';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,8 +22,7 @@ import { AuthProvider } from '../providers/auth/auth';
     PerfilPage,
     ServicioPage,
     NotificacionesPage,
-    PromocionesPage,
-    LogoutPage
+    PromocionesPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +36,6 @@ import { AuthProvider } from '../providers/auth/auth';
     ServicioPage,
     NotificacionesPage,
     PromocionesPage,
-    LogoutPage,
     PerfilPage
   ],
   providers: [
