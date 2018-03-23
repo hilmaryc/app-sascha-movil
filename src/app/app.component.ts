@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
+import { PedircitaPage } from '../pages/pedircita/pedircita'
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
@@ -64,6 +65,7 @@ export class MyApp {
           { title: 'Mi Perfil', component: PerfilPage },
           { title: 'Mi Plan', component: ModalPlanPage },
           { title: 'Servicios', component: ServicioPage },
+          { title: 'Pedir cita', component: PedircitaPage },
           { title: 'Notificaciones', component: NotificacionesPage },
           { title: 'Promociones', component: PromocionesPage },
           { title: 'Comentarios', component: ComentarioPage },

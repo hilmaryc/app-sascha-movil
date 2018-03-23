@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { PlanPage as ModalPlanPage, ModalContentPage } from '../pages/plan/plan';
 import { ServicioPage } from '../pages/servicio/servicio';
+import { PedircitaPage } from '../pages/pedircita/pedircita'
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { ComentarioPage } from '../pages/comentarios/comentario';
@@ -26,6 +27,7 @@ import { AuthProvider } from '../providers/auth/auth';
     ModalPlanPage,
     ModalContentPage,
     ServicioPage,
+    PedircitaPage,
     NotificacionesPage,
     ComentarioPage,
     ReclamoPage,
@@ -41,6 +43,7 @@ import { AuthProvider } from '../providers/auth/auth';
     MyApp,
     HomePage,
     ServicioPage,
+    PedircitaPage,
     NotificacionesPage,
     PromocionesPage,
     PerfilPage,
