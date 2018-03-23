@@ -6,9 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { PlanPage as ModalPlanPage, ModalContentPage } from '../pages/plan/plan';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
+import { ComentarioPage } from '../pages/comentarios/comentario';
+import { ReclamoPage } from '../pages/reclamos/reclamo';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,8 +23,12 @@ import { AuthProvider } from '../providers/auth/auth';
     MyApp,
     HomePage,
     PerfilPage,
+    ModalPlanPage,
+    ModalContentPage,
     ServicioPage,
     NotificacionesPage,
+    ComentarioPage,
+    ReclamoPage,
     PromocionesPage
   ],
   imports: [
@@ -36,7 +43,11 @@ import { AuthProvider } from '../providers/auth/auth';
     ServicioPage,
     NotificacionesPage,
     PromocionesPage,
-    PerfilPage
+    PerfilPage,
+    ComentarioPage,
+    ReclamoPage,
+    ModalPlanPage,
+    ModalContentPage
   ],
   providers: [
     StatusBar,

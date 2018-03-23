@@ -8,6 +8,9 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
+import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
+import { ComentarioPage } from '../pages/comentarios/comentario';
+import { ReclamoPage } from '../pages/reclamos/reclamo';
 
 import { AuthProvider } from '../providers/auth/auth';
 
@@ -59,12 +62,12 @@ export class MyApp {
       this.pages = [
           { title: 'Inicio', component: HomePage },
           { title: 'Mi Perfil', component: PerfilPage },
-          { title: 'Mi Plan', component: ServicioPage },
+          { title: 'Mi Plan', component: ModalPlanPage },
+          { title: 'Servicios', component: ServicioPage },
           { title: 'Notificaciones', component: NotificacionesPage },
           { title: 'Promociones', component: PromocionesPage },
-          
-         
-          { title: 'Ayuda', component: NotificacionesPage }
+          { title: 'Comentarios', component: ComentarioPage },
+          { title: 'Reclamos', component: ReclamoPage }
       ];
 
     });
@@ -73,7 +76,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
 
   }
 

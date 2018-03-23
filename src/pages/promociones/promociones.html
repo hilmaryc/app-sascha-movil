@@ -7,6 +7,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="list-avatar-page">
+  <ion-list>
+
+ <ion-card *ngFor="let item of items" (click)="itemSelected(item)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{item.image}}">
+      </ion-avatar>
+      <ion-item text-wrap><b> {{ item.titulo }} </b></ion-item>
+      <ion-card-content>
+        <ion-item text-wrap>
+           {{ item.detalle }} 
+        </ion-item>
+      </ion-card-content>
+    </ion-item>
+    <ion-item item-end>{{ item.fecha }}</ion-item>
+ </ion-card>
+
+</ion-list>
 
 </ion-content>

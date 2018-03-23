@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Plan Nutricional</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-list-header>
+      Dieta
+    </ion-list-header>
+    <a ion-item (click)="openModal({charNum: 0})">
+      Desayunos
+    </a>
+    <a ion-item (click)="openModal({charNum: 1})">
+      Almuerzos
+    </a>
+    <a ion-item (click)="openModal({charNum: 2})">
+      Cenas
+    </a>
+    <a ion-item (click)="openModal({charNum: 3})">
+      Complementos
+    </a>
+    <a ion-item (click)="openModal({charNum: 4})">
+      Actividades Fisicas
+    </a>
+  </ion-list>
+
+</ion-content>
