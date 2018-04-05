@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'servicio.html',
 })
 export class ServicioPage {
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -16,7 +16,7 @@ export class ServicioPage {
   }
 
   goPedirCita(){
-  	this.rootPage = 'PedircitaPage';
+      console.log('ServicioPage');
   }
 
 }

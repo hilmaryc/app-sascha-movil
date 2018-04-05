@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 import { EmailValidator } from '../../validators/email';
-import firebase from 'firebase/app';
 
 @IonicPage()
 @Component({
@@ -24,7 +23,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public authProvider: AuthProvider,
+    public auth: AuthProvider,
     formBuilder: FormBuilder
   ) {
     this.loginForm = formBuilder.group({
@@ -40,11 +39,11 @@ export class LoginPage {
   }
 
   goToSignup(): void {
-    this.navCtrl.push('SignupPage');
+    //this.navCtrl.push('SignupPage');
   }
 
   goToResetPassword(): void {
-    this.navCtrl.push('ResetPasswordPage');
+    //this.navCtrl.push('ResetPasswordPage');
   }
 
   async loginUser(): Promise<void> {
@@ -95,8 +94,8 @@ export class LoginPage {
   }
 
   logout(): void {
-    console.log("POLICE");
-    firebase.auth().signOut();
+    console.log("LOGOUT");
+   // firebase.auth().signOut();
   }
 
 }
