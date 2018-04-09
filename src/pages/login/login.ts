@@ -9,7 +9,7 @@ import {
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
+import { ServicioPage } from '../servicio/servicio';
 import { EmailValidator } from '../../validators/email';
 
 @IonicPage()
@@ -63,7 +63,7 @@ export class LoginPage {
 
      if( email == 'saschanutric@gmail.com' && password == '123456' ){
         await loading.dismiss();
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(ServicioPage);
      }else{
         await loading.dismiss();
         const alert: Alert = this.alertCtrl.create({

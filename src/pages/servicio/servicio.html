@@ -3,30 +3,31 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Servicio</ion-title>
+    <ion-avatar item-start>
+      <img class="logo" src="assets/imgs/lsascha.png">
+    </ion-avatar>
   </ion-navbar>
 </ion-header>
-
-<ion-content>
-
-<ion-card>
-
-  <ion-item>
-      <h2>Consulta Nutricional</h2>
-  </ion-item>
-  <img src="../../assets/imgs/consulta.jpg">
-
-  <ion-card-content>
-    <p>En la primera cita, el nutricionista realizará tu historia clínica, revisando tus problemas de salud, antecedentes familiares, cirugías, suplementación y medicación, etc. Revisará contigo tu estilo de vida, tu tipo de trabajo, actividad física y deporte que realizas, horarios y demás aspectos de interés.</p>
-  </ion-card-content>
-
-  <ion-row>
-    <ion-col center text-center>
-      <h2>
-        Precio $100
-      </h2>
-      <button ion-button color="primary" block clear (click)="goPedirCita()" >Solicitar Cita</button>
-    </ion-col>
-  </ion-row>
- </ion-card>
+<ion-content  padding>
+  <ion-list>
+    <ion-item>
+      <h2 align="center">Servicio</h2>
+    </ion-item>
+    <ion-item *ngFor="let s of services" >
+      <ion-card>
+        <ion-grid>
+        <ion-avatar item-start style="margin-left: auto;margin-right: auto;display: block;">
+          <img src="{{ s.img }}" >
+        </ion-avatar>
+        <ion-item>
+            <h2 align="center">{{ s.titulo }}</h2>
+            <p text-wrap>{{ s.descripcion }}</p>
+        </ion-item>
+        </ion-grid>
+      </ion-card>
+    </ion-item>
+</ion-list>  
+<ion-fab right bottom>
+  <button ion-fab mini (click)="showFilter()"><ion-icon name="ios-funnel-outline"></ion-icon></button>
+</ion-fab>
 </ion-content>

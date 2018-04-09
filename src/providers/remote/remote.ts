@@ -1,45 +1,58 @@
-import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Config } from '../config-service/config'
+import { ConfigService } from '../config-service/config-service';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class RemoteProvider {
 
- data1: any;
-  constructor(public http: HttpClient) { }
-  getUsers(){
-    return  this.http.get('http://localhost:3000/api/users'); 
+  url = ''
+  user: any = {
+    'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlhdCI6MTUyMzEzODg4MSwiZXhwIjoxNTIzMTQ2MDgxfQ.qGxeiRMV7va0CLKsbMbULZM0wF7_fEu4Nv1aIANYKik'
   }
 
-/*
-load() {
-    if (this.data1) {
-      return Promise.resolve(this.data1);
-    }
-    // Dont have the data yet
-    return new Promise(resolve => {
-      this.http.get('http://localhost:3000/api/users')
-        .map((res : Response) => res.json())
-        .subscribe(
-          data => {
-            this.data1 = data;
-            resolve(this.data1);
-          });
-    });
-  } 
-*/
-/*
+  constructor(public http: HttpClient, private storage: Storage, public configService: ConfigService) { 
+    //this.showConfig();
+    this.storage.set('user', JSON.stringify(this.user));
+  }
+
+  showConfig() {
+  this.configService.getConfig()
+    // clone the data object, using its known Config shape
+    .subscribe(
+        (data)=>{
+          console.log(" ConfigService");
+          console.log(data);
+        },
+        (error)=>{console.log(error);}
+       )
+  }
+
+  getUsers(url){
+
+  var miheaders = new HttpHeaders();
+      miheaders.append('Access-Control-Allow-Origin', '*');
+      miheaders.append('Content-Type', 'application/json');
+      miheaders.append('Accept', 'application/json');
+      miheaders.append('Access-Control-Allow-Headers', 'Origin, Accept, Authorization, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+      miheaders.append("authorization", "token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlhdCI6MTUyMzE0NjEyMiwiZXhwIjoxNTIzMTUzMzIyfQ.AcK7IYb_UGKJ1-llkIVLbNuKB1QgvnNbi6BnzvF3KCI");
   
-  getUsers(){
+  this.storage.get("user").then((user) => {
+    if(user){
+      let info = JSON.stringify(user);
+      console.log(info);
+      miheaders.append('Authorization', 'token ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlhdCI6MTUyMzEzODg4MSwiZXhwIjoxNTIzMTQ2MDgxfQ.qGxeiRMV7va0CLKsbMbULZM0wF7_fEu4Nv1aIANYKik');
+      }
+    }
+  )
+  
+  const httpOptions = {
+    headers: miheaders
+  };  
 
-	return this.http.get("http://localhost:3000/api/users)
-        .do((res : Response ) => console.log(res.json()))
-        .map((res : Response ) => res.json());
-        //.catch(error => console.log(error));
-
+  return this.http.get('http://localhost:3030/users', httpOptions); 
+  
   }
-*/
+
 }

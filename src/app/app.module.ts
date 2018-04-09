@@ -5,29 +5,34 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { PlanPage as ModalPlanPage, ModalContentPage } from '../pages/plan/plan';
 import { ServicioPage } from '../pages/servicio/servicio';
+import { ServicioDetallePage } from '../pages/servicio/detalle/servicio';
+import { FiltroPage } from '../pages/servicio/filtro/filtro'
+import { EvolucionPage } from '../pages/evolucion/evolucion';
 import { PedircitaPage } from '../pages/pedircita/pedircita'
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { ComentarioPage } from '../pages/comentarios/comentario';
-import { ReclamoPage } from '../pages/reclamos/reclamo';
+import { ReclamoPage } from '../pages/reclamo/reclamo';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RemoteProvider } from '../providers/remote/remote';
 import { AuthProvider } from '../providers/auth/auth';
+import { ConfigService } from '../providers/config-service/config-service';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     PerfilPage,
     ModalPlanPage,
     ModalContentPage,
     ServicioPage,
+    ServicioDetallePage,
+    FiltroPage,
+    EvolucionPage,
     PedircitaPage,
     NotificacionesPage,
     ComentarioPage,
@@ -43,8 +48,10 @@ import { AuthProvider } from '../providers/auth/auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     ServicioPage,
+    ServicioDetallePage,
+    FiltroPage,
+    EvolucionPage,
     PedircitaPage,
     NotificacionesPage,
     PromocionesPage,
@@ -59,7 +66,8 @@ import { AuthProvider } from '../providers/auth/auth';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RemoteProvider,
-    AuthProvider
+    AuthProvider,
+    ConfigService
   ]
 })
 export class AppModule {}

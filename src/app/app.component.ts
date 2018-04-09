@@ -3,15 +3,12 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
-import { PedircitaPage } from '../pages/pedircita/pedircita';
-import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
-import { PromocionesPage } from '../pages/promociones/promociones';
 import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
+import { EvolucionPage } from '../pages/evolucion/evolucion';
 import { ComentarioPage } from '../pages/comentarios/comentario';
-import { ReclamoPage } from '../pages/reclamos/reclamo';
+import { AyudaPage } from '../pages/ayuda/ayuda';
 
 import { AuthProvider } from '../providers/auth/auth';
 
@@ -21,7 +18,7 @@ import { AuthProvider } from '../providers/auth/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = ServicioPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -31,18 +28,15 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public auth: AuthProvider) {
 
-      this.rootPage = HomePage;
+      this.rootPage = ServicioPage;
 
       this.pages = [
-          { title: 'Inicio', component: HomePage },
-          { title: 'Mi Perfil', component: PerfilPage },
+          { title: 'Usuario', component: PerfilPage },
+          { title: 'Servicio', component: ServicioPage },
           { title: 'Mi Plan', component: ModalPlanPage },
-          { title: 'Servicios', component: ServicioPage },
-          { title: 'Pedir cita', component: PedircitaPage },
-          { title: 'Notificaciones', component: NotificacionesPage },
-          { title: 'Promociones', component: PromocionesPage },
-          { title: 'Comentarios', component: ComentarioPage },
-          { title: 'Reclamos', component: ReclamoPage }
+          { title: 'Mi Evolucion', component: EvolucionPage },
+          { title: 'Comunicacion', component: ComentarioPage },
+          { title: 'Ayuda', component: AyudaPage }          
       ];
 
     this.platform.ready().then(() => {
@@ -53,8 +47,6 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 
