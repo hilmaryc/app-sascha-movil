@@ -8,10 +8,6 @@ import {  Platform, NavParams, ViewController } from 'ionic-angular';
 })
 export class FiltroPage {
 
-  auxParams: any = null;  
-  params: String;
-  valor: String;
-
   public filter: any = [{ 
     "id": "parametro_1",
     "titulo": "Precio",
@@ -47,7 +43,6 @@ export class FiltroPage {
   constructor(public platform: Platform,
     public params: NavParams,
     public viewCtrl: ViewController) {
-    auxParams: any = null;
   }
 
   ionViewDidLoad() {
