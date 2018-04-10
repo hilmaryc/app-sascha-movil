@@ -35,26 +35,15 @@
     <ion-item *ngSwitchCase="'suplementos'">
         <ion-card *ngFor="let s of suplementos" >
           <h2>{{ s.nombre }}</h2>
-          <p>Tomar {{ s.cantidad }} pastilla diaria</p>
+          <p>Tomar {{ s.cantidad }} pastilla al dia</p>
         </ion-card>
     </ion-item>
-    <ion-list *ngSwitchCase="'actividades'">
-      <ion-item>
-        <ion-item-group>
-          <ion-item-divider>
-            <h2>Caminar</h2>
-            <p>1 hora todos los dias</p>
-          </ion-item-divider>
-          <ion-item-divider>
-            <h2>Ejercicios</h2>
-            <p>Piernas, Brazos y Abdominales 1 hora diaria</p>
-          </ion-item-divider>
-          <ion-item-divider>
-            <h2>Trotes</h2>
-            <p>2 km, 1 vez a la semana</p>
-          </ion-item-divider>
-        </ion-item-group>     
-      </ion-item>
-    </ion-list>
+
+    <ion-item *ngSwitchCase="'actividades'">
+        <ion-card *ngFor="let s of actividades" >
+          <h2>{{ s.nombre }}</h2>
+          <p>{{ s.cantidad }} {{ s.unidad }} todos los dias</p>
+        </ion-card>
+    </ion-item>
   </div>
 </ion-content>

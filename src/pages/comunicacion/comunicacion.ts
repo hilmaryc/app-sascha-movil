@@ -7,6 +7,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 })
 export class ComunicacionPage {
 
+  razones:any;
   comunicaciones:any = [{
     "id": 1,
     "nombre": "Reclamo",
@@ -48,9 +49,15 @@ export class ComunicacionPage {
   ionViewDidLoad() {
   }
 
+  itemView(razones){
+    console.log('Seleccionado:');
+    console.log(razones);
+    this.razones = razones;
+  }
+
   enviar(){
     let alert = this.alertCtrl.create({
-      title:    'Reclamo',
+      title:    'Mensaje',
       subTitle: 'Su peticion ha sido enviada exitosamente!',
       buttons:  ['OK']
     });

@@ -24,6 +24,24 @@ export class PlanPage {
     "cantidad": 5
   }];
 
+  actividades:any = [{
+    "nombre":"Caminar",
+    "cantidad": 1,
+    "unidad":"hora"
+  } , {
+    "nombre":"Correr",
+    "cantidad": 2,
+    "unidad":"kilometros"
+  } , {
+    "nombre":"Ejercicio de piernas",
+    "cantidad": 30,
+    "unidad":"minutos"
+  } , {
+    "nombre":"Ejercicio de brazos",
+    "cantidad": 30,
+    "unidad":"minutos"
+  }];
+
   constructor(public modalCtrl: ModalController) { }
 
  ionViewDidEnter(){
@@ -48,16 +66,13 @@ export class ModalContentPage {
     public platform: Platform,
     public params: NavParams,
     public viewCtrl: ViewController
-  ) {
+  ) 
+  {
     var characters = [
       {
         name: 'Desayuno',
         image: 'assets/imgs/desayuno.jpeg',
-        items: [
-          { title: 'Lacteos', note: 'Leche Entera, Yogurt' },
-          { title: 'Cereales', note: ' Pan integral y Derivados' },
-          { title: 'Frutas', note: 'Melones, Lechoza, Cambur' }
-        ]
+      
       },
       {
         name: 'Almuerzo',
