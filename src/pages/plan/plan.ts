@@ -72,43 +72,42 @@ export class ModalContentPage {
       {
         name: 'Desayuno',
         image: 'assets/imgs/desayuno.jpeg',
-      
+        items: [
+          { title:'Cereales', note: 'Avena, Pan integral y Derivados' , cantidad: 150 },
+          { title:'Grasas', note: 'Mantequilla, Queso', cantidad: 150  },
+          { title: 'Verduras', note: 'verduras de hojas verdes, zanahoria, Frijoles', cantidad: 150 },
+          { title: 'Frutas', note: 'Melon, Naranja, Mora' , cantidad: 150}
+        ]
       },
       {
         name: 'Almuerzo',
         image: 'assets/imgs/almuerzo.jpeg',
         items: [
-          { title: 'Carnes', note: 'Buey , Cerdo, Pollo' },
-          { title: 'Verduras', note: 'verduras de hojas verdes, zanahoria, Frijoles' },
-          { title: 'Frutas', note: 'Melon, Naranja, Mora' }
+          { title: 'Carnes', note: 'Buey , Cerdo, Pollo', cantidad: 150 },
+          { title: 'Verduras', note: 'verduras de hojas verdes, zanahoria, Frijoles', cantidad: 150 },
+          { title: 'Frutas', note: 'Melon, Naranja, Mora' , cantidad: 150},
+          { title: 'Jugos', note: 'Lechoza, Naranja,Melon, Mora' , cantidad: 150}
         ]
       },
       {
         name: 'Cena',
         image: 'assets/imgs/cena.jpeg',
         items: [
-          { title: 'Lacteos', note: 'Yogurt, Leche' },
-          { title:'Cereales', note: 'Avena, Pan integral y Derivados' },
-          { title:'Grasas', note: 'Mantequilla, Queso' },
-          { title: 'Frutas', note: 'Lechoza,Melon' }
+          { title: 'Lacteos', note: 'Yogurt, Leche', cantidad: 150  },
+          { title:'Cereales', note: 'Avena, Pan integral y Derivados' , cantidad: 150 },
+          { title:'Grasas', note: 'Mantequilla, Queso', cantidad: 150  },
+          { title: 'Frutas', note: 'Lechoza,Melon' , cantidad: 150 }
         ]
       },
        {
         name: 'Meriendas',
         image: 'assets/imgs/complemento.jpeg',
         items: [
-          { title: 'Frutas', note: 'Naranja ,Melón, Piña' },
+          { title: 'Lacteos', note: 'Yogurt, Leche,', cantidad: 150  },
+          { title: 'Frutas', note: 'Naranja,lechoza,melon', cantidad: 150  }
           
         ]
-      },
-       {
-        name: 'Actividades',
-        image: 'assets/imgs/deporte.png',
-        items: [
-          { title: 'Ejercicios', note: 'Abdominales , Piernas, Cardio ' },
-          { title: 'Trotes', note: 'Trotes continuos, caminar 1 hora diaria' } 
-        ]
-      },
+      }
     ];
     this.character = characters[this.params.get('charNum')];
   }

@@ -21,11 +21,14 @@
         <p>{{character.quote}}</p>
       </ion-item>
 
-      <ion-item text-wrap *ngFor="let item of character['items']">
+      <ion-card text-wrap *ngFor="let item of character['items']">
         {{item.title}}
-        <ion-note item-end>
+        <h2>
+          {{item.cantidad}}
+        </h2>
+        <h2>
           {{item.note}}
-        </ion-note>
-      </ion-item>
+        </h2>
+      </ion-card>
   </ion-list>
 </ion-content>
