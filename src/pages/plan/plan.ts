@@ -7,6 +7,23 @@ import {  ModalController, Platform, NavParams, ViewController } from 'ionic-ang
 })
 export class PlanPage {
 
+  suplementos:any = [{
+    "nombre":"Ornitina",
+    "cantidad": 2
+  } , {
+    "nombre":"Acidófilos",
+    "cantidad": 3
+  } , {
+    "nombre":"Omega3",
+    "cantidad": 6
+  } , {
+    "nombre":"Creatina",
+    "cantidad": 1
+  } , {
+    "nombre":"Calcio",
+    "cantidad": 5
+  }];
+
   constructor(public modalCtrl: ModalController) { }
 
  ionViewDidEnter(){
@@ -62,10 +79,10 @@ export class ModalContentPage {
         ]
       },
        {
-        name: 'Complementos',
+        name: 'Meriendas',
         image: 'assets/imgs/complemento.jpeg',
         items: [
-          { title: 'Nutricion', note: 'Colageno ,Alcachofa, Vitamina C' },
+          { title: 'Frutas', note: 'Naranja ,Melón, Piña' },
           
         ]
       },

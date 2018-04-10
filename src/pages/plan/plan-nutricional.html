@@ -3,31 +3,58 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Plan Nutricional</ion-title>
+    <ion-avatar item-start>
+      <img class="logo" src="assets/imgs/lsascha.png">
+    </ion-avatar>
   </ion-navbar>
 </ion-header>
-
-<ion-content>
-
-  <ion-list>
-    <ion-list-header>
-      Dieta
-    </ion-list-header>
-    <a ion-item (click)="openModal({charNum: 0})">
-      Desayunos
-    </a>
-    <a ion-item (click)="openModal({charNum: 1})">
-      Almuerzos
-    </a>
-    <a ion-item (click)="openModal({charNum: 2})">
-      Cenas
-    </a>
-    <a ion-item (click)="openModal({charNum: 3})">
-      Complementos
-    </a>
-    <a ion-item (click)="openModal({charNum: 4})">
-      Actividades Fisicas
-    </a>
-  </ion-list>
-
+<ion-content class="plan">
+  <ion-title> Mi Plan </ion-title>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="comi">
+      <ion-segment-button value="comida">
+        Comida
+      </ion-segment-button>
+      <ion-segment-button value="suplementos">
+        Suplementos
+      </ion-segment-button>
+      <ion-segment-button value="actividades">
+        Actividades
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>  
+  <div [ngSwitch]="comi">
+    <ion-list *ngSwitchCase="'comida'"> 
+      <ion-list>
+        <a ion-item (click)="openModal({charNum: 0})">Desayuno</a>
+        <a ion-item (click)="openModal({charNum: 1})">Almuerzo</a>
+        <a ion-item (click)="openModal({charNum: 2})">Cena</a>
+        <a ion-item (click)="openModal({charNum: 3})">Meriendas</a>
+      </ion-list>
+    </ion-list>
+    <ion-item *ngSwitchCase="'suplementos'">
+        <ion-card *ngFor="let s of suplementos" >
+          <h2>{{ s.nombre }}</h2>
+          <p>Tomar {{ s.cantidad }} pastilla diaria</p>
+        </ion-card>
+    </ion-item>
+    <ion-list *ngSwitchCase="'actividades'">
+      <ion-item>
+        <ion-item-group>
+          <ion-item-divider>
+            <h2>Caminar</h2>
+            <p>1 hora todos los dias</p>
+          </ion-item-divider>
+          <ion-item-divider>
+            <h2>Ejercicios</h2>
+            <p>Piernas, Brazos y Abdominales 1 hora diaria</p>
+          </ion-item-divider>
+          <ion-item-divider>
+            <h2>Trotes</h2>
+            <p>2 km, 1 vez a la semana</p>
+          </ion-item-divider>
+        </ion-item-group>     
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

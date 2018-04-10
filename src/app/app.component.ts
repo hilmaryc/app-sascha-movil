@@ -7,7 +7,7 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
 import { EvolucionPage } from '../pages/evolucion/evolucion';
-import { ComentarioPage } from '../pages/comentarios/comentario';
+import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 import { AyudaPage } from '../pages/ayuda/ayuda';
 
 import { AuthProvider } from '../providers/auth/auth';
@@ -35,7 +35,7 @@ export class MyApp {
           { title: 'Servicio', component: ServicioPage },
           { title: 'Mi Plan', component: ModalPlanPage },
           { title: 'Mi Evolucion', component: EvolucionPage },
-          { title: 'Comunicacion', component: ComentarioPage },
+          { title: 'Comunicacion', component: ComunicacionPage },
           { title: 'Ayuda', component: AyudaPage }          
       ];
 
