@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Description</ion-title>
+    <ion-title>Descripcion</ion-title>
   <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text showWhen="ios">Volver</span>
@@ -21,14 +21,13 @@
         <p>{{character.quote}}</p>
       </ion-item>
 
-      <ion-card text-wrap *ngFor="let item of character['items']">
-        {{item.title}}
+      <ion-card text-wrap class="comidas" *ngFor="let item of character['items']">
         <h2>
-          {{item.cantidad}}
+          {{item.title}} {{item.cantidad}}
         </h2>
-        <h2>
+        <h3 >
           {{item.note}}
-        </h2>
+        </h3>
       </ion-card>
   </ion-list>
 </ion-content>
