@@ -15,7 +15,7 @@ import { PedircitaPage } from '../pages/pedircita/pedircita'
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { ComentarioPage } from '../pages/comentarios/comentario';
-import { ReclamoPage } from '../pages/reclamo/reclamo';
+import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,7 +36,7 @@ import { ConfigService } from '../providers/config-service/config-service';
     PedircitaPage,
     NotificacionesPage,
     ComentarioPage,
-    ReclamoPage,
+    ComunicacionPage,
     PromocionesPage
   ],
   imports: [
@@ -57,7 +57,7 @@ import { ConfigService } from '../providers/config-service/config-service';
     PromocionesPage,
     PerfilPage,
     ComentarioPage,
-    ReclamoPage,
+    ComunicacionPage,
     ModalPlanPage,
     ModalContentPage
   ],

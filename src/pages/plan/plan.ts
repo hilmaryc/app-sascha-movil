@@ -7,6 +7,41 @@ import {  ModalController, Platform, NavParams, ViewController } from 'ionic-ang
 })
 export class PlanPage {
 
+  suplementos:any = [{
+    "nombre":"Ornitina",
+    "cantidad": 2
+  } , {
+    "nombre":"Acidófilos",
+    "cantidad": 3
+  } , {
+    "nombre":"Omega3",
+    "cantidad": 6
+  } , {
+    "nombre":"Creatina",
+    "cantidad": 1
+  } , {
+    "nombre":"Calcio",
+    "cantidad": 5
+  }];
+
+  actividades:any = [{
+    "nombre":"Caminar",
+    "cantidad": 1,
+    "unidad":"hora"
+  } , {
+    "nombre":"Correr",
+    "cantidad": 2,
+    "unidad":"kilometros"
+  } , {
+    "nombre":"Ejercicio de piernas",
+    "cantidad": 30,
+    "unidad":"minutos"
+  } , {
+    "nombre":"Ejercicio de brazos",
+    "cantidad": 30,
+    "unidad":"minutos"
+  }];
+
   constructor(public modalCtrl: ModalController) { }
 
  ionViewDidEnter(){
@@ -31,52 +66,48 @@ export class ModalContentPage {
     public platform: Platform,
     public params: NavParams,
     public viewCtrl: ViewController
-  ) {
+  ) 
+  {
     var characters = [
       {
         name: 'Desayuno',
         image: 'assets/imgs/desayuno.jpeg',
         items: [
-          { title: 'Lacteos', note: 'Leche Entera, Yogurt' },
-          { title: 'Cereales', note: ' Pan integral y Derivados' },
-          { title: 'Frutas', note: 'Melones, Lechoza, Cambur' }
+          { title:'Cereales', note: 'Avena, Pan integral y Derivados' , cantidad: 150 + 'g' },
+          { title:'Grasas', note: 'Mantequilla, Queso', cantidad: 150 + 'g' },
+          { title: 'Verduras', note: 'verduras de hojas verdes, zanahoria, Frijoles', cantidad: 150 + 'g'},
+          { title: 'Frutas', note: 'Melon, Naranja, Mora' , cantidad: 150+ 'g'}
         ]
       },
       {
         name: 'Almuerzo',
         image: 'assets/imgs/almuerzo.jpeg',
         items: [
-          { title: 'Carnes', note: 'Buey , Cerdo, Pollo' },
-          { title: 'Verduras', note: 'verduras de hojas verdes, zanahoria, Frijoles' },
-          { title: 'Frutas', note: 'Melon, Naranja, Mora' }
+          { title: 'Carnes', note: 'Buey , Cerdo, Pollo', cantidad: 150+'g' },
+          { title: 'Verduras', note: 'verduras de hojas verdes, zanahoria, Frijoles', cantidad: 150+'g' },
+          { title: 'Frutas', note: 'Melon, Naranja, Mora' , cantidad: 150+'g'},
+          { title: 'Jugos', note: 'Lechoza, Naranja,Melon, Mora' , cantidad: 150+'ml'}
         ]
       },
       {
         name: 'Cena',
         image: 'assets/imgs/cena.jpeg',
         items: [
-          { title: 'Lacteos', note: 'Yogurt, Leche' },
-          { title:'Cereales', note: 'Avena, Pan integral y Derivados' },
-          { title:'Grasas', note: 'Mantequilla, Queso' },
-          { title: 'Frutas', note: 'Lechoza,Melon' }
+          { title: 'Lacteos', note: 'Yogurt, Leche', cantidad: 150+ 'ml' },
+          { title:'Cereales', note: 'Avena, Pan integral y Derivados' , cantidad: 150+'g' },
+          { title:'Grasas', note: 'Mantequilla, Queso', cantidad: 150+'g'  },
+          { title: 'Frutas', note: 'Lechoza,Melon' , cantidad: 150+'g' }
         ]
       },
        {
-        name: 'Complementos',
+        name: 'Meriendas',
         image: 'assets/imgs/complemento.jpeg',
         items: [
-          { title: 'Nutricion', note: 'Colageno ,Alcachofa, Vitamina C' },
+          { title: 'Lacteos', note: 'Yogurt, Leche,', cantidad: 150+ 'ml' },
+          { title: 'Frutas', note: 'Naranja,lechoza,melon', cantidad: 150+ 'g' }
           
         ]
-      },
-       {
-        name: 'Actividades',
-        image: 'assets/imgs/deporte.png',
-        items: [
-          { title: 'Ejercicios', note: 'Abdominales , Piernas, Cardio ' },
-          { title: 'Trotes', note: 'Trotes continuos, caminar 1 hora diaria' } 
-        ]
-      },
+      }
     ];
     this.character = characters[this.params.get('charNum')];
   }
