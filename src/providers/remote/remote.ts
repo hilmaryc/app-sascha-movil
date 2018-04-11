@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from '../config-service/config'
+//import { Config } from '../config-service/config'
 import { ConfigService } from '../config-service/config-service';
 import { Storage } from '@ionic/storage';
 
@@ -29,7 +29,7 @@ export class RemoteProvider {
        )
   }
 
-  getUsers(url){
+  getUsers(url: string){
 
   var miheaders = new HttpHeaders();
       miheaders.append('Access-Control-Allow-Origin', '*');
@@ -51,7 +51,7 @@ export class RemoteProvider {
     headers: miheaders
   };  
 
-  return this.http.get('http://localhost:3030/users', httpOptions); 
+  return this.http.get(url, httpOptions); 
   
   }
 

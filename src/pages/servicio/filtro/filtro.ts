@@ -38,6 +38,13 @@ export class FiltroPage {
       "id": "valor_6",
       "valor": "Valor"
     }]
+  }, { 
+    "id": "parametro_4",
+    "titulo": "Titulo",
+    "valores": [{
+      "id": "valor_7",
+      "valor": "Valor"
+    }]
   }];
   
   constructor(public platform: Platform,

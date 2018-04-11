@@ -14,7 +14,7 @@
       <h2 align="center">Servicio</h2>
     </ion-item>
     <ion-item *ngFor="let s of services" >
-      <ion-card>
+      <ion-card (click)="showDetail(s)" >
         <ion-grid>
         <ion-avatar item-start style="margin-left: auto;margin-right: auto;display: block;">
           <img src="{{ s.img }}" >

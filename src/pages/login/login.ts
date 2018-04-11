@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   Alert,
   AlertController,
@@ -24,7 +25,8 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public auth: AuthProvider,
-    formBuilder: FormBuilder
+    formBuilder: FormBuilder,
+    public http: HttpClient
   ) {
     this.loginForm = formBuilder.group({
       email: [
@@ -37,50 +39,28 @@ export class LoginPage {
       ]
     });
   }
-
-  goToSignup(): void {
-    //this.navCtrl.push('SignupPage');
-  }
-
-  goToResetPassword(): void {
-    //this.navCtrl.push('ResetPasswordPage');
-  }
-
   async loginUser(): Promise<void> {
     if (!this.loginForm.valid) {
-      console.log(
-        `Formulario no valido, concurente valor: ${this.loginForm.value}`
-      );
+      console.log(`Formulario no valido, concurente valor: ${this.loginForm.value}`);
     } else {
       const loading: Loading = this.loadingCtrl.create();
       loading.present();
-
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-
-     console.log("POLICE"); 
-     console.log(email + "  " + password);
-
-     if( email == 'saschanutric@gmail.com' && password == '123456' ){
-        await loading.dismiss();
-        this.navCtrl.setRoot(ServicioPage);
-     }else{
-        await loading.dismiss();
-        const alert: Alert = this.alertCtrl.create({
-          message: 'error.message',
-          buttons: [{ text: 'Ok', role: 'cancelar' }]
-        });
-        alert.present();
-     }
-
-/*
       try {
-        const loginUser: firebase.User = await this.authProvider.loginUser(
-          email,
-          password
-        );
+        console.log('AUTH');
+        this.auth.loginUser('http://localhost:5000/login', email, password)
+          .subscribe(
+            (data)=>{
+              console.log(" POLICIA");
+              console.log(data);
+            },
+            (error)=>{
+              console.log(error);
+            }
+          );
         await loading.dismiss();
-        this.navCtrl.setRoot(HomePage);
+        //this.navCtrl.setRoot(ServicioPage);
       } catch (error) {
         await loading.dismiss();
         const alert: Alert = this.alertCtrl.create({
@@ -88,12 +68,51 @@ export class LoginPage {
           buttons: [{ text: 'Ok', role: 'cancelar' }]
         });
         alert.present();
-      }
-      */
+      }   
     }
   }
 
-  logout(): void {
+  da(){
+
+    var miheaders = new HttpHeaders();
+      miheaders.append('Access-Control-Allow-Origin', '*');
+      miheaders.append('Content-Type', 'application/json');
+      miheaders.append('Accept', 'application/json');
+  
+    const httpOptions = {
+      headers: miheaders
+    };  
+
+    let body = {
+      correo: 'test.joseguerrero@gmail.com',
+      contrasenia: '1234jose5678'
+    }
+
+    this.http.post('http://localhost:5000/login', JSON.stringify(body))
+       .subscribe(
+        (data)=>{
+          console.log(" POLICIA");
+          console.log(data);
+        },
+        (error)=>{console.log(error);}
+       
+       )
+
+    /*
+     this.auth.loginUser('http://localhost:5000/login', 'test.joseguerrero@gmail.com', '1234jose5678')
+          .subscribe(
+            (data)=>{
+              console.log(" POLICIA");
+              console.log(data);
+            },
+            (error)=>{
+              console.log(error);
+            }
+          );
+          */
+  }
+
+  logout(){
     console.log("LOGOUT");
    // firebase.auth().signOut();
   }

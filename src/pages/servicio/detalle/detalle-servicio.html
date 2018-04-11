@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Servicio</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card>
+
+  <ion-item>
+      <h2>{{ servicio.titulo }}</h2>
+  </ion-item>
+  <img src="{{ servicio.img }}">
+
+  <ion-card-content>
+    <p>{{ detalle.info }}</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col center text-center>
+      <h2>
+        {{ detalle.precio }}
+      </h2>
+      <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Cita</button>
+    </ion-col>
+  </ion-row>
+ </ion-card>
+</ion-content>
