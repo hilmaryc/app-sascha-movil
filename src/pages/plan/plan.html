@@ -12,27 +12,19 @@
       </button>
     </ion-buttons>
 </ion-header>
-
 <ion-content padding>
 <ion-list>
-      <ion-item  text-wrap >
-        <ion-avatar item-start>
-          <img src="{{character.image}}">
-        </ion-avatar>
-        <h2>{{character.name}}</h2>
-        <p>{{character.quote}}</p>
-      </ion-item>
-
-      <ion-item text-wrap *ngFor="let item of character['items']">
-        {{item.title}}
-        <h2>
-          {{item.cantidad}}
-        </h2>
-        <h2>
-          {{item.note}}
-        </h2>
-      </ion-item>
-  </ion-list>
+  <ion-item  text-wrap >
+    <ion-avatar item-start>
+      <img src="{{character.image}}">
+    </ion-avatar>
+    <h2>{{character.name}}</h2>
+    <p>{{character.quote}}</p>
+  </ion-item>
+  <ion-item text-wrap *ngFor="let item of character['items']">
+    {{item.title}}
+    <h2>{{item.cantidad}}</h2>
+    <h2>{{item.note}}</h2>
+  </ion-item>
+</ion-list>
 </ion-content>
-
-

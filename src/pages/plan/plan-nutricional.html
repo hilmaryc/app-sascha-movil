@@ -9,21 +9,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="plan">
-  <ion-title> Mi Plan </ion-title>
+  <ion-item>
+    <h2 align="center">Mi Plan</h2>
+  </ion-item>
   <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="comi">
-      <ion-segment-button value="comida">
-        Comida
-      </ion-segment-button>
-      <ion-segment-button value="suplementos">
-        Suplementos
-      </ion-segment-button>
-      <ion-segment-button value="actividades">
-        Actividades
-      </ion-segment-button>
+    <ion-segment [(ngModel)]="plan">
+      <ion-segment-button ngSelected="selected" value="comida">Comida</ion-segment-button>
+      <ion-segment-button value="suplementos">Suplementos</ion-segment-button>
+      <ion-segment-button value="actividades">Actividades</ion-segment-button>
     </ion-segment>
   </ion-toolbar>  
-  <div [ngSwitch]="comi">
+  <div [ngSwitch]="plan">
     <ion-list *ngSwitchCase="'comida'"> 
       <ion-list>
         <a ion-item (click)="openModal({charNum: 0})">Desayuno</a>
@@ -34,15 +30,14 @@
     </ion-list>
     <ion-item *ngSwitchCase="'suplementos'">
         <ion-card *ngFor="let s of suplementos" >
-          <h2>{{ s.nombre }}</h2>
-          <p>Tomar {{ s.cantidad }} pastilla al dia</p>
+          <h2 align="center">{{ s.nombre }}</h2>
+          <p align="center">Tomar {{ s.cantidad }} pastilla al dia</p>
         </ion-card>
     </ion-item>
-
     <ion-item *ngSwitchCase="'actividades'">
         <ion-card *ngFor="let s of actividades" >
-          <h2>{{ s.nombre }}</h2>
-          <p>{{ s.cantidad }} {{ s.unidad }} todos los dias</p>
+          <h2 align="center">{{ s.nombre }}</h2>
+          <p align="center">{{ s.cantidad }} {{ s.unidad }} todos los dias</p>
         </ion-card>
     </ion-item>
   </div>

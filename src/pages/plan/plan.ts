@@ -42,7 +42,9 @@ export class PlanPage {
     "unidad":"minutos"
   }];
 
-  constructor(public modalCtrl: ModalController) { }
+  constructor(public modalCtrl: ModalController) {
+    this.plan = "comida";
+  }
 
  ionViewDidEnter(){
     console.log('ionViewDidLoad PlanPage');

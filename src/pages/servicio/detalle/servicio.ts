@@ -4,7 +4,7 @@ import {
   NavController, 
   ViewController,
   NavParams,
-  ToastController } from 'ionic-angular';
+  AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -25,7 +25,7 @@ export class ServicioDetallePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private toastCtrl: ToastController,
+    public alertCtrl: AlertController,
     public viewCtrl: ViewController) {
     this.servicio = navParams.data;
   }
@@ -35,19 +35,13 @@ export class ServicioDetallePage {
   }
 
   solicitar(){
-      console.log('solicitar');
-      let toast = this.toastCtrl.create({
-        message: 'Su solicitud fue enviada',
-        duration: 3000,
-        position: 'top'
-      });
-
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-        this.dismiss();
-      });
-
-      toast.present();
+    let alert = this.alertCtrl.create({
+      title:    'Mensaje',
+      subTitle: 'Su peticion ha sido enviada exitosamente!',
+      buttons:  ['OK']
+    });
+    alert.present();
+    this.dismiss()
   }
 
   dismiss() {

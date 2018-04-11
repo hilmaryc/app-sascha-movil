@@ -3,31 +3,33 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-     <ion-avatar item-start>
+    <ion-avatar item-start>
       <img class="logo" src="assets/imgs/lsascha.png">
     </ion-avatar>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-<ion-title>Comunicacion</ion-title>
-<ion-card>
   <ion-item>
-    <ion-label>Motivo</ion-label>
-    <ion-select [(ngModel)]="motivo">
-     <ion-option *ngFor="let c of comunicaciones" value="{{c.nombre}}" (ionSelect)="itemView(c.razones);">{{c.nombre}}
-     </ion-option>
-     </ion-select>
+    <h2 align="center">Comunicacion</h2>
   </ion-item>
-</ion-card>
-<ion-card>
-  <ion-item>
-    <ion-label>Razon</ion-label>
-    <ion-select [(ngModel)]="razon">
-      <ion-option *ngFor="let r of razones" value="{{r.id}}">{{r.nombre}}
-    </ion-option>  
-    </ion-select>
-  </ion-item>
-</ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label>Motivo</ion-label>
+      <ion-select [(ngModel)]="motivo">
+        <ion-option *ngFor="let c of comunicaciones" value="{{c.nombre}}" (ionSelect)="itemView(c.razones);">{{c.nombre}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item class="select">
+      <ion-label>Razon</ion-label>
+      <ion-select [(ngModel)]="razon" >
+        <ion-option *ngFor="let r of razones" value="{{r.id}}">{{r.nombre}}
+        </ion-option>  
+      </ion-select>
+    </ion-item>
+  </ion-card>
   <form ion-grid fixed>
     <ion-card ion-row>
       <ion-item ion-col col-12>

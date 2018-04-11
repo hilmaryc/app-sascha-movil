@@ -9,25 +9,17 @@
     </ion-buttons>
     </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
   <ion-list>
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="{{character.image}}">
-        </ion-avatar>
-        <h2>{{character.name}}</h2>
-        <p>{{character.quote}}</p>
-      </ion-item>
-
-      <ion-card text-wrap class="comidas" *ngFor="let item of character['items']">
-        <h2>
-          {{item.title}} {{item.cantidad}}
-        </h2>
-        <h3 >
-          {{item.note}}
-        </h3>
-      </ion-card>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{character.image}}">
+      </ion-avatar>
+      <h2>{{character.name}}</h2>
+    </ion-item>
+    <ion-card text-wrap class="comidas" *ngFor="let item of character['items']">
+      <h2 align="center">{{item.title}} {{item.cantidad}}</h2>
+      <h3 align="center">{{item.note}}</h3>
+    </ion-card>
   </ion-list>
 </ion-content>
