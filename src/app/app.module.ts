@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePickerModule } from 'ionic3-datepicker';
 
 import { MyApp } from './app.component';
 import { PerfilPage } from '../pages/perfil/perfil';
@@ -41,6 +42,7 @@ import { ConfigService } from '../providers/config-service/config-service';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    DatePickerModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
