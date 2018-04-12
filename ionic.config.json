@@ -1,6 +1,6 @@
 {
   "name": "app-sascha-movil",
-  "app_id": "",
+  "app_id": "c34557bc",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
