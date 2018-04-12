@@ -106,5 +106,10 @@ background-color: #e7f6f3;
 .alert-md .alert-radio-label,
 .alert-ios .alert-radio-label
 {
-white-space: normal !important;
+  white-space: normal !important;
+}
+
+.select-md {
+  padding: 13px 8px 13px 16px;
+  max-width: 75%;
 }

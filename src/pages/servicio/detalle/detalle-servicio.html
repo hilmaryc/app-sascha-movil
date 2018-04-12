@@ -6,27 +6,49 @@
     <ion-title>Servicio</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-
 <ion-card>
-
   <ion-item>
       <h2>{{ servicio.titulo }}</h2>
   </ion-item>
-  <img src="{{ servicio.img }}">
-
+  <img src="{{ servicio.img }}" style="height: 150px;">
   <ion-card-content>
-    <p>{{ detalle.info }}</p>
+    <p center text-center>{{ servicio.descripcion }}</p>
+    <h2 align="center" style="color: #117c66;" >Precio {{ servicio.precio }}</h2>
   </ion-card-content>
-
-  <ion-row>
-    <ion-col center text-center>
-      <h2>
-        {{ detalle.precio }}
-      </h2>
-      <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Cita</button>
-    </ion-col>
-  </ion-row>
+  <ion-card>
+    <ion-item>
+      <ion-label>Nutricionista</ion-label>
+      <ion-select [(ngModel)]="nutricionista" (ionChange)="selectNutricionista()">
+        <ion-option *ngFor="let n of nutricionistas" value="{{n.nombre}}" (ionSelect)="itemView(n);">{{n.nombre}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label>Fecha</ion-label>
+      <button ion-button color="primary" (click)="calendar()" >IR</button>      
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label>Hora</ion-label>
+      <ion-select [(ngModel)]="hora" (ionChange)="selectHora()">
+        <ion-option *ngFor="let h of horas" value="{{h.bloque}}" (ionSelect)="itemView(h);">{{h.bloque}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label>Motivo</ion-label>
+      <ion-select [(ngModel)]="motivo" (ionChange)="selectMotivo()">
+        <ion-option *ngFor="let m of motivos" value="{{m.motivo}}" (ionSelect)="itemView(m);">{{m.motivo}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Cita</button>
  </ion-card>
 </ion-content>

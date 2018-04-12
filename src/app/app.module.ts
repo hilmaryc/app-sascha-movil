@@ -14,7 +14,6 @@ import { EvolucionPage } from '../pages/evolucion/evolucion';
 import { PedircitaPage } from '../pages/pedircita/pedircita'
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
-import { ComentarioPage } from '../pages/comentarios/comentario';
 import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,7 +34,6 @@ import { ConfigService } from '../providers/config-service/config-service';
     EvolucionPage,
     PedircitaPage,
     NotificacionesPage,
-    ComentarioPage,
     ComunicacionPage,
     PromocionesPage
   ],
@@ -56,7 +54,6 @@ import { ConfigService } from '../providers/config-service/config-service';
     NotificacionesPage,
     PromocionesPage,
     PerfilPage,
-    ComentarioPage,
     ComunicacionPage,
     ModalPlanPage,
     ModalContentPage

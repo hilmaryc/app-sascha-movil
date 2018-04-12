@@ -13,21 +13,25 @@ import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio'
 })
 export class ServicioPage {
 
+  public TAG: string = 'ServicioPage';
   public services: any = [{
     "id":"1",
     "titulo":"Consulta Nutricional",
     "img":"../../assets/imgs/consulta.jpg",
-    "descripcion":"Un nutricionista calificado realiza una evaluación de tu estado nutricional"
+    "descripcion":"Un nutricionista calificado realiza una evaluación de tu estado nutricional",
+    "precio": "100$"
   },{
     "id":"2",
     "titulo":"Control de obesidad",
     "img":"../../assets/imgs/obesidad.jpg",
-    "descripcion":"Consejos alimenticios y planes nutricionales para el control de peso."
+    "descripcion":"Consejos alimenticios y planes nutricionales para el control de peso.",
+    "precio": "120$"
   },{
     "id":"3",
     "titulo":"Nutrición Deportiva",
     "img":"../../assets/imgs/deportiva.jpg",
-    "descripcion":"Planes de nutrición especializados para deportistas."
+    "descripcion":"Planes de nutrición especializados para deportistas.",
+    "precio": "90$"
   }];
   errorMessage: string;
 
@@ -46,6 +50,7 @@ export class ServicioPage {
   }
 
   showDetail(params){
+    console.log(this.TAG,' params: ' + JSON.stringify(params));
     this.navCtrl.push(ServicioDetallePage, params );
   }
 

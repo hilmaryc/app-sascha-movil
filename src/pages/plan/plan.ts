@@ -6,7 +6,7 @@ import {  ModalController, Platform, NavParams, ViewController } from 'ionic-ang
   templateUrl: 'plan-nutricional.html',
 })
 export class PlanPage {
-
+  plan;
   suplementos:any = [{
     "nombre":"Ornitina",
     "cantidad": 2
