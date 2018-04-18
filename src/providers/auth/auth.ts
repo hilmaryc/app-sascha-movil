@@ -31,6 +31,7 @@ export class AuthProvider {
     this.storage.ready().then(() => {
       this.storage.get('usuario').then( (usuario) => {
         console.log(this.TAG,' isAuth ' + JSON.stringify(usuario));
+        if (usuario == null ) return false;
         return usuario.error;
       }).catch(console.log);
     });

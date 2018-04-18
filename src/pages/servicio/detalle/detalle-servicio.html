@@ -27,6 +27,9 @@
       </ion-thumbnail>
       <p text-wrap>{{ servicio.descripcion }}</p>
     </ion-item>
+    <ion-item *ngFor="let c of contenidos" >
+      <p text-wrap>{{ c.detalle }}</p>
+    </ion-item>
     <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Servicio</button>
   </ion-card>
 </ion-content>
