@@ -1,18 +1,88 @@
-<!--
-  Generated template for the EvolucionPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>evolucion</ion-title>
+  <ion-navbar color="primary">
+	<button ion-button menuToggle>
+	  <ion-icon name="menu"></ion-icon>
+	</button>
+    <ion-avatar item-start>
+	  <img class="logo" src="assets/imgs/lsascha.png">
+    </ion-avatar>
+    <ion-buttons end>
+      <button ion-button icon-only>
+	      <ion-icon name="notifications"></ion-icon>
+	    </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content class="fondoev">
+  <ion-item>
+  	<h2 align="center">Mi Evolucion</h2>
+  </ion-item>
+  <div>
+    <ion-segment [(ngModel)]="evolucion">
+      <ion-segment-button  value="perfil">Perfil</ion-segment-button>
+      <ion-segment-button value="visita">Visitas</ion-segment-button>
+    </ion-segment>
+  </div>
+<div [ngSwitch]="evolucion">
+  <ion-list *ngSwitchCase="'perfil'">
+    <ion-item *ngFor="let s of services" >
+      <ion-card>
+        <ion-grid>
+           <ion-row>
+              <ion-item>
+                 <h2 align="center">{{ s.tipo_parametro }}</h2>
+               </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <p align="center">{{ s.parametro }}</p>
+                </ion-col>
+                <ion-col>
+                    <p align="center">{{ s.valor }}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngSwitchCase="'visita'">
+    <ion-item>
+      <ion-card class="nueva">
+        <h2 align="center" style="color: white;">Visita #2</h2>
+        <span ion-datepicker
+          (ionChanged)="setDate($event);"
+          [max]="maxDate" 
+          [min]="min"
+          [value]="initDate"
+          [showMaxAndMin]="true"
+          [disabledDates]="disabledDates"
+          [markDates]="markDates"
+          [okText]="Aceptar"
+          [cancelText]="Cancelar"
+          [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
+          clear
+          class="ScheduleDate">
+          <span style="color: white;">
+            {{initDate | date: 'dd/MM/yyyy' }} 
+            <ion-icon name="calendar" item-left></ion-icon> 
+             Reprogramar
+          </span>
+        </span>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card class="anterior">     
+        <h2 align="center" style="color: white">Visita #1</h2>
+        <p align="center" style="color: white">10/04/2018</p>
+        <h3 align="center" style="color: white">Valorar Visita</h3>
+        <ion-item>
+          <ion-range [(ngModel)]="brightness">
+            <ion-icon range-left small name="thumbs-down"></ion-icon>
+            <ion-icon range-right name="thumbs-up"></ion-icon>
+          </ion-range>
+        </ion-item>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</div>
 </ion-content>

@@ -7,6 +7,12 @@ import { NavController} from 'ionic-angular';
 })
 export class NotificacionesPage {
 
+noti=[
+      {"mensaje":"mensaje1","descripcion":"Descripcion de la notificacion","icono":"notifications"},
+      {"mensaje":"mensaje2","descripcion":"Descripcion de la notificacion","icono":"pricetags"},
+      {"mensaje":"mensaje3","descripcion":"Descripcion de la notificacion","icono":""}      
+];
+
 items = [
     { image: "assets/imgs/descuento.jpeg", titulo: 'Planes nutricionales a tu medida', detalle  : 'Durante este mes tendremos un descuento del 20% en consultas nutricionales para deportista' , fecha: '12/04/2018' },
     { image: "assets/imgs/complemento.jpeg", titulo: 'Para lograr tu meta debes cumplir', detalle  : 'Recuerda tomar tus vitaminas E diariamente', fecha: '12/04/2018' },

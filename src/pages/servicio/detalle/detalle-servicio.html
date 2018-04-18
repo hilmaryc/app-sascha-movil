@@ -6,76 +6,28 @@
     <ion-avatar item-start >
       <img class="logo" src="assets/imgs/lsascha.png">
     </ion-avatar>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-item>
-    <h2 align="center">Solicitud Servicio</h2>
+    <h2 align="center">Servicio</h2>
   </ion-item>
   <ion-card>
     <ion-item>
       <h2 align="center">{{ servicio.titulo }}</h2>
     </ion-item>
-    <img src="{{ servicio.img }}" style="height: 150px;">
-    <ion-card-content>
-      <p center text-center>{{ servicio.descripcion }}</p>
+    <ion-item>
+      <ion-thumbnail item-start align-items-center>
+        <img src="{{ servicio.img }}" >
+      </ion-thumbnail>
+      <p text-wrap>{{ servicio.descripcion }}</p>
       <h2 align="center" style="color: #117c66;" >Precio {{ servicio.precio }}</h2>
-    </ion-card-content>
-    <ion-card>
-      <ion-item>
-        <ion-label>Nutricionista</ion-label>
-        <ion-select [(ngModel)]="idNutricionista" (ionChange)="selectNutricionista()">
-          <ion-option *ngFor="let n of nutricionistas" value="{{n.id}}" (ionSelect)="itemView(n);">{{n.nombre}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-card>
-    <ion-card>
-      <ion-row>
-        <ion-col>
-          <ion-label style="color: #938d8d;margin-left: 10%;">Fecha</ion-label>
-        </ion-col>
-        <ion-col>
-        <ion-item>
-        <span ion-datepicker
-          (ionChanged)="setDate($event);"
-          [max]="maxDate" 
-          [min]="initDate2"
-          [value]="initDate"
-          [showMaxAndMin]="true"
-          [disabledDates]="disabledDates"
-          [markDates]="markDates"
-          [okText]="Aceptar"
-          [cancelText]="Cancelar"
-          [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
-          clear
-          class="ScheduleDate">
-          <span>{{initDate | date: 'dd/MM/yyyy' }} 
-            <ion-icon name="calendar" item-left></ion-icon> 
-          </span>
-        </span>
-      </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <ion-card>
-      <ion-item>
-        <ion-label>Hora</ion-label>
-        <ion-select [(ngModel)]="idHora" (ionChange)="selectHora()">
-          <ion-option *ngFor="let h of horas" value="{{h.id}}" (ionSelect)="itemView(h);">{{h.bloque}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-card>
-    <ion-card>
-      <ion-item>
-        <ion-label>Motivo</ion-label>
-        <ion-select [(ngModel)]="idMotivo" (ionChange)="selectMotivo()">
-          <ion-option *ngFor="let m of motivos" value="{{m.id}}" (ionSelect)="itemView(m);">{{m.motivo}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-card>
-    <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Cita</button>
+    </ion-item>
+    <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Servicio</button>
   </ion-card>
 </ion-content>

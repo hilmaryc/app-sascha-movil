@@ -10,12 +10,13 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { PlanPage as ModalPlanPage, ModalContentPage } from '../pages/plan/plan';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { ServicioDetallePage } from '../pages/servicio/detalle/servicio';
+import { SolicitudPage } from '../pages/servicio/solicitud/solicitud';
 import { FiltroPage } from '../pages/servicio/filtro/filtro'
 import { EvolucionPage } from '../pages/evolucion/evolucion';
-import { PedircitaPage } from '../pages/pedircita/pedircita'
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
+import { AyudaPage } from '../pages/ayuda/ayuda';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,12 +32,13 @@ import { ConfigService } from '../providers/config-service/config-service';
     ModalContentPage,
     ServicioPage,
     ServicioDetallePage,
+    SolicitudPage,
     FiltroPage,
     EvolucionPage,
-    PedircitaPage,
     NotificacionesPage,
     ComunicacionPage,
-    PromocionesPage
+    PromocionesPage,
+    AyudaPage
   ],
   imports: [
     BrowserModule,
@@ -50,15 +52,16 @@ import { ConfigService } from '../providers/config-service/config-service';
     MyApp,
     ServicioPage,
     ServicioDetallePage,
+    SolicitudPage,
     FiltroPage,
     EvolucionPage,
-    PedircitaPage,
     NotificacionesPage,
     PromocionesPage,
     PerfilPage,
     ComunicacionPage,
     ModalPlanPage,
-    ModalContentPage
+    ModalContentPage,
+    AyudaPage
   ],
   providers: [
     StatusBar,

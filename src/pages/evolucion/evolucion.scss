@@ -1,3 +1,66 @@
 page-evolucion {
-
+   .anterior{
+       background: color($colors, secondary, transparent);
+       text-align: center;
+       .item {
+          background: color($colors, secondary, transparent);
+       }
+       .item-md {
+          font-size: 1.6rem;
+          font-weight: normal;
+          text-transform: none;
+          color: #fff;
+      }
+      .range-md .range-bar-active {
+        bottom: 0;
+        width: auto;
+        background: #fff;
+      }
+      .range-md .range-knob {
+        left: 15px;
+        top: 13px;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 2;
+        width: 18px;
+        height: 18px;
+        background: #fff;
+        -webkit-transform: scale(0.76);
+        transform: scale(0.86);
+        -webkit-transition-duration: 120ms;
+        transition-duration: 120ms;
+        -webkit-transition-property: background-color, border, -webkit-transform;
+        transition-property: background-color, border, -webkit-transform;
+        transition-property: transform, background-color, border;
+        transition-property: transform, background-color, border, -webkit-transform;
+        -webkit-transition-timing-function: ease;
+        transition-timing-function: ease-in;
+        pointer-events: none;
+      }
+   }
+   .nueva{
+       background: color($colors, danger, transparent);
+       text-align: center;
+   }
+   .ion-avatar {
+	   margin-left: auto;
+	   margin-right: auto;
+	   display: block;
+    }
+   .ion-list {
+	 .ion-item {
+ 		.ion-card {
+ 			.ion-grid {
+ 				.ion-row {
+ 					.ion-avatar {
+	                    margin-left: auto;
+	                    margin-right: auto;
+	                    display: block;
+                    }
+ 				}
+ 			}
+ 		}
+ 	  } 
+   }
 }
+

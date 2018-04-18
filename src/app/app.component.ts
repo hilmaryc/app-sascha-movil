@@ -18,7 +18,8 @@ import { AuthProvider } from '../providers/auth/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ServicioPage;
+  rootPage: any = null;
+  isAuth: boolean;
 
   pages: Array<{title: string, component: any}>;
 
@@ -27,10 +28,10 @@ export class MyApp {
     public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
     public auth: AuthProvider) {
-
-      this.rootPage = ServicioPage;
-
-      this.pages = [
+    this.isAuth = this.auth.isAuth();
+    if ( this.isAuth == false ) this.rootPage = ServicioPage;
+    else this.rootPage = 'LoginPage';
+    this.pages = [
           { title: 'Usuario', component: PerfilPage },
           { title: 'Servicio', component: ServicioPage },
           { title: 'Mi Plan', component: ModalPlanPage },
@@ -39,11 +40,10 @@ export class MyApp {
           { title: 'Ayuda', component: AyudaPage }          
       ];
 
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-
+      this.platform.ready().then(() => {
+        this.statusBar.styleDefault();
+        this.splashScreen.hide();
+      });
   }
 
   openPage(page) {

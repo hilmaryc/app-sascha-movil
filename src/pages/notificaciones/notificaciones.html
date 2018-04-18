@@ -3,29 +3,52 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Notificaciones</ion-title>
+    <ion-avatar item-start >
+      <img class="logo" src="assets/imgs/lsascha.png">
+    </ion-avatar>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-
+<!--ion-content class="list-avatar-page">
+  <h2 align="center">Ayuda</h2>
+  <ion-list>
+    <ion-card *ngFor="let item of items" (click)="itemSelected(item)">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{item.image}}">
+        </ion-avatar>
+        <ion-item text-wrap>
+          <b> {{ item.titulo }} </b>
+        </ion-item>
+        <ion-card-content>
+          <ion-item text-wrap>{{ item.detalle }} </ion-item>
+        </ion-card-content>
+      </ion-item>
+      <ion-item item-end>{{ item.fecha }}</ion-item>
+    </ion-card>
+  </ion-list>
+</ion-content-->
 <ion-content class="list-avatar-page">
   <ion-list>
-
- <ion-card *ngFor="let item of items" (click)="itemSelected(item)">
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="{{item.image}}">
-      </ion-avatar>
-      <ion-item text-wrap><b> {{ item.titulo }} </b></ion-item>
-      <ion-card-content>
-        <ion-item text-wrap>
-           {{ item.detalle }} 
-        </ion-item>
-      </ion-card-content>
-    </ion-item>
-    <ion-item item-end>{{ item.fecha }}</ion-item>
- </ion-card>
-
-</ion-list>
-
+    <button ion-item *ngFor="let not of noti" (click)="itemSelected(item)">
+      <ion-item>
+        <ion-avatar item-start>
+          <h1 style="text">
+            <ion-icon name="{{not.icono}}"></ion-icon>
+          </h1>
+        </ion-avatar>
+        <div>
+          <h2>{{not.mensaje}}</h2>
+        </div>
+        <div>
+          <h3>{{not.descripcion}}</h3>
+        </div>
+      </ion-item> 
+    </button>
+  </ion-list>
 </ion-content>
 

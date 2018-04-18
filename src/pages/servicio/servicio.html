@@ -6,6 +6,11 @@
     <ion-avatar item-start >
       <img class="logo" src="assets/imgs/lsascha.png">
     </ion-avatar>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content  padding>
@@ -13,19 +18,17 @@
     <ion-item>
       <h2 align="center">Servicio</h2>
     </ion-item>
-    <ion-item *ngFor="let s of services" >
-      <ion-card (click)="showDetail(s)" >
-        <ion-grid>
-        <ion-avatar item-start style="margin-left: auto;margin-right: auto;display: block;">
-          <img src="{{ s.img }}" >
-        </ion-avatar>
-        <ion-item>
-            <h2 align="center">{{ s.titulo }}</h2>
-            <p center text-center text-wrap>{{ s.descripcion }}</p>
+    <div class="list card">
+      <ion-item *ngFor="let s of services" >
+        <ion-item (click)="showDetail(s)" >
+          <ion-thumbnail item-start align-items-center>
+            <img src="{{ s.img }}" >
+          </ion-thumbnail>
+          <h2 align="center">{{ s.titulo }}</h2>
+          <p text-wrap>{{ s.descripcion }}</p>
         </ion-item>
-        </ion-grid>
-      </ion-card>
-    </ion-item>
+      </ion-item>
+    </div>
 </ion-list>  
 <ion-fab right bottom>
   <button ion-fab mini (click)="showFilter()"><ion-icon name="ios-funnel-outline"></ion-icon></button>
