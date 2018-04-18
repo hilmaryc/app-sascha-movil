@@ -23,6 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RemoteProvider } from '../providers/remote/remote';
 import { AuthProvider } from '../providers/auth/auth';
 import { ConfigService } from '../providers/config-service/config-service';
+import { NotificacionesProvider } from '../providers/notificaciones/notificaciones';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ConfigService } from '../providers/config-service/config-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RemoteProvider,
     AuthProvider,
-    ConfigService
+    ConfigService,
+    NotificacionesProvider
   ]
 })
 export class AppModule {}

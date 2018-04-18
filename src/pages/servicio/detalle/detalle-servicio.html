@@ -8,7 +8,7 @@
     </ion-avatar>
     <ion-buttons end>
       <button ion-button icon-only>
-        <ion-icon name="notifications"></ion-icon>
+        <ion-icon name="notifications" (click)="verNotificacion()" ></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -26,7 +26,6 @@
         <img src="{{ servicio.img }}" >
       </ion-thumbnail>
       <p text-wrap>{{ servicio.descripcion }}</p>
-      <h2 align="center" style="color: #117c66;" >Precio {{ servicio.precio }}</h2>
     </ion-item>
     <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Servicio</button>
   </ion-card>

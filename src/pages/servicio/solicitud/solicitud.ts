@@ -5,6 +5,7 @@ import {
   ViewController,
   NavParams,
   AlertController } from 'ionic-angular';
+  import { NotificacionesProvider } from '../../../providers/notificaciones/notificaciones'
 
 @Component({
   selector: 'page-solocitud',
@@ -71,7 +72,8 @@ export class SolicitudPage {
     public modalCtrl: ModalController, 
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController,
+    public notificaciones: NotificacionesProvider) {
     this.servicio = navParams.data;
     this.idNutricionista = this.nutricionistas[0].id;
     this.idHora = this.horas[0].id;
@@ -83,10 +85,22 @@ export class SolicitudPage {
   }
 
   solicitar(){
+
+    var msg = 'El servicio tiene un costo por ' + this.servicio.precio + ' Desea solicitarlo?'
     let alert = this.alertCtrl.create({
       title:    'Mensaje',
-      subTitle: 'Su peticion ha sido enviada exitosamente!',
-      buttons:  ['OK']
+      subTitle: msg ,
+      buttons:  [{
+        text: "SI",
+        handler: data => {
+          console.log('Accion SI' + data)
+        } 
+      } , {
+        text: "NO",
+        handler: data => {
+          console.log('Accion NO')
+        } 
+      }]
     });
     alert.present();
     this.dismiss()

@@ -7,7 +7,7 @@
       <img class="logo" src="assets/imgs/lsascha.png">
     </ion-avatar>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="verNotificaciones()" >
         <ion-icon name="notifications"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,13 +20,15 @@
     </ion-item>
     <div class="list card">
       <ion-item *ngFor="let s of services" >
-        <ion-item (click)="showDetail(s)" >
-          <ion-thumbnail item-start align-items-center>
-            <img src="{{ s.img }}" >
-          </ion-thumbnail>
-          <h2 align="center">{{ s.titulo }}</h2>
-          <p text-wrap>{{ s.descripcion }}</p>
-        </ion-item>
+        <div (click)="showDetail(s)" >
+          <h2 align="center" text-wrap>{{ s.titulo }}</h2>
+          <ion-item>
+            <ion-thumbnail item-start align-items-center>
+              <img src="{{ s.img }}" >
+            </ion-thumbnail>
+            <p text-wrap>{{ s.descripcion }}</p>
+          </ion-item>
+        </div>
       </ion-item>
     </div>
 </ion-list>  

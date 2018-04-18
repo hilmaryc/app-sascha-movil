@@ -3,8 +3,9 @@ import { ModalController, NavParams, NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 //import { LoadingController } from 'ionic-angular';
-import { FiltroPage } from '../../pages/servicio/filtro/filtro'
-import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio'
+import { FiltroPage } from '../../pages/servicio/filtro/filtro';
+import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio';
+import { NotificacionesProvider } from '../../providers/notificaciones/notificaciones'
 
 @Component({
   selector: 'page-servicio',
@@ -38,7 +39,8 @@ export class ServicioPage {
     public navCtrl: NavController,
     public modalCtrl: ModalController, 
     public params: NavParams, 
-    public alertCtrl: AlertController) { 
+    public alertCtrl: AlertController,
+    public notificaciones: NotificacionesProvider) { 
     //, private load : LoadingController
   }
 
@@ -50,6 +52,10 @@ export class ServicioPage {
   showDetail(params){
     console.log(this.TAG,' showDetail ' + JSON.stringify(params));
     this.navCtrl.push(ServicioDetallePage, params );
+  }
+
+  verNotificaciones(){
+    this.notificaciones.verNotificaciones();
   }
 
   ionViewDidEnter(){
