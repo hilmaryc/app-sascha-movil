@@ -12,25 +12,47 @@
   </ion-item>
   <hr>
   <ion-list >
-    <ion-item>
-      <h2>Direccion</h2>
-      <p>Carrera 21 con calle 30 Barquisimeto</p>
-      <button ion-button clear item-end>Editar</button>
+    <ion-item (click)="editar('nombre','Nombre',perfil[0].nombre )">
+      <h2>Nombre</h2>  
+      <p>{{ perfil[0].nombre }}</p>
     </ion-item>
-    <ion-item>
-      <h2>Telefono</h2>
-      <p>+584163577290</p>
-      <button ion-button clear item-end>Editar</button>
+   <ion-item (click)="editar('apellidos', 'Apellidos',perfil[0].apellidos )">
+      <h2>Apellidos</h2>  
+      <p>{{ perfil[0].apellidos }}</p>
     </ion-item>
-    <ion-item>
-      <h2>Correo</h2>
-      <p>saschanutric@gmail.com</p>
-      <button ion-button clear item-end>Editar</button>
+    <ion-item (click)="editar('cedula', 'Cedula',perfil[0].cedula )">
+      <h2>Cedula</h2>  
+      <p>{{ perfil[0].cedula }}</p>
     </ion-item>
-    <ion-item>
-      <h2>Contraseña</h2>
-      <p>**********</p>
-      <button ion-button clear item-end>Editar</button>
+    <ion-item (click)="editar('fechaNacimiento', 'Fecha de Nacimiento',perfil[0].fechaNacimiento )">
+      <h2>Fecha de Nacimiento</h2>  
+      <p>{{ perfil[0].fechaNacimiento }}</p>
+    </ion-item>
+    <ion-item (click)="editar('estadoCivil', 'Estado Civil',perfil[0].estadoCivil )">
+      <h2>Estado Civil</h2>  
+      <p>{{ perfil[0].estadoCivil }}</p>
+    </ion-item>
+    <ion-item (click)="editar('genero', 'Genero',perfil[0].genero )">
+      <h2>Genero</h2>  
+      <p>{{ perfil[0].genero }}</p>
+    </ion-item>
+    <ion-item (click)="editar('telefono', 'Telefono',perfil[0].telefono )">
+      <h2>Telefono</h2>  
+      <p>{{ perfil[0].telefono }}</p>
+    </ion-item>
+    <ion-item (click)="editar('estado', 'Estado',perfil[0].estado )">
+      <h2>Estado</h2>  
+      <p>{{ perfil[0].estado }}</p>
+    </ion-item>
+    <ion-item (click)="editar('direccion', 'Direccion',perfil[0].direccion )">
+      <h2>Direccion</h2>  
+      <p>{{ perfil[0].direccion }}</p>
     </ion-item>
   </ion-list>
+  <div ion-col col-12 margin text-center>
+  <button type="submit" ion-button color="primary" (click)="actualizar()" >
+    <ion-icon name="send"></ion-icon>
+    Actualizar
+  </button>
+  </div>
 </ion-content>
