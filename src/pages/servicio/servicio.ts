@@ -59,7 +59,7 @@ export class ServicioPage {
     public params: NavParams, 
     public alertCtrl: AlertController,
     public notificaciones: NotificacionesProvider) { 
-    //, private load : LoadingController
+    
   }
 
   showFilter() {

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 import { Alert, AlertController, IonicPage, Loading, LoadingController, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ServicioPage } from '../servicio/servicio';
 import { EmailValidator } from '../../validators/email';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -19,7 +21,8 @@ export class LoginPage {
     public alertCtrl: AlertController,
     public auth: AuthProvider,
     formBuilder: FormBuilder,
-    public http: HttpClient) {
+    public http: HttpClient,
+    private storage: Storage) {
     this.loginForm = formBuilder.group({
       email: [
         '',
@@ -30,6 +33,7 @@ export class LoginPage {
         Validators.compose([Validators.required, Validators.minLength(6)])
       ]
     });
+
   }
   async loginUser(): Promise<void> {
     if (!this.loginForm.valid) {
@@ -42,8 +46,8 @@ export class LoginPage {
       await this.auth.loginUser(email, password).subscribe(
         (res)=>{
           console.log(res);
-          this.auth.authSuccess( res );
-          this.navCtrl.setRoot(ServicioPage);
+          this.storage.set('usuario', res);
+          this.navCtrl.push(ServicioPage);
         },
         (error)=>{
           console.log( JSON.stringify(error) );
