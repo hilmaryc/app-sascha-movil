@@ -100,6 +100,8 @@ export class ServicioDetallePage {
       this.contenidos = contenido4;
     } else if( this.servicio.id == 5 ) {
       this.contenidos = contenido5;
+    } else if( this.servicio.id == 6 ) {
+      this.contenidos = contenido6;
     }
 
   }

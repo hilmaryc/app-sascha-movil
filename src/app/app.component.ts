@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Loading, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -24,6 +24,7 @@ export class MyApp {
 
   constructor(
     public platform: Platform, 
+    public loadingCtrl: LoadingController,
     public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
     public auth: AuthProvider,
@@ -44,17 +45,25 @@ export class MyApp {
       });
   }
 
-  isAuth(){
-    this.storage.ready().then(() => {
+  async isAuth(){
+    const loading: Loading = this.loadingCtrl.create();
+    loading.present();
+    await this.storage.ready().then(() => {
       this.storage
           .get('usuario')
           .then( (usuario) => {
               console.log(this.TAG,' isAuth ' + JSON.stringify(usuario.error));
-              this.rootPage = ServicioPage;
+              var error: boolean = usuario.error;
+              if ( error ) this.rootPage = 'LoginPage';
+              else this.rootPage = ServicioPage;
           })
-          .catch(console.log);
+          .catch((err) =>{
+            console.log(err);
+            this.rootPage = 'LoginPage';
+          });
     });
-    this.rootPage = 'LoginPage';
+    await loading.dismiss();
+    
   }
 
   logoutUser() { 
