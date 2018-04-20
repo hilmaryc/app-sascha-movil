@@ -34,7 +34,7 @@ export class MyApp {
           { title: 'Servicio', component: ServicioPage },
           { title: 'Mi Plan', component: ModalPlanPage },
           { title: 'Mi Evolucion', component: EvolucionPage },
-          { title: 'Comunicacion', component: ComunicacionPage },
+          { title: 'Contacto', component: ComunicacionPage },
           { title: 'Ayuda', component: AyudaPage }          
       ];
 

@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-
 import { AlertController } from 'ionic-angular';
-
 
 @Component({
   templateUrl: 'perfil.html'
 })
 
-
 export class PerfilPage {
+
   public perfil:any = [{
     "nombre" : "Pedro",
     "apellidos" : "Perez",

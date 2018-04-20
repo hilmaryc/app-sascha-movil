@@ -58,7 +58,7 @@ export class ComunicacionPage {
   enviar(){
     let alert = this.alertCtrl.create({
       title:    'Mensaje',
-      subTitle: 'Su peticion ha sido enviada exitosamente!',
+      subTitle: 'Su Mensaje ha sido enviada exitosamente!',
       buttons:  ['OK']
     });
     alert.present();

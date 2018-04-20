@@ -15,11 +15,11 @@
 </ion-header>
 <ion-content padding>
   <ion-item>
-    <h2 align="center">Comunicacion</h2>
+    <h2 align="center">Contacto</h2>
   </ion-item>
   <ion-card>
     <ion-item>
-      <ion-label>Motivo</ion-label>
+      <ion-label>Tipo Contacto</ion-label>
       <ion-select [(ngModel)]="motivo">
         <ion-option *ngFor="let c of comunicaciones" value="{{c.nombre}}" (ionSelect)="itemView(c.razones);">{{c.nombre}}
         </ion-option>
@@ -28,7 +28,7 @@
   </ion-card>
   <ion-card>
     <ion-item class="select">
-      <ion-label>Razon</ion-label>
+      <ion-label>Motivo</ion-label>
       <ion-select [(ngModel)]="razon" >
         <ion-option *ngFor="let r of razones" value="{{r.id}}">{{r.nombre}}
         </ion-option>  
