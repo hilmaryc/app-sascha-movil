@@ -13,6 +13,7 @@ import { ServicioDetallePage } from '../pages/servicio/detalle/servicio';
 import { SolicitudPage } from '../pages/servicio/solicitud/solicitud';
 import { FiltroPage } from '../pages/servicio/filtro/filtro'
 import { EvolucionPage } from '../pages/evolucion/evolucion';
+import { DetalleEvolucionPage } from '../pages/evolucion/detalle/detalle';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
@@ -36,6 +37,7 @@ import { NotificacionesProvider } from '../providers/notificaciones/notificacion
     SolicitudPage,
     FiltroPage,
     EvolucionPage,
+    DetalleEvolucionPage,
     NotificacionesPage,
     ComunicacionPage,
     PromocionesPage,
@@ -56,6 +58,7 @@ import { NotificacionesProvider } from '../providers/notificaciones/notificacion
     SolicitudPage,
     FiltroPage,
     EvolucionPage,
+    DetalleEvolucionPage,
     NotificacionesPage,
     PromocionesPage,
     PerfilPage,

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController  } from 'ionic-angular';
+import { DetalleEvolucionPage } from './detalle/detalle';
 
 @Component({
   selector: 'page-evolucion',
@@ -8,6 +9,8 @@ import { NavController, NavParams } from 'ionic-angular';
 export class EvolucionPage {
   evolucion;
   public data:any;
+  testCheckboxOpen: boolean;
+  testCheckboxResult;
   public services: any = [{
     "tipo_parametro":"Antropometrico",
     "parametro":"peso",
@@ -40,9 +43,7 @@ export class EvolucionPage {
   public disabledDates: Date[] = [new Date(2018, 3, 1), new Date(2018, 3, 3), new Date(2018, 3, 5)];
   public markDates: Date[] = [new Date(2018, 3, 2), new Date(2018, 3, 4), new Date(2018, 3, 6)];
 
-  
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController ) {
     this.evolucion = "perfil";
   }
 
@@ -62,5 +63,47 @@ export class EvolucionPage {
     this.initDate = date;
   }
 
+  doCheckbox() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('¡Por favor valore su visita realizada!');
 
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Excelente',
+      value: 'value1',
+      checked: true
+    });
+
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Bueno',
+      value: 'value2'
+    });
+
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Regular',
+      value: 'value3'
+    });
+
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Deficiente',
+      value: 'value4'
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'ENVIAR',
+      handler: data => {
+        console.log('Checkbox data:', data);
+        this.testCheckboxOpen = false;
+        this.testCheckboxResult = data;
+        this.navCtrl.push(DetalleEvolucionPage);
+      }
+    });
+    alert.present().then(() => {
+      this.testCheckboxOpen = true;
+    });
+  }
 }

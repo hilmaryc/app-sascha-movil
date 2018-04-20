@@ -3,28 +3,27 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Promociones</ion-title>
+    <ion-avatar item-start >
+      <img class="logo" src="assets/imgs/lsascha.png">
+    </ion-avatar>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications" (click)="verNotificacion()" ></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-
-<ion-content class="list-avatar-page">
-  <ion-list>
-
- <ion-card *ngFor="let item of items" (click)="itemSelected(item)">
+<ion-content>
+  <ion-card>
     <ion-item>
-      <ion-avatar item-start>
-        <img src="{{item.image}}">
-      </ion-avatar>
-      <ion-item text-wrap><b> {{ item.titulo }} </b></ion-item>
-      <ion-card-content>
-        <ion-item text-wrap>
-           {{ item.detalle }} 
-        </ion-item>
-      </ion-card-content>
+      <h2 align="center">{{ promo.titulo }}</h2>
     </ion-item>
-    <ion-item item-end>{{ item.fecha }}</ion-item>
- </ion-card>
-
-</ion-list>
-
+    <ion-item>
+      <ion-thumbnail item-start align-items-center>
+        <img src="{{ promo.img }}" >
+      </ion-thumbnail>
+      <p text-wrap>{{ promo.descripcion }}</p>
+    </ion-item>
+    <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Promocion</button>
+  </ion-card>
 </ion-content>

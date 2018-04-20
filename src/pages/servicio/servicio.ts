@@ -6,6 +6,8 @@ import { AlertController } from 'ionic-angular';
 import { FiltroPage } from '../../pages/servicio/filtro/filtro';
 import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio';
 import { NotificacionesProvider } from '../../providers/notificaciones/notificaciones'
+import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
+import { PromocionesPage } from '../../pages/promociones/promociones';
 
 @Component({
   selector: 'page-servicio',
@@ -14,6 +16,7 @@ import { NotificacionesProvider } from '../../providers/notificaciones/notificac
 export class ServicioPage {
 
   public TAG: string = 'ServicioPage';
+  seg_servicio;
   public services: any = [{
     "id":"1",
     "titulo":"Consulta Nutricional",
@@ -51,6 +54,43 @@ export class ServicioPage {
     "descripcion":"Tu nutricionista te cuidará durante la gestación con un Plan Nutricional Personalizado, te dará las pautas necesarias para cubrir las necesidades nutricionales de la madre y satisfacer las exigencias nutritivas del bebé.",
     "precio": "90$"
   }];
+  
+  public promos: any = [{
+    "id":"1",
+    "titulo":"Promocion Mes de las Madres",
+    "img":"../../assets/imgs/promomama.jpg",
+    "descripcion":"En el mes de Mayo las madres recibiran un precio especial en su Plan alimentacion durante el embarazo",
+    "precio": "70$"
+  } , {
+    "id":"2",
+    "titulo":"Promocion Dia del padre",
+    "img":"../../assets/imgs/promopapa.jpg",
+    "descripcion":"Durante el mes de Junio los padres recibiran un descuento en el precio de su servicio.",
+    "precio": "10%"
+  } , {
+    "id":"3",
+    "titulo":"Mes del niño",
+    "img":"../../assets/imgs/promoninos.jpg",
+    "descripcion":"En Julio los consentidos recibiran un precio especial en su plan de alimentacion infantil.",
+    "precio": "80$"
+  } , {
+    "id":"4",
+    "titulo":"Promo Vacaciones",
+    "img":"../../assets/imgs/promomes.png",
+    "descripcion":"Recibe un descuento especial durante el mes de agosto en el plan de Gana peso con salud",
+    "precio": "90$"
+
+  }];
+
+  public valoracion: any = [{
+    "id":"1",
+    "criterio":"malo"
+    },{
+    "id":"2",
+    "criterio":"regular"
+
+  }];
+
   errorMessage: string;
 
   constructor(
@@ -59,7 +99,7 @@ export class ServicioPage {
     public params: NavParams, 
     public alertCtrl: AlertController,
     public notificaciones: NotificacionesProvider) { 
-    
+    this.seg_servicio = "servi";
   }
 
   showFilter() {
@@ -73,7 +113,14 @@ export class ServicioPage {
   }
 
   verNotificaciones(){
-    this.notificaciones.verNotificaciones();
+    //this.notificaciones.verNotificaciones();
+     this.navCtrl.push(NotificacionesPage);
+  }
+
+   verPromocion(promo){
+     
+     this.navCtrl.push(PromocionesPage,promo)
+
   }
 
   ionViewDidEnter(){

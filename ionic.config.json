@@ -5,10 +5,5 @@
   "integrations": {
     "cordova": {}
   },
-  "proxies": [
-    {
-      "path": "/",
-      "proxyUrl": "http://localhost:5000/"
-    }
-  ]
+  "proxies": []
 }

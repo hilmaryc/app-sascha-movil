@@ -48,7 +48,7 @@
   <ion-list *ngSwitchCase="'visita'">
     <ion-item>
       <ion-card class="nueva">
-        <h2 align="center" style="color: white;">Visita #2</h2>
+        <h2 align="center" style="color: white;">VISITA #2</h2>
         <span ion-datepicker
           (ionChanged)="setDate($event);"
           [max]="maxDate" 
@@ -71,7 +71,16 @@
       </ion-card>
     </ion-item>
     <ion-item>
-      <ion-card class="anterior">     
+      <ion-card class="anterior">
+        <button ion-button clear style="color: white" (click)="doCheckbox()">Visita #1</button>
+        <p align="center" style="color: white">10/04/2018</p>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</div>
+</ion-content>
+
+      <!--ion-card class="anterior">     
         <h2 align="center" style="color: white">Visita #1</h2>
         <p align="center" style="color: white">10/04/2018</p>
         <h3 align="center" style="color: white">Valorar Visita</h3>
@@ -85,4 +94,4 @@
     </ion-item>
   </ion-list>
 </div>
-</ion-content>
+</ion-content-->

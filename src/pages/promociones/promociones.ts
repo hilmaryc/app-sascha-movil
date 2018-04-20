@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-
-/**
- * Generated class for the PromocionesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { 
+  NavController, 
+  NavParams,
+  ViewController,
+  AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-promociones',
@@ -14,21 +11,46 @@ import { NavController } from 'ionic-angular';
 })
 export class PromocionesPage {
 
-items = [
-    { image: "assets/imgs/descuento.jpeg", titulo: 'Planes nutricionales a tu medida', detalle  : 'Durante este mes tendremos un descuento del 20% en consultas nutricionales para deportista' , fecha: '12/04/2018' },
-    { image: "assets/imgs/complemento.jpeg", titulo: 'Para lograr tu meta debes cumplir', detalle  : 'Recuerda tomar tus vitaminas E diariamente', fecha: '12/04/2018' },
-    { image: "assets/imgs/meta.jpeg", titulo: '¿Quieres bajar de peso?', detalle  : 'Tu proxima cita de control es para el dia 20/05/2018 por favor asiste', fecha: '12/04/2018' }
-  ];
+   public promo: any ;
   
   itemSelected(item: string) {
     console.log("Selected Item", item);
   }
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+     public navParams: NavParams,
+     public alertCtrl: AlertController,
+     public viewCtrl: ViewController) {
+    this.promo = navParams.data;
   }
 
   ionViewDidEnter(){
     console.log('ionViewDidLoad NotificacionesPage');
   }
 
+  solicitar(){
+     var msg = 'La Promocion tiene un costo por ' + this.promo.precio + ' Desea solicitarlo?'
+    let alert = this.alertCtrl.create({
+      title:    'Mensaje',
+      subTitle: msg ,
+      buttons:  [{
+        text: "SI",
+        handler: data => {
+          console.log('Accion SI' + data)
+        } 
+      } , {
+        text: "NO",
+        handler: data => {
+          console.log('Accion NO')
+        } 
+      }]
+    });
+    alert.present();
+    this.dismiss()
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }
