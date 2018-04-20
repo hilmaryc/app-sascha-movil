@@ -24,64 +24,52 @@ export class ServicioDetallePage {
     this.servicio = navParams.data;
     
     var contenido1: any = [{
-      "detalle": "Mejora tu rendimiento deportivo."
+      "detalle": "Plan personalizado para adultos mayores."
     } , {
-      "detalle": "Plan nutricional personalizado para tu entrenamiento."
+      "detalle": "Mejora tu condicion fisica."
     } , {
-      "detalle": "Aprende a adaptar tu alimentación al deporte que realizas."
+      "detalle": "Aprende a adaptar tu alimentación y actividades fisicas."
     } , {
-      "detalle": "Dieta equilibrada y comiendo de todo."
-    } , {
-      "detalle": "Sin pastillas, complementos, o exceso de proteinas."
-    } , {
-      "detalle": "Diseñado por nutricionistas y endocrinos de prestigio."
-    } , {
-      "detalle": "Dieta flexible, variada y sin menús cerrados."
+      "detalle": "Diseñado por nutricionistas y endocrinos."
     }];
     var contenido2: any = [{
-      "detalle": "Come de todos los alimentos y Adelgaza sin pasar hambre."
+      "detalle": "Controla tu peso comiendo los alimentos adecuados."
     } , {
-      "detalle": "Dieta sana  y Equilibrada para controlar tu peso sin Productos ni Pastillas."
+      "detalle": "Dieta sana  y Equilibrada para controlar ansiedad."
     } , {
-      "detalle": "Flexibilidad total: Dietas para controlar tu peso sin menús cerrados."
+      "detalle": "plan de actividades, alimentacion y suplementos."
     } , {
-      "detalle": "Flexibilidad total: Dietas para controlar tu peso sin menús cerrados."
-    } , {
-      "detalle": "Baja de peso sin efecto rebote."
-    } , {
-      "detalle": "Aprende a comer sano"
+      "detalle": "Asesoria constante."
     } ];
     var contenido3: any = [{
       "detalle": "Aprende a comer con expertos en Nutrición."
     } , {
-      "detalle": "Dieta flexible para aprender a comer sin menús cerrados."
+      "detalle": "Dieta adaptada a tus necesidades fisicas."
     } , {
-      "detalle": "Aprende a controlar con facilidad la ansiedad con la comida."
+      "detalle": " Mejora tu rendimiento con la alimentacion adecuada."
     } , {
-      "detalle": "Aprende a comer sin pastillas ni productos de dudosa composición."
-    } , {
-      "detalle": "Aprende a comer sin trucos: mejora tu alimentación."
+      "detalle": "Aprende a comer de acuerdo a tu actividad deportiva."
     }];
     var contenido4: any = [{
-      "detalle": "Enseñamos a tu hijo a comer sano y equilibrado."
+      "detalle": "Te enseñamos a mejorar la alimentacion de tu hijo."
     } , {
-      "detalle": "Tu hijo y tu aprenderan a controlar su peso."
+      "detalle": "Recibe recomendaciones para disminuir el consumo de dulces."
     } , {
-      "detalle": "Pautas nutricionales adaptadas a cada rango de edad."
+      "detalle": "Pautas nutricionales adaptadas a las necesidades."
     } , {
       "detalle": "Integramos hábitos familiares, ejercicio y motivación."
     }];
     var contenido5: any = [{
       "detalle": "Gana peso de forma saludable."
     } , {
-      "detalle": "Sin pastillas ni complementos: Ganarás peso de manera natural."
+      "detalle": "Mejora tu alimentacion y combina de manera optima tus actividades fisicas."
     } , {
-      "detalle": "Dieta equilibrada para Ganar Peso."
+      "detalle": "Dieta equilibrada y recomendaciones para Ganar Peso."
     } , {
-      "detalle": "Flexibilidad total, sin menús cerrados."
+      "detalle": "Visitas de seguimiento hasta alcanzar tu meta."
     }];
     var contenido6: any = [{
-      "detalle": "Control del peso durante el embarazazo en un contexto de salud."
+      "detalle": "Controla tu alimentacion durante el embarazazo."
     } , {
       "detalle": "Cubriendo las necesidades nutricionales de la madre y del bebé."
     } , {
@@ -100,6 +88,8 @@ export class ServicioDetallePage {
       this.contenidos = contenido4;
     } else if( this.servicio.id == 5 ) {
       this.contenidos = contenido5;
+    } else if( this.servicio.id == 6 ) {
+      this.contenidos = contenido6;
     }
 
   }

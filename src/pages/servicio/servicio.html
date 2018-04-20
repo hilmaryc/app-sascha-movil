@@ -14,25 +14,45 @@
   </ion-navbar>
 </ion-header>
 <ion-content  padding>
-  <ion-list>
-    <ion-item>
-      <h2 align="center">Servicio</h2>
-    </ion-item>
-    <div class="list card">
-      <ion-item *ngFor="let s of services" >
-        <div (click)="showDetail(s)" >
-          <h2 align="center" text-wrap>{{ s.titulo }}</h2>
-          <ion-item>
+  
+    <div>
+      <ion-segment [(ngModel)]="Servicios">
+         <ion-segment-button  value="servi">Servicios</ion-segment-button>
+         <ion-segment-button value="promocion">Promociones</ion-segment-button>
+      </ion-segment>
+    </div>
+    <div [ngSwitch]="Servicios">
+      <ion-list *ngSwitchCase="'servi'">
+        <ion-item *ngFor="let s of services" >
+          <div (click)="showDetail(s)" >
+            <h2 align="center" text-wrap>{{ s.titulo }}</h2>
+            <ion-item>
             <ion-thumbnail item-start align-items-center>
-              <img src="{{ s.img }}" >
+               <img src="{{ s.img }}" >
             </ion-thumbnail>
             <p text-wrap>{{ s.descripcion }}</p>
           </ion-item>
         </div>
-      </ion-item>
-    </div>
-</ion-list>  
+       </ion-item>
+      </ion-list>
+    </div>  
+    <div [ngSwitch]="Promociones">
+      <ion-list *ngSwitchCase="'promocion'">
+        <ion-item *ngFor="let p of promos" >
+          <div (click)="verPromocion(p)" >
+            <h2 align="center" text-wrap>{{ p.titulo }}</h2>
+            <ion-item>
+            <ion-thumbnail item-start align-items-center>
+               <img src="{{ p.img }}" >
+            </ion-thumbnail>
+            <p text-wrap>{{ p.descripcion }}</p>
+          </ion-item>
+        </div>
+       </ion-item>
+      </ion-list>
+    </div>  
 <ion-fab right bottom>
   <button ion-fab mini (click)="showFilter()"><ion-icon name="ios-funnel-outline"></ion-icon></button>
 </ion-fab>
+
 </ion-content>

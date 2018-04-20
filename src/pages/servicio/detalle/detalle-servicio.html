@@ -15,20 +15,20 @@
 </ion-header>
 <ion-content>
   <ion-item>
-    <h2 align="center">Servicio</h2>
+    <h2 align="center">{{ servicio.titulo }}</h2>
   </ion-item>
   <ion-card>
     <ion-item>
-      <h2 align="center">{{ servicio.titulo }}</h2>
-    </ion-item>
-    <ion-item>
-      <ion-thumbnail item-start align-items-center>
-        <img src="{{ servicio.img }}" >
-      </ion-thumbnail>
-      <p text-wrap>{{ servicio.descripcion }}</p>
+        <ion-thumbnail item-start align-items-center>
+          <img src="{{ servicio.img }}" >
+        </ion-thumbnail>
+       <p text-wrap>{{ servicio.descripcion }}</p>
     </ion-item>
     <ion-item *ngFor="let c of contenidos" >
       <p text-wrap>{{ c.detalle }}</p>
+    </ion-item>
+    <ion-item>
+      <h3 align="center">{{ servicio.precio }}</h3>
     </ion-item>
     <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar Servicio</button>
   </ion-card>
