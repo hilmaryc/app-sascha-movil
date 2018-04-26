@@ -9,19 +9,24 @@ export class PlanPage {
   plan;
   suplementos:any = [{
     "nombre":"Ornitina",
-    "cantidad": 2
+    "frecuencia": 2,
+    "cantidad": "100ml"
   } , {
     "nombre":"Acidófilos",
-    "cantidad": 3
+    "frecuencia": 3,
+    "cantidad": "500ml"
   } , {
     "nombre":"Omega3",
-    "cantidad": 6
+    "frecuencia": 1,
+    "cantidad": "50ml"
   } , {
     "nombre":"Creatina",
-    "cantidad": 1
+    "frecuencia": 2,
+    "cantidad": "4ml"
   } , {
     "nombre":"Calcio",
-    "cantidad": 5
+    "frecuencia": 3,
+    "cantidad": "300ml"
   }];
 
   actividades:any = [{

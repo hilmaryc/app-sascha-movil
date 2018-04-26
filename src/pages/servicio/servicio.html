@@ -24,10 +24,10 @@
       <ion-list *ngSwitchCase="'servi'">
         <ion-item *ngFor="let s of services" >
           <div (click)="showDetail(s)" >
-            <h2 align="center" text-wrap>{{ s.titulo }}</h2>
+            <h2 align="center" text-wrap>{{ s.nombre }}</h2>
             <ion-item>
             <ion-thumbnail item-start align-items-center>
-               <img src="{{ s.img }}" >
+               <img src="{{ s.url_imagen }}" >
             </ion-thumbnail>
             <p text-wrap>{{ s.descripcion }}</p>
           </ion-item>

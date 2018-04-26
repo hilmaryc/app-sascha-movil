@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, NavParams, NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { AlertController, Loading, LoadingController } from 'ionic-angular';
 
 //import { LoadingController } from 'ionic-angular';
 import { FiltroPage } from '../../pages/servicio/filtro/filtro';
@@ -8,6 +8,8 @@ import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio';
 import { NotificacionesProvider } from '../../providers/notificaciones/notificaciones'
 import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../../pages/promociones/promociones';
+
+import { ServiciosProvider } from '../../providers/servicios/servicios';
 
 @Component({
   selector: 'page-servicio',
@@ -17,44 +19,45 @@ export class ServicioPage {
 
   public TAG: string = 'ServicioPage';
   seg_servicio;
-  public services: any = [{
+  public services: any[];
+  /* = [{
     "id":"1",
-    "titulo":"Consulta Nutricional",
-    "img":"../../assets/imgs/consulta.jpg",
+    "nombre":"Plan para Adultos Mayores",
+    "img":"../../assets/imgs/nutricionadultos.jpg",
     "descripcion":"Un nutricionista calificado realiza una evaluación de tu estado nutricional",
     "precio": "100$"
   } , {
     "id":"2",
-    "titulo":"Control de obesidad",
-    "img":"../../assets/imgs/obesidad.jpg",
+    "nombre":"Plan Control de obesidad",
+    "img":"../../assets/imgs/controlobe.jpg",
     "descripcion":"Consejos alimenticios y planes nutricionales para el control de peso.",
     "precio": "120$"
   } , {
     "id":"3",
-    "titulo":"Nutrición Deportiva",
-    "img":"../../assets/imgs/deportiva.jpg",
+    "nombre":"Plan Nutrición Deportiva",
+    "img":"../../assets/imgs/nutydep1.jpg",
     "descripcion":"Planes de nutrición especializados para deportistas.",
     "precio": "90$"
   } , {
     "id":"4",
-    "titulo":"Alimentacion Infantil",
-    "img":"../../assets/imgs/deportiva.jpg",
-    "descripcion":"En este plan tu Nutricionista tratará el peso del niño, pero teniendo en cuenta los hábitos de la familia en su conjunto.",
+    "nombre":"Plan Alimentacion Infantil",
+    "img":"../../assets/imgs/nutinf.jpeg",
+    "descripcion":"Un Nutricionista hará un plan nutricional para el niño, teniendo en cuenta los hábitos de alimentacion de la familia.",
     "precio": "90$"
   } , {
     "id":"5",
-    "titulo":"Gana Peso con salud",
-    "img":"../../assets/imgs/deportiva.jpg",
-    "descripcion":"Gana peso a un ritmo adecuado, dentro de un contexto de salud. Aumentarás de forma progresiva y equilibrada tu masa muscular y grasa hasta conseguir el peso deseado.",
+    "nombre":"Plan Gana Peso con salud",
+    "img":"../../assets/imgs/Ganarpeso.jpg",
+    "descripcion":"Gana peso a un ritmo adecuado de manera saludable. Equilibra tu masa muscular y porcentaje de grasa hasta conseguir el peso deseado.",
     "precio": "90$"
   } , {
     "id":"6",
-    "titulo":"Dieta para embarazadas",
-    "img":"../../assets/imgs/deportiva.jpg",
-    "descripcion":"Tu nutricionista te cuidará durante la gestación con un Plan Nutricional Personalizado, te dará las pautas necesarias para cubrir las necesidades nutricionales de la madre y satisfacer las exigencias nutritivas del bebé.",
+    "nombre":"Plan alimentacion durante el embarazo",
+    "img":"../../assets/imgs/Nutricionembarazo.jpg",
+    "descripcion":"Tu nutricionista te proporcionara un plan adecuado durante la gestación, siguiendo las pautas necesarias para cubrir las necesidades nutricionales del bebé.",
     "precio": "90$"
   }];
-  
+  */
   public promos: any = [{
     "id":"1",
     "titulo":"Promocion Mes de las Madres",
@@ -97,9 +100,28 @@ export class ServicioPage {
     public navCtrl: NavController,
     public modalCtrl: ModalController, 
     public params: NavParams, 
+    public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public notificaciones: NotificacionesProvider) { 
+    public notificaciones: NotificacionesProvider,
+    public serviciosProv: ServiciosProvider) { 
     this.seg_servicio = "servi";
+    this.getServicios();
+  }
+
+  async getServicios(): Promise<void> {
+    const loading: Loading = this.loadingCtrl.create();
+    loading.present();
+    await this.serviciosProv.getServicios()
+    .subscribe(
+      (res)=>{
+        console.log(JSON.stringify(res));
+        this.services = res['data'];
+      },
+      (error)=>{
+        console.log( JSON.stringify(error) );
+      }
+    );
+    await loading.dismiss();
   }
 
   showFilter() {

@@ -25,6 +25,7 @@ import { RemoteProvider } from '../providers/remote/remote';
 import { AuthProvider } from '../providers/auth/auth';
 import { ConfigService } from '../providers/config-service/config-service';
 import { NotificacionesProvider } from '../providers/notificaciones/notificaciones';
+import { ServiciosProvider } from '../providers/servicios/servicios';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { NotificacionesProvider } from '../providers/notificaciones/notificacion
     RemoteProvider,
     AuthProvider,
     ConfigService,
-    NotificacionesProvider
+    NotificacionesProvider,
+    ServiciosProvider
   ]
 })
 export class AppModule {}

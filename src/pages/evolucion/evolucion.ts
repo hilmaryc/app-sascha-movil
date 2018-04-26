@@ -12,15 +12,15 @@ export class EvolucionPage {
   testCheckboxOpen: boolean;
   testCheckboxResult;
   public services: any = [{
-    "tipo_parametro":"Antropometrico",
+    "tipo_parametro":"Antropométrico",
     "parametro":"peso",
     "valor":"50kg"
   },{
-    "tipo_parametro":"Bioquimico",
+    "tipo_parametro":"Bioquímico",
     "parametro":"Glicemia",
     "valor":"92 mg/dm"
   },{
-    "tipo_parametro":"Patologico",
+    "tipo_parametro":"Patología",
     "parametro":"Diabetes",
     "valor":" "
   }];
