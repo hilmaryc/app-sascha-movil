@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController  } from 'ionic-angular';
 import { DetalleEvolucionPage } from './detalle/detalle';
+import { NotificacionesPage } from '../notificaciones/notificaciones';
+
 
 @Component({
   selector: 'page-evolucion',
@@ -105,5 +107,10 @@ export class EvolucionPage {
     alert.present().then(() => {
       this.testCheckboxOpen = true;
     });
+  }
+
+  verNotificaciones(){
+    //this.notificaciones.verNotificaciones();
+     this.navCtrl.push(NotificacionesPage);
   }
 }

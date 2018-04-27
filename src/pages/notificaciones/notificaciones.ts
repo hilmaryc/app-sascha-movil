@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController} from 'ionic-angular';
+import { DetallenotiPage } from '../detallenoti/detallenoti';
 
 @Component({
   selector: 'page-notificaciones',
@@ -7,11 +8,29 @@ import { NavController} from 'ionic-angular';
 })
 export class NotificacionesPage {
   public TAG: string = 'NotificacionesPage';
-  noti=[
-      {"mensaje":"mensaje1","descripcion":"Descripcion de la notificacion","icono":"notifications"},
-      {"mensaje":"mensaje2","descripcion":"Descripcion de la notificacion","icono":"pricetags"},
-      {"mensaje":"mensaje3","descripcion":"Descripcion de la notificacion","icono":""}      
-  ];
+  
+  public notis: any = [{
+    "id":"1",
+    "tipo":"Promocion",
+    "titulo":"Descuento mes de las madres",
+    "img":"../../assets/imgs/promomama.jpg",
+    "descripcion":"En el mes de Mayo las madres recibiran un precio especial en su Plan alimentacion durante el embarazo",
+    "icono":"pricetags"
+  } , {
+    "id":"2",
+    "tipo":"Garantia",
+    "titulo":"Su reclamo fue aprobado",
+    "img":"",
+    "descripcion":"Su reclamo por garantia fue aprobado, proceda a solicitar su cita",
+    "icono":"star"
+  } , {
+    "id":"3",
+    "tipo":"Cita asignada",
+    "titulo":"Su cita de control fue asignada",
+    "img":"",
+    "descripcion":"Su cita de control fue asignada para el dia 10/04/2018 hora 2:00pm",
+    "icono":"medkit"
+  }];
 
   items = [
     { image: "assets/imgs/descuento.jpeg", titulo: 'Planes nutricionales a tu medida', detalle  : 'Durante este mes tendremos un descuento del 20% en consultas nutricionales para deportista' , fecha: '12/04/2018' },
@@ -30,5 +49,9 @@ export class NotificacionesPage {
   ionViewDidEnter(){
     console.log('ionViewDidLoad NotificacionesPage');
   }
-
+  
+  showDetail(params){
+    console.log(this.TAG,' showDetail ' + JSON.stringify(params));
+    this.navCtrl.push(DetallenotiPage, params );
+  }
 }

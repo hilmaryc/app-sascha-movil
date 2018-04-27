@@ -1,6 +1,6 @@
 page-evolucion {
    .anterior{
-       background: color($colors, secondary, transparent);
+       background: color($colors, light, transparent);
        text-align: center;
        .item {
           background: color($colors, secondary, transparent);
@@ -39,7 +39,7 @@ page-evolucion {
       }
    }
    .nueva{
-       background: color($colors, danger, transparent);
+       background: color($colors, third, transparent);
        text-align: center;
    }
    .ion-avatar {

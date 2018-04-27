@@ -34,18 +34,18 @@
 </ion-content-->
 <ion-content class="list-avatar-page">
   <ion-list>
-    <button ion-item *ngFor="let not of noti" (click)="itemSelected(item)">
+    <button ion-item *ngFor="let noti of notis" (click)="showDetail(noti)">
       <ion-item>
         <ion-avatar item-start>
           <h1 style="text">
-            <ion-icon name="{{not.icono}}"></ion-icon>
+            <ion-icon name="{{noti.icono}}"></ion-icon>
           </h1>
         </ion-avatar>
         <div>
-          <h2>{{not.mensaje}}</h2>
+          <h2>{{noti.tipo}}</h2>
         </div>
         <div>
-          <h3>{{not.descripcion}}</h3>
+          <h3>{{noti.titulo}}</h3>
         </div>
       </ion-item> 
     </button>

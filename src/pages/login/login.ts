@@ -61,4 +61,9 @@ export class LoginPage {
       await loading.dismiss();
     }
   }
+
+  da(){
+
+   
+  }
 }

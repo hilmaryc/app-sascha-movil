@@ -18,6 +18,7 @@ import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../pages/promociones/promociones';
 import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 import { AyudaPage } from '../pages/ayuda/ayuda';
+import { DetallenotiPage } from '../pages/detallenoti/detallenoti';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +43,8 @@ import { ServiciosProvider } from '../providers/servicios/servicios';
     NotificacionesPage,
     ComunicacionPage,
     PromocionesPage,
-    AyudaPage
+    AyudaPage,
+    DetallenotiPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { ServiciosProvider } from '../providers/servicios/servicios';
     ComunicacionPage,
     ModalPlanPage,
     ModalContentPage,
-    AyudaPage
+    AyudaPage,
+    DetallenotiPage
   ],
   providers: [
     StatusBar,

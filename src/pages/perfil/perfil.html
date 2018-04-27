@@ -3,13 +3,17 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Perfil</ion-title>
+  <ion-avatar item-start >
+      <img class="logo-menu" src="assets/imgs/lsascha.png">
+   </ion-avatar> 
+    <ion-buttons end>
+      <button ion-button icon-only (click)="verNotificaciones()" >
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content class="edit-perfil">
-  <ion-item>   
-    <h2 align= center>Sascha Fitness</h2>
-  </ion-item>
   <hr>
   <ion-list >
     <ion-item (click)="editar('nombre','Nombre',perfil[0].nombre )">

@@ -3,6 +3,7 @@ import { NavController,
 		 NavParams, 
 		 AlertController, 
 		 ViewController } from 'ionic-angular';
+import { NotificacionesPage } from '../notificaciones/notificaciones';
 
 @Component({
   selector: 'page-ayuda',
@@ -19,7 +20,8 @@ export class AyudaPage {
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams, 
   			  public alertCtrl: AlertController,
-  			  public viewCtrl: ViewController) {}
+  			  public viewCtrl: ViewController,
+          public nacCtrl: NavController) {}
 
 mostrar(pregunta,respuesta){
 	let alert =this.alertCtrl.create({
@@ -35,5 +37,10 @@ mostrar(pregunta,respuesta){
 	}
   ionViewDidLoad() {
     console.log('ionViewDidLoad AyudaPage');
+  }
+  
+  verNotificaciones(){
+    //this.notificaciones.verNotificaciones();
+     this.navCtrl.push(NotificacionesPage);
   }
 }

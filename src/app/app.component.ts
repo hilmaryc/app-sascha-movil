@@ -10,6 +10,8 @@ import { EvolucionPage } from '../pages/evolucion/evolucion';
 import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 import { AyudaPage } from '../pages/ayuda/ayuda';
 
+
+
 import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
@@ -54,7 +56,7 @@ export class MyApp {
           .then( (usuario) => {
               console.log(this.TAG,' isAuth ' + JSON.stringify(usuario.error));
               var error: boolean = usuario.error;
-              if ( error ) this.rootPage = 'LoginPage';
+              if ( error ) this.rootPage = 'EvolucionPage';
               else this.rootPage = ServicioPage;
           })
           .catch((err) =>{
