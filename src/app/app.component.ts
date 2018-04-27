@@ -9,7 +9,6 @@ import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
 import { EvolucionPage } from '../pages/evolucion/evolucion';
 import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 import { AyudaPage } from '../pages/ayuda/ayuda';
-
 import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
@@ -19,6 +18,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   public TAG: string = 'MyApp';
+  public loading: Loading;
   rootPage: any = null;
   showMenu: any = 0;
   pages: Array<{title: string, component: any}>;
@@ -36,8 +36,8 @@ export class MyApp {
   }
 
   async isAuth(){
-    const loading: Loading = this.loadingCtrl.create();
-    loading.present();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
     await this.storage.ready().then(() => {
       this.storage
           .get('usuario')
@@ -53,30 +53,30 @@ export class MyApp {
                 this.statusBar.styleDefault();
                 this.splashScreen.hide();
                 this.pages = [
-                  { title: 'Usuario', component: PerfilPage },
+                  { title:  usuario.data.cliente.nombres , component: PerfilPage },
                   { title: 'Servicio', component: ServicioPage },
                   { title: 'Mi Plan', component: ModalPlanPage },
                   { title: 'Mi Evolucion', component: EvolucionPage },
                   { title: 'Contacto', component: ComunicacionPage },
                   { title: 'Ayuda', component: AyudaPage }          
                 ];
-
                 this.rootPage = ServicioPage;
               }
+              this.loading.dismiss();
           })
           .catch((err) =>{
             console.log(err);
             this.rootPage = 'LoginPage';
+            this.loading.dismiss();
           });
     });
-    await loading.dismiss();
-    
+
   }
 
-  logoutUser() { 
+  async logoutUser() { 
     console.log(this.TAG,' logoutUser ' + 'se ha removido el token');
-    this.storage.remove('usuario');
-    this.storage.clear();
+    await this.storage.remove('usuario');
+    await this.storage.clear();
   }
 
   openPage(page) {
@@ -84,9 +84,10 @@ export class MyApp {
   }
 
   logout() {
+    this.loading.present();
     this.logoutUser();
     this.showMenu = 0;
-    //this.navCtrl.setRoot(LoginPage);
+    this.loading.dismiss();
     window.location.reload();
   }
 

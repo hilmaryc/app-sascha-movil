@@ -13,6 +13,7 @@ import { EmailValidator } from '../../validators/email';
 })
 export class LoginPage {
   error: string;
+  public TAG: string = 'LoginPage ';
   public loading: Loading;
   public loginForm: FormGroup;
   constructor(
@@ -45,13 +46,14 @@ export class LoginPage {
       const password = this.loginForm.value.password;
       await this.auth.loginUser(email, password).subscribe(
         (res)=>{
-          console.log(res);
+          console.log(this.TAG, JSON.stringify(res));
           this.storage.set('usuario', res);
-          await window.location.reload();
-          await this.loading.dismiss();
+          window.location.reload();
+          this.loading.dismiss();
         },
         (error)=>{
           console.log( JSON.stringify(error) );
+          this.loading.dismiss();
           const alert: Alert = this.alertCtrl.create({
             message: 'correo ó contraseña no valido',
             buttons: [{ text: 'Ok', role: 'cancelar' }]
@@ -61,4 +63,5 @@ export class LoginPage {
       );
     }
   }
+
 }

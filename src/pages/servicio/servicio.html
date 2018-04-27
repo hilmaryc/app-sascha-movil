@@ -3,9 +3,9 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-avatar item-start >
-      <img class="logo" src="assets/imgs/lsascha.png">
-    </ion-avatar>
+  <ion-avatar item-start >
+      <img class="logo-menu" src="https://res.cloudinary.com/saschanutric/image/upload/v1524779283/logosascha.png">
+   </ion-avatar> 
     <ion-buttons end>
       <button ion-button icon-only (click)="verNotificaciones()" >
         <ion-icon name="notifications"></ion-icon>
@@ -15,9 +15,9 @@
 </ion-header>
 <ion-content padding>
   <div>
-    <ion-segment [(ngModel)]="seg_servicio">
+    <ion-segment [(ngModel)]="seg_servicio" >
       <ion-segment-button  value="servi">Servicios</ion-segment-button>
-      <ion-segment-button value="promocion">Promociones</ion-segment-button>
+      <ion-segment-button value="promocion" (click)="showSegment()" >Promociones</ion-segment-button>
     </ion-segment>
   </div>
   <div [ngSwitch]="seg_servicio">

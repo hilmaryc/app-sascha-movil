@@ -6,6 +6,7 @@ import {
   NavParams,
   AlertController } from 'ionic-angular';
 import { SolicitudPage } from '../solicitud/solicitud'
+import { NotificacionesPage } from '../../notificaciones/notificaciones';
 
 @Component({
   selector: 'page-detalle-servicio',
@@ -104,6 +105,10 @@ export class ServicioDetallePage {
       this.contenidos = contenido6;
     }
 
+  }
+
+  verNotificaciones(){
+     this.navCtrl.push(NotificacionesPage);
   }
 
   ionViewDidLoad() {

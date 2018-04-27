@@ -9,7 +9,6 @@ import {
 //import { LoadingController } from 'ionic-angular';
 import { FiltroPage } from '../../pages/servicio/filtro/filtro';
 import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio';
-import { NotificacionesProvider } from '../../providers/notificaciones/notificaciones'
 import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../../pages/promociones/promociones';
 
@@ -109,15 +108,13 @@ export class ServicioPage {
     public params: NavParams, 
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public notificaciones: NotificacionesProvider,
     public serviciosProv: ServiciosProvider) { 
-    this.loading = this.loadingCtrl.create();
     this.seg_servicio = "servi";
     this.getServicios();
-    //this.getPromociones();
   }
 
   async getServicios(): Promise<void> {
+    this.loading = this.loadingCtrl.create();
     this.loading.present();
     await this.serviciosProv.getServicios()
       .subscribe(
@@ -127,6 +124,7 @@ export class ServicioPage {
         this.loading.dismiss();
       },
       (error)=>{
+        this.loading.dismiss();
         console.log( JSON.stringify(error) );
         const alert: Alert = this.alertCtrl.create({
           message: 'Problema con la coneccion a internet',//error.message,
@@ -138,6 +136,7 @@ export class ServicioPage {
   }
 
   async getPromociones():Promise<void>{
+    this.loading = this.loadingCtrl.create();
     this.loading.present();
     await this.serviciosProv.getPromociones()
     .subscribe(
@@ -147,9 +146,19 @@ export class ServicioPage {
         this.loading.dismiss();
       },
       (error)=>{
+        this.loading.dismiss();
         console.log( JSON.stringify(error) );
+        const alert: Alert = this.alertCtrl.create({
+          message: 'Problema con la coneccion a internet',//error.message,
+          buttons: [{ text: 'Ok', role: 'cancelar' }]
+        });
+        alert.present();
       }
     ); 
+  }
+
+  showSegment(){
+    this.getPromociones();
   }
 
   showFilter() {
@@ -163,7 +172,6 @@ export class ServicioPage {
   }
 
   verNotificaciones(){
-    //this.notificaciones.verNotificaciones();
      this.navCtrl.push(NotificacionesPage);
   }
 

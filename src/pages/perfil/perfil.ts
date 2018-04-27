@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController, Loading, LoadingController} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 
 @Component({
   templateUrl: 'perfil.html'
@@ -7,19 +9,72 @@ import { AlertController } from 'ionic-angular';
 
 export class PerfilPage {
 
-  public perfil:any = [{
-    "nombre" : "Pedro",
-    "apellidos" : "Perez",
-    "cedula" : "112345678",
-    "fechaNacimiento" : "12/05/2002",
-    "estadoCivil" : "Soltero",
-    "genero" : "Masculino",
-    "telefono" : "04161234567",
-    "estado" : "Lara",
-    "direccion": "Calle Obelisco",
-  }];
+  public TAG: string = 'PerfilPage';
+  public loading: Loading;
+  public perfil:any[] = [{
+                "nombre" : "",
+                "apellidos" : "",
+                "cedula" : "",
+                "fechaNacimiento" : "",
+                "estadoCivil" : "",
+                "genero" : "",
+                "telefono" : "",
+                "estado" : "",
+                "direccion": ""
+              }];
 
-  constructor(public alertCtrl: AlertController) { }
+  constructor(
+    public alertCtrl: AlertController, 
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
+    private storage: Storage) { 
+
+    this.getCliente();
+  }
+/*
+{
+    "id_usuario":17,
+  "id_cliente":10,
+  "cedula":"V-24160052",
+  "nombres":"José Alberto",
+  "apellidos":"Guerrero Carrillo",
+  "telefono":"0414-5495292",
+  "genero":"Masculino",
+  "estado_civil":
+  "Soltero/a",
+  "direccion":"Urb. El Amanecer, Cabudare",
+  "fecha_nacimiento":"1994-06-07T00:00:00.000Z",
+  "tipo_cliente":1,
+  "estado":"Lara",
+  "rango_edad":"Joven "}*/
+async getCliente(){
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+    await this.storage.ready().then(() => {
+      this.storage
+          .get('usuario')
+          .then( (usuario) => {
+              let cliente = usuario.data.cliente;
+              console.log(this.TAG,' getCliente ' + JSON.stringify(cliente));
+              this.perfil = [{
+                "nombre" : cliente.nombres,
+                "apellidos" : cliente.apellidos,
+                "cedula" : cliente.cedula,
+                "fechaNacimiento" : cliente.fecha_nacimiento,
+                "estadoCivil" : cliente.estado_civil,
+                "genero" : cliente.genero,
+                "telefono" : cliente.telefono,
+                "estado" : cliente.estado,
+                "direccion": cliente.direccion
+              }];
+              this.loading.dismiss();
+          })
+          .catch((err) =>{
+            console.log(err);
+          });
+    });
+  }
+
   editar(parametro,title ,valor) {
     let editar = this.alertCtrl.create({
       title: title,
@@ -67,12 +122,16 @@ export class PerfilPage {
     editar.present();
   }
 
+verNotificaciones(){
+  this.navCtrl.push(NotificacionesPage);
+}
+
 actualizar(){
-    let alert = this.alertCtrl.create({
-      title:    'Mensaje',
-      subTitle: 'Su perfil ha sido actualizado exitosamente!',
-      buttons:  ['OK']
-    });
-    alert.present();
-  }
+  let alert = this.alertCtrl.create({
+    title:    'Mensaje',
+    subTitle: 'Su perfil ha sido actualizado exitosamente!',
+    buttons:  ['OK']
+  });
+  alert.present();
+}
 }

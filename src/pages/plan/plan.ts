@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {  ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
+import {  ModalController, Platform, NavParams, ViewController, NavController } from 'ionic-angular';
+import { NotificacionesPage } from '../notificaciones/notificaciones';
 
 @Component({
   selector: 'page-plan',
@@ -47,7 +48,9 @@ export class PlanPage {
     "unidad":"minutos"
   }];
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(
+    public modalCtrl: ModalController, 
+    public navCtrl: NavController) {
     this.plan = "comida";
   }
 
@@ -72,7 +75,8 @@ export class ModalContentPage {
   constructor(
     public platform: Platform,
     public params: NavParams,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
   ) 
   {
     var characters = [
@@ -122,4 +126,9 @@ export class ModalContentPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+  verNotificaciones(){
+    this.navCtrl.push(NotificacionesPage);
+  }
+  
 }

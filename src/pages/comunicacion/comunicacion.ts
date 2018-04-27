@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NotificacionesPage } from '../notificaciones/notificaciones';
+
 
 @Component({
   selector: 'page-comunicacion',
@@ -62,6 +64,11 @@ export class ComunicacionPage {
       buttons:  ['OK']
     });
     alert.present();
+  }
+
+  verNotificaciones(){
+    //this.notificaciones.verNotificaciones();
+     this.navCtrl.push(NotificacionesPage);
   }
 
 }

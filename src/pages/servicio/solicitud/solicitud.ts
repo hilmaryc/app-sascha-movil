@@ -5,7 +5,7 @@ import {
   ViewController,
   NavParams,
   AlertController } from 'ionic-angular';
-  import { NotificacionesProvider } from '../../../providers/notificaciones/notificaciones'
+  import { NotificacionesPage } from '../../notificaciones/notificaciones';
 
 @Component({
   selector: 'page-solocitud',
@@ -72,8 +72,7 @@ export class SolicitudPage {
     public modalCtrl: ModalController, 
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    public viewCtrl: ViewController,
-    public notificaciones: NotificacionesProvider) {
+    public viewCtrl: ViewController) {
     this.servicio = navParams.data;
     this.idNutricionista = this.nutricionistas[0].id;
     this.idHora = this.horas[0].id;
@@ -136,5 +135,9 @@ export class SolicitudPage {
 
   dismiss() {
    this.viewCtrl.dismiss();
+  }
+
+  verNotificaciones(){
+     this.navCtrl.push(NotificacionesPage);
   }
 }
