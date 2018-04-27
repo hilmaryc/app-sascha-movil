@@ -20,6 +20,7 @@ export class MyApp {
 
   public TAG: string = 'MyApp';
   rootPage: any = null;
+  showMenu: any = 0;
   pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -29,18 +30,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public auth: AuthProvider,
     private storage: Storage) {
-    this.pages = [
-          { title: 'Usuario', component: PerfilPage },
-          { title: 'Servicio', component: ServicioPage },
-          { title: 'Mi Plan', component: ModalPlanPage },
-          { title: 'Mi Evolucion', component: EvolucionPage },
-          { title: 'Contacto', component: ComunicacionPage },
-          { title: 'Ayuda', component: AyudaPage }          
-      ];
-
      this.platform.ready().then(() => {
-        this.statusBar.styleDefault();
-        this.splashScreen.hide();
         this.isAuth();    
       });
   }
@@ -54,8 +44,25 @@ export class MyApp {
           .then( (usuario) => {
               console.log(this.TAG,' isAuth ' + JSON.stringify(usuario.error));
               var error: boolean = usuario.error;
-              if ( error ) this.rootPage = 'LoginPage';
-              else this.rootPage = ServicioPage;
+              if ( error ) {
+                this.showMenu = 0;
+                this.rootPage = 'LoginPage';
+              }
+              else {
+                this.showMenu = 1;
+                this.statusBar.styleDefault();
+                this.splashScreen.hide();
+                this.pages = [
+                  { title: 'Usuario', component: PerfilPage },
+                  { title: 'Servicio', component: ServicioPage },
+                  { title: 'Mi Plan', component: ModalPlanPage },
+                  { title: 'Mi Evolucion', component: EvolucionPage },
+                  { title: 'Contacto', component: ComunicacionPage },
+                  { title: 'Ayuda', component: AyudaPage }          
+                ];
+
+                this.rootPage = ServicioPage;
+              }
           })
           .catch((err) =>{
             console.log(err);
@@ -78,7 +85,9 @@ export class MyApp {
 
   logout() {
     this.logoutUser();
-    this.rootPage = 'LoginPage';
+    this.showMenu = 0;
+    //this.navCtrl.setRoot(LoginPage);
+    window.location.reload();
   }
 
 }

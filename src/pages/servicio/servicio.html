@@ -37,10 +37,10 @@
     <ion-list *ngSwitchCase="'promocion'">
       <ion-item *ngFor="let p of promos" >
         <div (click)="verPromocion(p)" >
-          <h2 align="center" text-wrap>{{ p.titulo }}</h2>
+          <h2 align="center" text-wrap>{{ p.nombre }}</h2>
           <ion-item>
             <ion-thumbnail item-start align-items-center>
-              <img src="{{ p.img }}" >
+              <img src="{{ p.url_imagen }}" >
             </ion-thumbnail>
             <p text-wrap>{{ p.descripcion }}</p>
           </ion-item>

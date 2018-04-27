@@ -4,15 +4,15 @@ import { HttpClient } from '@angular/common/http';
 export class AuthProvider {
 
   public TAG: string = 'AuthProvider';
-  private url:string = 'http://localhost:5000/login';
-  //private url:string = 'https://api-sascha.herokuapp.com/';
+  //private url:string = 'http://localhost:5000';
+  private url:string = 'https://api-sascha.herokuapp.com';
 
   constructor(public http: HttpClient) {}
 
   loginUser(email: string, password: string){ 
   	//let body = {correo:"guerrero.c.jose.a@gmail.com", nombre_usuario: "jguerrero", contraseña: "1234" };
     let body = { correo: email, contraseña: password };
-    return this.http.post(this.url, body);
+    return this.http.post(this.url + '/login', body);
   }
 
 }

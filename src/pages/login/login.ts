@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { Alert, AlertController, IonicPage, Loading, LoadingController, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-import { ServicioPage } from '../servicio/servicio';
 import { EmailValidator } from '../../validators/email';
 
 @IonicPage()
@@ -14,6 +13,7 @@ import { EmailValidator } from '../../validators/email';
 })
 export class LoginPage {
   error: string;
+  public loading: Loading;
   public loginForm: FormGroup;
   constructor(
     public navCtrl: NavController,
@@ -30,7 +30,7 @@ export class LoginPage {
       ],
       password: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(6)])
+        Validators.compose([Validators.required, Validators.minLength(4)])
       ]
     });
 
@@ -39,15 +39,16 @@ export class LoginPage {
     if (!this.loginForm.valid) {
       console.log(`Formulario no valido, concurente valor: ${this.loginForm.value}`);
     } else {
-      const loading: Loading = this.loadingCtrl.create();
-      loading.present();
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
       await this.auth.loginUser(email, password).subscribe(
         (res)=>{
           console.log(res);
           this.storage.set('usuario', res);
-          this.navCtrl.push(ServicioPage);
+          await window.location.reload();
+          await this.loading.dismiss();
         },
         (error)=>{
           console.log( JSON.stringify(error) );
@@ -58,7 +59,6 @@ export class LoginPage {
           alert.present();
         }
       );
-      await loading.dismiss();
     }
   }
 }

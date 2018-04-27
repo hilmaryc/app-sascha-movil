@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ModalController, NavParams, NavController } from 'ionic-angular';
-import { AlertController, Loading, LoadingController } from 'ionic-angular';
+import { 
+  Alert,
+  AlertController,
+  Loading,
+  LoadingController } from 'ionic-angular';
 
 //import { LoadingController } from 'ionic-angular';
 import { FiltroPage } from '../../pages/servicio/filtro/filtro';
@@ -19,6 +23,7 @@ export class ServicioPage {
 
   public TAG: string = 'ServicioPage';
   seg_servicio;
+  public loading: Loading;
   public services: any[];
   /* = [{
     "id":"1",
@@ -58,7 +63,8 @@ export class ServicioPage {
     "precio": "90$"
   }];
   */
-  public promos: any = [{
+  public promos: any[];
+  /*= [{
     "id":"1",
     "titulo":"Promocion Mes de las Madres",
     "img":"../../assets/imgs/promomama.jpg",
@@ -84,6 +90,7 @@ export class ServicioPage {
     "precio": "90$"
 
   }];
+*/
 
   public valoracion: any = [{
     "id":"1",
@@ -104,24 +111,45 @@ export class ServicioPage {
     public alertCtrl: AlertController,
     public notificaciones: NotificacionesProvider,
     public serviciosProv: ServiciosProvider) { 
+    this.loading = this.loadingCtrl.create();
     this.seg_servicio = "servi";
     this.getServicios();
+    //this.getPromociones();
   }
 
   async getServicios(): Promise<void> {
-    const loading: Loading = this.loadingCtrl.create();
-    loading.present();
+    this.loading.present();
     await this.serviciosProv.getServicios()
-    .subscribe(
+      .subscribe(
       (res)=>{
         console.log(JSON.stringify(res));
         this.services = res['data'];
+        this.loading.dismiss();
+      },
+      (error)=>{
+        console.log( JSON.stringify(error) );
+        const alert: Alert = this.alertCtrl.create({
+          message: 'Problema con la coneccion a internet',//error.message,
+          buttons: [{ text: 'Ok', role: 'cancelar' }]
+        });
+        alert.present();
+      }
+    );  
+  }
+
+  async getPromociones():Promise<void>{
+    this.loading.present();
+    await this.serviciosProv.getPromociones()
+    .subscribe(
+      (res)=>{
+        console.log(JSON.stringify(res));
+        this.promos = res['data'];
+        this.loading.dismiss();
       },
       (error)=>{
         console.log( JSON.stringify(error) );
       }
-    );
-    await loading.dismiss();
+    ); 
   }
 
   showFilter() {
