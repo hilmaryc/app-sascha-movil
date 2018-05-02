@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import { 
-  ModalController, 
-  NavController, 
-  ViewController,
-  NavParams,
-  AlertController } from 'ionic-angular';
+import { ModalController, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
 import { SolicitudPage } from '../solicitud/solicitud'
 import { NotificacionesPage } from '../../notificaciones/notificaciones';
 

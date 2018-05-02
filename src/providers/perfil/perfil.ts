@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { GeneralService } from './../general.service'; 
+
 @Injectable()
-export class ServiciosProvider extends GeneralService {
+export class PerfilProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'servicios')
+    super(http,'clientes')
   }
 
-  getAll(){
-    return super.getAll();
+  public update(id,body): Observable<any> {
+    return super.update(id,body);    
   }
 
 }

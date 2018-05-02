@@ -4,6 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePickerModule } from 'ionic3-datepicker';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
 import { PerfilPage } from '../pages/perfil/perfil';
@@ -20,13 +22,15 @@ import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
 import { AyudaPage } from '../pages/ayuda/ayuda';
 import { DetallenotiPage } from '../pages/detallenoti/detallenoti';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { RemoteProvider } from '../providers/remote/remote';
 import { AuthProvider } from '../providers/auth/auth';
 import { ConfigService } from '../providers/config-service/config-service';
 import { NotificacionesProvider } from '../providers/notificaciones/notificaciones';
 import { ServiciosProvider } from '../providers/servicios/servicios';
+import { PromocionesProvider } from '../providers/promociones/promociones';
+import { EstadocivilesProvider } from '../providers/estadociviles/estadociviles';
+import { GenerosProvider } from '../providers/generos/generos';
+import { PerfilProvider } from '../providers/perfil/perfil';
 
 @NgModule({
   declarations: [
@@ -79,7 +83,11 @@ import { ServiciosProvider } from '../providers/servicios/servicios';
     AuthProvider,
     ConfigService,
     NotificacionesProvider,
-    ServiciosProvider
+    ServiciosProvider,
+    PromocionesProvider,
+    EstadocivilesProvider,
+    GenerosProvider,
+    PerfilProvider
   ]
 })
 export class AppModule {}

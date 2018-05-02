@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the DetallenotiPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ServicioPage } from '../servicio/servicio';
+import { NotificacionesPage } from '../notificaciones/notificaciones';
 
 @IonicPage()
 @Component({
@@ -22,12 +17,20 @@ export class DetallenotiPage {
     this.noti = navParams.data;
   }
 
+  show(){
+    this.navCtrl.push(ServicioPage)
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetallenotiPage');
   }
 
   ionViewDidEnter(){
     console.log(this.TAG,' showDetail ');
+  }
+
+  verNotificaciones(){
+     this.navCtrl.push(NotificacionesPage);
   }
 
 }

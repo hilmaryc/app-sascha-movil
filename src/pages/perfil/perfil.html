@@ -32,21 +32,17 @@
       <h2>Fecha de Nacimiento</h2>  
       <p>{{ perfil[0].fechaNacimiento }}</p>
     </ion-item>
-    <ion-item (click)="editar('estadoCivil', 'Estado Civil',perfil[0].estadoCivil )">
+    <ion-item (click)="seleccion('estado_civil', 'Estado Civil',perfil[0].estado_civil.nombre )">
       <h2>Estado Civil</h2>  
-      <p>{{ perfil[0].estadoCivil }}</p>
+      <p>{{ perfil[0].estado_civil.nombre }}</p>
     </ion-item>
-    <ion-item (click)="editar('genero', 'Genero',perfil[0].genero )">
+    <ion-item (click)="seleccion('genero', 'Genero',perfil[0].genero.nombre )">
       <h2>Genero</h2>  
-      <p>{{ perfil[0].genero }}</p>
+      <p>{{ perfil[0].genero.nombre }}</p>
     </ion-item>
     <ion-item (click)="editar('telefono', 'Telefono',perfil[0].telefono )">
       <h2>Telefono</h2>  
       <p>{{ perfil[0].telefono }}</p>
-    </ion-item>
-    <ion-item (click)="editar('estado', 'Estado',perfil[0].estado )">
-      <h2>Estado</h2>  
-      <p>{{ perfil[0].estado }}</p>
     </ion-item>
     <ion-item (click)="editar('direccion', 'Direccion',perfil[0].direccion )">
       <h2>Direccion</h2>  

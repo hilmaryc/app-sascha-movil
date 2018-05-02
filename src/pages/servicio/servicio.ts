@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
 import { ModalController, NavParams, NavController } from 'ionic-angular';
-import { 
-  Alert,
-  AlertController,
-  Loading,
-  LoadingController } from 'ionic-angular';
-
-//import { LoadingController } from 'ionic-angular';
+import { Alert, AlertController, Loading, LoadingController } from 'ionic-angular';
 import { FiltroPage } from '../../pages/servicio/filtro/filtro';
 import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio';
 import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 import { PromocionesPage } from '../../pages/promociones/promociones';
 
 import { ServiciosProvider } from '../../providers/servicios/servicios';
+import { PromocionesProvider } from '../../providers/promociones/promociones';
 
 @Component({
   selector: 'page-servicio',
@@ -108,7 +103,8 @@ export class ServicioPage {
     public params: NavParams, 
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public serviciosProv: ServiciosProvider) { 
+    public serviciosProv: ServiciosProvider,
+    public promocionesProv: PromocionesProvider) { 
     this.seg_servicio = "servi";
     this.getServicios();
   }
@@ -116,7 +112,7 @@ export class ServicioPage {
   async getServicios(): Promise<void> {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
-    await this.serviciosProv.getServicios()
+    await this.serviciosProv.getAll()
       .subscribe(
       (res)=>{
         console.log(JSON.stringify(res));
@@ -138,7 +134,7 @@ export class ServicioPage {
   async getPromociones():Promise<void>{
     this.loading = this.loadingCtrl.create();
     this.loading.present();
-    await this.serviciosProv.getPromociones()
+    await this.promocionesProv.getAll()
     .subscribe(
       (res)=>{
         console.log(JSON.stringify(res));
