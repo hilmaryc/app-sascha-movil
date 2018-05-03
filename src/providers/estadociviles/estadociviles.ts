@@ -6,7 +6,7 @@ import { GeneralService } from './../general.service';
 export class EstadocivilesProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'estadociviles')
+    super(http,'estadocivil','es')
   }
 
   getAll(){

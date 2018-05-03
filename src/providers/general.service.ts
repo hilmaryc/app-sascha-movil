@@ -3,13 +3,21 @@ import { Observable } from 'rxjs/Observable';
 
 export class GeneralService {
 
-  private urlBaseApi = "http://localhost:5000";
-  //private urlBaseApi = "http://api-sascha.herokuapp.com";
+  //private urlBaseApi = "http://localhost:5000";
+  private urlBaseApi = "https://api-sascha.herokuapp.com";
 
-  constructor(protected http: HttpClient, protected urlModulo: String) { }
+  constructor(protected http: HttpClient, protected urlModulo: String, protected plural: String) { }
 
   public getAll(): Observable<any> {
   	return this.http.get(this.getUrl());
+  }
+
+  public getAllTipo(id): Observable<any> {
+    return this.http.get(this.getUrlTipo(id));
+  }
+
+  public get(id): Observable<any> {
+    return this.http.get(this.getUrlById(id));
   }
 
   public create (data): Observable<any> {
@@ -25,11 +33,14 @@ export class GeneralService {
 	}
 
   public getUrl(){
-    return `${this.urlBaseApi}/${this.urlModulo}`;     
+    return `${this.urlBaseApi}/${this.urlModulo}${this.plural}`;     
   }
 
   public getUrlById(id: any){
     return `${this.urlBaseApi}/${this.urlModulo}/${id}`;     
   }
 
+  public getUrlTipo(id: any){
+    return `${this.urlBaseApi}/${this.urlModulo}${this.plural}_tipo/${id}`;     
+  }
 }

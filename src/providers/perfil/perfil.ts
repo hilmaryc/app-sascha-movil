@@ -7,11 +7,23 @@ import { GeneralService } from './../general.service';
 export class PerfilProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'clientes')
+    super(http,'cliente','s')
   }
 
   public update(id,body): Observable<any> {
-    return super.update(id,body);    
+
+    let  data = {
+      nombres : body.nombres,
+      apellidos : body.apellidos,
+      cedula : body.cedula,
+      fecha_nacimiento : new Date(body.fecha_nacimiento),
+      id_estado_civil : body.estado_civil.id_estado_civil,
+      id_genero : body.genero.id_genero,
+      telefono : body.telefono,
+      direccion: body.direccion 
+    };
+    console.log('Mira',JSON.stringify(data));
+    return super.update(id,data);    
   }
 
 }

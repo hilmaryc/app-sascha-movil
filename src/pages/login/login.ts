@@ -46,7 +46,6 @@ export class LoginPage {
       const password = this.loginForm.value.password;
       await this.auth.loginUser(email, password).subscribe(
         (res)=>{
-          console.log(this.TAG, JSON.stringify(res));
           this.storage.set('usuario', res);
           window.location.reload();
           this.loading.dismiss();

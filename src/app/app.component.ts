@@ -42,7 +42,6 @@ export class MyApp {
       this.storage
           .get('usuario')
           .then( (usuario) => {
-              console.log(this.TAG,' isAuth ' + JSON.stringify(usuario.error));
               var error: boolean = usuario.error;
               if ( error ) {
                 this.showMenu = 0;

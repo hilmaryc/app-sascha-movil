@@ -16,9 +16,9 @@
 <ion-content class="edit-perfil">
   <hr>
   <ion-list >
-    <ion-item (click)="editar('nombre','Nombre',perfil[0].nombre )">
-      <h2>Nombre</h2>  
-      <p>{{ perfil[0].nombre }}</p>
+    <ion-item (click)="editar('nombres','Nombres',perfil[0].nombres )">
+      <h2>Nombres</h2>  
+      <p>{{ perfil[0].nombres }}</p>
     </ion-item>
    <ion-item (click)="editar('apellidos', 'Apellidos',perfil[0].apellidos )">
       <h2>Apellidos</h2>  
@@ -28,9 +28,23 @@
       <h2>Cedula</h2>  
       <p>{{ perfil[0].cedula }}</p>
     </ion-item>
-    <ion-item (click)="editar('fechaNacimiento', 'Fecha de Nacimiento',perfil[0].fechaNacimiento )">
-      <h2>Fecha de Nacimiento</h2>  
-      <p>{{ perfil[0].fechaNacimiento }}</p>
+    <ion-item>
+      <h2>Fecha de nacimiento</h2> 
+      <span ion-datepicker
+        (ionChanged)="setDate($event);"
+        [max]="maxDate" 
+        [min]="minDate"
+        [value]="fecha_nacimiento"
+        [showMaxAndMin]="true"
+        [okText]="Aceptar"
+        [cancelText]="Cancelar"
+        [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
+        clear
+        class="ScheduleDate">
+        <span>{{fecha_nacimiento | date: 'dd/MM/yyyy' }} 
+          <ion-icon name="calendar" item-left></ion-icon> 
+        </span>
+      </span>
     </ion-item>
     <ion-item (click)="seleccion('estado_civil', 'Estado Civil',perfil[0].estado_civil.nombre )">
       <h2>Estado Civil</h2>  
@@ -49,10 +63,4 @@
       <p>{{ perfil[0].direccion }}</p>
     </ion-item>
   </ion-list>
-  <div ion-col col-12 margin text-center>
-  <button type="submit" ion-button color="primary" (click)="actualizar()" >
-    <ion-icon name="send"></ion-icon>
-    Actualizar
-  </button>
-  </div>
 </ion-content>

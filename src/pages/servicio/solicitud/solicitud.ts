@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import { 
-  ModalController, 
-  NavController, 
-  ViewController,
-  NavParams,
-  AlertController } from 'ionic-angular';
-  import { NotificacionesPage } from '../../notificaciones/notificaciones';
+import { ModalController, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
+import { NotificacionesPage } from '../../notificaciones/notificaciones';
 
 @Component({
   selector: 'page-solocitud',

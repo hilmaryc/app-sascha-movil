@@ -31,6 +31,7 @@ import { PromocionesProvider } from '../providers/promociones/promociones';
 import { EstadocivilesProvider } from '../providers/estadociviles/estadociviles';
 import { GenerosProvider } from '../providers/generos/generos';
 import { PerfilProvider } from '../providers/perfil/perfil';
+import { MotivosProvider } from '../providers/motivos/motivos';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { PerfilProvider } from '../providers/perfil/perfil';
     PromocionesProvider,
     EstadocivilesProvider,
     GenerosProvider,
-    PerfilProvider
+    PerfilProvider,
+    MotivosProvider
   ]
 })
 export class AppModule {}

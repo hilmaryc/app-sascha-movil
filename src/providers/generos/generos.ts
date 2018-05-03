@@ -6,7 +6,7 @@ import { GeneralService } from './../general.service';
 export class GenerosProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'generos')
+    super(http,'genero','s')
   }
 
   getAll(){

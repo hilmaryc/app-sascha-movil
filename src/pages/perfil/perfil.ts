@@ -16,23 +16,29 @@ export class PerfilPage {
   public TAG: string = 'PerfilPage';
   public loading: Loading;
   public myImputs: any=[];
+  public usuario: any;
   public perfil:any[] = [{
-                "nombre" : "",
+                "nombres" : "",
                 "apellidos" : "",
                 "cedula" : "",
-                "fechaNacimiento" : "",
+                "fecha_nacimiento" : "",
                 "genero" : {
                   "id_genero": 0,
                   "nombre":""
                 },
                 "telefono" : "",
                 "direccion": "",
-                "genero":"",
                 "estado_civil":{
                   "id_estado_civil": 0,
                   "nombre":""
                 }
               }];
+
+  public fecha_nacimiento: Date = new Date();
+  public minDate: Date = new Date(1918, 1, 1);
+  
+  public min: Date = new Date()
+  public maxDate: Date = new Date(new Date().setDate(new Date().getDate() + 30));
 
   constructor(
     public alertCtrl: AlertController, 
@@ -52,15 +58,14 @@ async getCliente(){
       this.storage
           .get('usuario')
           .then( (usuario) => {
+              this.usuario = usuario;
               let cliente = usuario.data.cliente;
-              console.log(this.TAG,' getCliente ' + JSON.stringify(usuario));
-              console.log(this.TAG,' getCliente ' + JSON.stringify(cliente));
-
+              this.fecha_nacimiento = new Date(cliente.fecha_nacimiento);
               this.perfil = [{
-                "nombre" : cliente.nombres,
+                "nombres" : cliente.nombres,
                 "apellidos" : cliente.apellidos,
                 "cedula" : cliente.cedula,
-                "fechaNacimiento" : cliente.fecha_nacimiento,
+                "fecha_nacimiento" : cliente.fecha_nacimiento,
                 "estado_civil" : {
                   "id_estado_civil": cliente.id_estado_civil,
                   "nombre": cliente.estado_civil,
@@ -78,6 +83,13 @@ async getCliente(){
             console.log(err);
           });
     });
+  }
+
+  setDate(date: Date) {
+    console.log(date);
+    this.fecha_nacimiento = date;
+    this.perfil[0].fecha_nacimiento = date;
+    this.summit();
   }
 
 async getEstadoCiviles(parametro,title,valor): Promise<void> {
@@ -167,17 +179,18 @@ async getGeneros(parametro,title,valor): Promise<void> {
         {
           text: 'Guardar',
           handler: data => {
-            console.log(parametro+'Guardar clicked' + JSON.stringify(data));
-            if ( parametro == 'nombre' )
-              this.perfil[0].nombre = data.nombre;
+            if ( parametro == 'nombres' )
+              this.perfil[0].nombres = data.nombres;
             else if ( parametro == 'apellidos' )
               this.perfil[0].apellidos = data.apellidos;
             else if ( parametro == 'cedula' )
               this.perfil[0].cedula = data.cedula;
             else if ( parametro == 'telefono' )
               this.perfil[0].telefono = data.telefono;
-            else ( parametro == 'direccion' )
+            else if ( parametro == 'direccion' )
               this.perfil[0].direccion = data.direccion;
+            else console.log('parametro no exitosamente');
+            this.summit();
           }
         }
       ]
@@ -210,7 +223,8 @@ alertSelection(parametro,title,valor){
               this.perfil[0].estado_civil = data;
             else if ( parametro == 'genero' )
               this.perfil[0].genero = data;
-            console.log(parametro+ 'Perfil Actualizado' + JSON.stringify(this.perfil) );
+            else console.log('parametro no exitosamente');;
+           this.summit();
           }
         }
       ]
@@ -222,25 +236,33 @@ verNotificaciones(){
   this.navCtrl.push(NotificacionesPage);
 }
 
-actualizar(){
-  this.summit();
-}
-
 async summit(): Promise<void> {
-  await this.perfilProv.update(1,this.perfil)
+
+  await this.perfilProv.update(this.usuario.data.cliente.id_cliente,this.perfil[0])
   .subscribe(
     (res)=>{
-      this.perfil = res['data'];
+      this.usuario.data.cliente.nombres           = this.perfil[0].nombres;
+      this.usuario.data.cliente.apellidos         = this.perfil[0].apellidos;
+      this.usuario.data.cliente.cedula            = this.perfil[0].cedula;
+      this.usuario.data.cliente.fecha_nacimiento  = this.perfil[0].fecha_nacimiento;
+      this.usuario.data.cliente.id_genero         = this.perfil[0].genero.id_genero;
+      this.usuario.data.cliente.genero            = this.perfil[0].genero.nombre;
+      this.usuario.data.cliente.id_estado_civil   = this.perfil[0].estado_civil.id_estado_civil;
+      this.usuario.data.cliente.estado_civil      = this.perfil[0].estado_civil.nombre;
+      this.usuario.data.cliente.telefono          = this.perfil[0].telefono;
+      this.usuario.data.cliente.direccion         = this.perfil[0].direccion;
+      this.storage.set('usuario', this.usuario);
+      let alert = this.alertCtrl.create({
+        title:    'Mensaje',
+        subTitle: 'Su perfil ha sido actualizado exitosamente!',
+        buttons:  ['OK']
+      });
+      alert.present();
     },
     (error)=>{
       this.errorConeccion(error);
     }
   ); 
-  let alert = this.alertCtrl.create({
-    title:    'Mensaje',
-    subTitle: 'Su perfil ha sido actualizado exitosamente!',
-    buttons:  ['OK']
-  });
-  alert.present();
 }
+
 }

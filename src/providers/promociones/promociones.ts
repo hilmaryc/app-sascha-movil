@@ -5,7 +5,7 @@ import { GeneralService } from './../general.service';
 export class PromocionesProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'promociones')
+    super(http,'promocion','es')
   }
 
   getAll(){

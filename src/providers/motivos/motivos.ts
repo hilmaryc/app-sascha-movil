@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GeneralService } from './../general.service'; 
+
 @Injectable()
-export class ServiciosProvider extends GeneralService {
+export class MotivosProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'servicio','s')
+    super(http,'motivo','s')
   }
 
   getAll(){
