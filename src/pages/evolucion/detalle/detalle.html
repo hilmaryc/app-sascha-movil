@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="blanco">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -14,5 +14,23 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-
+<ion-item *ngFor="let s of services" >
+      <ion-card>
+        <ion-grid>
+           <ion-row>
+              <ion-item>
+                 <h2 align="center">{{ s.tipo_parametro }}</h2>
+               </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <p align="center">{{ s.parametro }}</p>
+                </ion-col>
+                <ion-col>
+                    <p align="center">{{ s.valor }}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-item>
 </ion-content>

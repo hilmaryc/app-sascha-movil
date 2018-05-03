@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {  ModalController, Platform, NavParams, ViewController, NavController } from 'ionic-angular';
-import { NotificacionesPage } from '../notificaciones/notificaciones';
+import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 
 @Component({
   selector: 'page-plan',
