@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Alert, AlertController, NavController, Loading, LoadingController} from 'ionic-angular';
+import { Alert, AlertController, NavController, Loading, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 

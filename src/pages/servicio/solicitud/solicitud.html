@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-avatar item-start >
-      <img class="logo" src="assets/imgs/lsascha.png">
+      <img class="logo" src="https://res.cloudinary.com/saschanutric/image/upload/v1524779283/logosascha.png">
     </ion-avatar>
     <ion-buttons end>
       <button ion-button icon-only (click)="verNotificacion()">
@@ -19,27 +19,32 @@
   </ion-item>
   <ion-card>
     <ion-item>
-      <h2 align="center">{{ servicio.titulo }}</h2>
+      <h2 align="center">{{ solicitudes[0].servicio.titulo }}</h2>
     </ion-item>
     <ion-item>
       <ion-thumbnail item-start align-items-center>
-        <img src="{{ servicio.url_imagen }}" >
+        <img src="{{ solicitudes[0].servicio.url_imagen }}" >
       </ion-thumbnail>
-      <p text-wrap>{{ servicio.descripcion }}</p>
+      <p text-wrap>{{ solicitudes[0].servicio.descripcion }}</p>
     </ion-item>
-    <ion-card>
-      <ion-item>
-        <ion-label>Nutricionista</ion-label>
-        <ion-select [(ngModel)]="idNutricionista" (ionChange)="selectNutricionista()">
-          <ion-option *ngFor="let n of nutricionistas" value="{{n.id}}" (ionSelect)="itemView(n);">{{n.nombre}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
+    <ion-card (click)="seleccion('empleado', 'Seleccione el nutricionista')">
+      <ion-row style="margin-left: 2%;margin-right: 4%;">
+        <ion-col col-auto align-self-start>
+          <h2>Nutricionista</h2>
+        </ion-col>
+        <ion-col ></ion-col>
+        <ion-col col-auto align-self-end>
+          {{ solicitudes[0].empleado.nombres }}
+        </ion-col>
+        <ion-thumbnail style="margin: auto;">
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </ion-thumbnail>
+      </ion-row>
     </ion-card>
     <ion-card>
       <ion-row>
         <ion-col>
-          <ion-label style="color: #1C6B34;margin-left: 10%;">Fecha</ion-label>
+          <ion-label style="margin-left: 10%;">Fecha</ion-label>
         </ion-col>
         <ion-col>
           <ion-item>
@@ -47,7 +52,7 @@
               (ionChanged)="setDate($event);"
               [max]="maxDate" 
               [min]="initDate2"
-              [value]="initDate"
+              [value]="fecha"
               [showMaxAndMin]="true"
               [disabledDates]="disabledDates"
               [markDates]="markDates"
@@ -56,7 +61,7 @@
               [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
               clear
               class="ScheduleDate">
-              <span>{{initDate | date: 'dd/MM/yyyy' }} 
+              <span end>{{fecha | date: 'dd/MM/yyyy' }} 
                 <ion-icon name="calendar" item-left></ion-icon> 
               </span>
             </span>
@@ -64,23 +69,36 @@
         </ion-col>
       </ion-row>
     </ion-card>
-    <ion-card>
-      <ion-item>
-        <ion-label>Hora</ion-label>
-        <ion-select [(ngModel)]="idHora" (ionChange)="selectHora()">
-          <ion-option *ngFor="let h of horas" value="{{h.id}}" (ionSelect)="itemView(h);">{{h.bloque}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
+    <ion-card (click)="seleccion('bloque_horario', 'Seleccione la hora')">
+      <ion-row style="margin-left: 2%;margin-right: 4%;">
+        <ion-col col-auto align-self-start>
+          <h2>Hora</h2>
+        </ion-col>
+        <ion-col ></ion-col>
+        <ion-col col-auto align-self-end>
+          {{ solicitudes[0].bloque_horario.hora_inicio }} - 
+        </ion-col>
+        <ion-col col-auto align-self-end>
+          {{ solicitudes[0].bloque_horario.hora_fin }}
+        </ion-col>        
+        <ion-thumbnail style="margin: auto;">
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </ion-thumbnail>
+      </ion-row>
     </ion-card>
-    <ion-card>
-      <ion-item>
-        <ion-label>Motivo</ion-label>
-        <ion-select [(ngModel)]="idMotivo" (ionChange)="selectMotivo()">
-          <ion-option *ngFor="let m of motivos" value="{{m.id}}" (ionSelect)="itemView(m);">{{m.motivo}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
+    <ion-card (click)="seleccion('motivos-solicitud', 'Seleccione el motivo')">
+      <ion-row style="margin-left: 2%;margin-right: 4%;">
+        <ion-col col-auto align-self-start>
+          <h2>Motivo</h2>
+        </ion-col>
+        <ion-col ></ion-col>
+        <ion-col col-auto align-self-end>
+          {{ solicitudes[0].motivo.descripcion }}
+        </ion-col>
+        <ion-thumbnail style="margin: auto;">
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </ion-thumbnail>
+      </ion-row>
     </ion-card>
     <button ion-button color="primary" block clear (click)="solicitar()" >Solicitar</button>
   </ion-card>

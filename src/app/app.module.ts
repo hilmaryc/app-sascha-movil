@@ -32,6 +32,12 @@ import { EstadocivilesProvider } from '../providers/estadociviles/estadociviles'
 import { GenerosProvider } from '../providers/generos/generos';
 import { PerfilProvider } from '../providers/perfil/perfil';
 import { MotivosProvider } from '../providers/motivos/motivos';
+import { BloquehorariosProvider } from '../providers/bloquehorarios/bloquehorarios';
+import { AppservicioProvider } from '../providers/appservicio/appservicio';
+import { EspecialidadesProvider } from '../providers/especialidades/especialidades';
+import { EmpleadosProvider } from '../providers/empleados/empleados';
+import { MotivosSolicitudProvider } from '../providers/motivos-solicitud/motivos-solicitud';
+import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
 
 @NgModule({
   declarations: [
@@ -89,7 +95,13 @@ import { MotivosProvider } from '../providers/motivos/motivos';
     EstadocivilesProvider,
     GenerosProvider,
     PerfilProvider,
-    MotivosProvider
+    MotivosProvider,
+    BloquehorariosProvider,
+    AppservicioProvider,
+    EspecialidadesProvider,
+    EmpleadosProvider,
+    MotivosSolicitudProvider,
+    SolicitudesProvider
   ]
 })
 export class AppModule {}
