@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
-import { DetallenotiPage } from '../detallenoti/detallenoti';
+import { IonicPage, NavController} from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-notificaciones',
   templateUrl: 'notificaciones.html',
@@ -52,6 +52,6 @@ export class NotificacionesPage {
   
   showDetail(params){
     console.log(this.TAG,' showDetail ' + JSON.stringify(params));
-    this.navCtrl.push(DetallenotiPage, params );
+    this.navCtrl.push('DetallenotiPage', params );
   }
 }

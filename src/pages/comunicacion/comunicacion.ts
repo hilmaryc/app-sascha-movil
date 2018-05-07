@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { NotificacionesPage } from '../notificaciones/notificaciones';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
-
+@IonicPage()
 @Component({
   selector: 'page-comunicacion',
   templateUrl: 'comunicacion.html'
@@ -68,7 +67,7 @@ export class ComunicacionPage {
 
   verNotificaciones(){
     //this.notificaciones.verNotificaciones();
-     this.navCtrl.push(NotificacionesPage);
+     this.navCtrl.push('NotificacionesPage');
   }
 
 }

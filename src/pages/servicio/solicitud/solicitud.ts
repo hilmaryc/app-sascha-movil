@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertController, ModalController, NavController, ViewController, NavParams } from 'ionic-angular';
-import { NotificacionesPage } from '../../notificaciones/notificaciones';
+import { IonicPage, AlertController, ModalController, NavController, ViewController, NavParams } from 'ionic-angular';
+
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 import { BloquehorariosProvider } from '../../../providers/bloquehorarios/bloquehorarios';
 import { EmpleadosProvider } from '../../../providers/empleados/empleados';
@@ -8,6 +8,7 @@ import { MotivosSolicitudProvider } from '../../../providers/motivos-solicitud/m
 import { SolicitudesProvider } from '../../../providers/solicitudes/solicitudes';
 import { Storage } from '@ionic/storage';
 
+@IonicPage()
 @Component({
 	selector: 'page-solocitud',
 	templateUrl: 'solicitud.html',
@@ -275,6 +276,6 @@ export class SolicitudPage {
 	}
 
 	verNotificaciones(){
-		 this.navCtrl.push(NotificacionesPage);
+		 this.navCtrl.push('NotificacionesPage');
 	}
 }

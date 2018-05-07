@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ServicioPage } from '../servicio/servicio';
-import { NotificacionesPage } from '../notificaciones/notificaciones';
 
 @IonicPage()
 @Component({
@@ -18,7 +16,7 @@ export class DetallenotiPage {
   }
 
   show(){
-    this.navCtrl.push(ServicioPage)
+    this.navCtrl.push('ServicioPage')
   }
 
   ionViewDidLoad() {
@@ -30,7 +28,7 @@ export class DetallenotiPage {
   }
 
   verNotificaciones(){
-     this.navCtrl.push(NotificacionesPage);
+     this.navCtrl.push('NotificacionesPage');
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {  Platform, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, Platform, NavParams, ViewController } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-filtro',
   templateUrl: 'filtro.html'

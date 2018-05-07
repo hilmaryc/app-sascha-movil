@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
-import { SolicitudPage } from '../solicitud/solicitud'
-import { NotificacionesPage } from '../../notificaciones/notificaciones';
+import { IonicPage, ModalController, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-detalle-servicio',
   templateUrl: 'detalle-servicio.html',
@@ -103,7 +102,7 @@ export class ServicioDetallePage {
   }
 
   verNotificaciones(){
-     this.navCtrl.push(NotificacionesPage);
+     this.navCtrl.push('NotificacionesPage');
   }
 
   ionViewDidLoad() {
@@ -111,7 +110,7 @@ export class ServicioDetallePage {
   }
 
   solicitar(){
-    this.navCtrl.push( SolicitudPage, this.servicio );
+    this.navCtrl.push( 'SolicitudPage', this.servicio );
   }
 
   dismiss() {

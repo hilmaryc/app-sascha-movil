@@ -2,13 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Loading, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Storage } from '@ionic/storage';
-import { PerfilPage } from '../pages/perfil/perfil';
 import { ServicioPage } from '../pages/servicio/servicio';
-import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
-import { EvolucionPage } from '../pages/evolucion/evolucion';
-import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
-import { AyudaPage } from '../pages/ayuda/ayuda';
+//import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
 import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
@@ -19,20 +16,35 @@ export class MyApp {
 
   public TAG: string = 'MyApp';
   public loading: Loading;
-  rootPage: any = null;
+  rootPage: any = 'AyudaPage';
   showMenu: any = 0;
   pages: Array<{title: string, component: any}>;
-
   constructor(
     public platform: Platform, 
     public loadingCtrl: LoadingController,
     public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
+    private androidPermissions: AndroidPermissions,
     public auth: AuthProvider,
     private storage: Storage) {
-     this.platform.ready().then(() => {
-        this.isAuth();    
-      });
+    this.platform.ready().then(() => {
+      this.androidPermissions.requestPermissions([
+        this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+        this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+      ]);
+      this.statusBar.styleDefault();
+      this.hideSplashScreen();
+      this.isAuth();
+    });
+  }
+
+  hideSplashScreen() {
+    console.log(this.TAG,JSON.stringify(this.splashScreen));
+    if (this.splashScreen) {
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 100);
+    }
   }
 
   async isAuth(){
@@ -49,15 +61,13 @@ export class MyApp {
               }
               else {
                 this.showMenu = 1;
-                this.statusBar.styleDefault();
-                this.splashScreen.hide();
                 this.pages = [
-                  { title:  usuario.data.cliente.nombres , component: PerfilPage },
+                  { title:  usuario.data.cliente.nombres , component: 'PerfilPage' },
                   { title: 'Servicio', component: ServicioPage },
-                  { title: 'Mi Plan', component: ModalPlanPage },
-                  { title: 'Mi Evolucion', component: EvolucionPage },
-                  { title: 'Contacto', component: ComunicacionPage },
-                  { title: 'Ayuda', component: AyudaPage }          
+                  { title: 'Mi Plan', component: 'PlanPage' },
+                  { title: 'Mi Evolucion', component: 'EvolucionPage' },
+                  { title: 'Contacto', component: 'ComunicacionPage' },
+                  { title: 'Ayuda', component: 'AyudaPage' }          
                 ];
                 this.rootPage = ServicioPage;
               }

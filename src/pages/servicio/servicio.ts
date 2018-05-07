@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, NavParams, NavController } from 'ionic-angular';
 import { AlertController, Loading, LoadingController } from 'ionic-angular';
-import { FiltroPage } from '../../pages/servicio/filtro/filtro';
-import { ServicioDetallePage } from '../../pages/servicio/detalle/servicio';
-import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
-import { PromocionesPage } from '../../pages/promociones/promociones';
 
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 import { ServiciosProvider } from '../../providers/servicios/servicios';
@@ -78,27 +74,24 @@ export class ServicioPage {
   }
 
   showFilter() {
-    let modal = this.modalCtrl.create(FiltroPage);
+    let modal = this.modalCtrl.create('FiltroPage');
     modal.present();
   }
 
   showDetail(params){
     console.log(this.TAG,' showDetail ' + JSON.stringify(params));
-    this.navCtrl.push(ServicioDetallePage, params );
+    this.navCtrl.push('ServicioDetallePage', params );
   }
 
   verNotificaciones(){
-     this.navCtrl.push(NotificacionesPage);
+     this.navCtrl.push('NotificacionesPage');
   }
 
-   verPromocion(promo){
-     
-     this.navCtrl.push(PromocionesPage,promo)
-
+  verPromocion(promo){
+    this.navCtrl.push('PromocionesPage',promo)
   }
 
   ionViewDidEnter(){
     console.log(this.TAG,' showDetail ');
   }
-
 }

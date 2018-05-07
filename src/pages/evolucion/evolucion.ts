@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController  } from 'ionic-angular';
-import { DetalleEvolucionPage } from './detalle/detalle';
-import { NotificacionesPage } from '../notificaciones/notificaciones';
+import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
-
+@IonicPage()
 @Component({
   selector: 'page-evolucion',
   templateUrl: 'evolucion.html',
@@ -101,7 +99,7 @@ export class EvolucionPage {
         console.log('Checkbox data:', data);
         this.testCheckboxOpen = false;
         this.testCheckboxResult = data;
-        this.navCtrl.push(DetalleEvolucionPage);
+        this.navCtrl.push('DetalleEvolucionPage');
       }
     });
     alert.present().then(() => {
@@ -111,6 +109,6 @@ export class EvolucionPage {
 
   verNotificaciones(){
     //this.notificaciones.verNotificaciones();
-     this.navCtrl.push(NotificacionesPage);
+     this.navCtrl.push('NotificacionesPage');
   }
 }

@@ -3,24 +3,11 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
-import { DatePickerModule } from 'ionic3-datepicker';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { MyApp } from './app.component';
-import { PerfilPage } from '../pages/perfil/perfil';
-import { PlanPage as ModalPlanPage, ModalContentPage } from '../pages/plan/plan';
+
 import { ServicioPage } from '../pages/servicio/servicio';
-import { ServicioDetallePage } from '../pages/servicio/detalle/servicio';
-import { SolicitudPage } from '../pages/servicio/solicitud/solicitud';
-import { FiltroPage } from '../pages/servicio/filtro/filtro'
-import { EvolucionPage } from '../pages/evolucion/evolucion';
-import { DetalleEvolucionPage } from '../pages/evolucion/detalle/detalle';
-import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
-import { PromocionesPage } from '../pages/promociones/promociones';
-import { ComunicacionPage } from '../pages/comunicacion/comunicacion';
-import { AyudaPage } from '../pages/ayuda/ayuda';
-import { DetallenotiPage } from '../pages/detallenoti/detallenoti';
 
 import { RemoteProvider } from '../providers/remote/remote';
 import { AuthProvider } from '../providers/auth/auth';
@@ -38,49 +25,23 @@ import { EspecialidadesProvider } from '../providers/especialidades/especialidad
 import { EmpleadosProvider } from '../providers/empleados/empleados';
 import { MotivosSolicitudProvider } from '../providers/motivos-solicitud/motivos-solicitud';
 import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
     MyApp,
-    PerfilPage,
-    ModalPlanPage,
-    ModalContentPage,
-    ServicioPage,
-    ServicioDetallePage,
-    SolicitudPage,
-    FiltroPage,
-    EvolucionPage,
-    DetalleEvolucionPage,
-    NotificacionesPage,
-    ComunicacionPage,
-    PromocionesPage,
-    AyudaPage,
-    DetallenotiPage
+    ServicioPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    DatePickerModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ServicioPage,
-    ServicioDetallePage,
-    SolicitudPage,
-    FiltroPage,
-    EvolucionPage,
-    DetalleEvolucionPage,
-    NotificacionesPage,
-    PromocionesPage,
-    PerfilPage,
-    ComunicacionPage,
-    ModalPlanPage,
-    ModalContentPage,
-    AyudaPage,
-    DetallenotiPage
+    ServicioPage
   ],
   providers: [
     StatusBar,
@@ -101,7 +62,8 @@ import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
     EspecialidadesProvider,
     EmpleadosProvider,
     MotivosSolicitudProvider,
-    SolicitudesProvider
+    SolicitudesProvider,
+    AndroidPermissions
   ]
 })
 export class AppModule {}

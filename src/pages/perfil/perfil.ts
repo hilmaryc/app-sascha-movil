@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Alert, AlertController, NavController, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, Alert, AlertController, NavController, Loading, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { NotificacionesPage } from '../../pages/notificaciones/notificaciones';
 
 import { PerfilProvider } from '../../providers/perfil/perfil';
 import { EstadocivilesProvider } from '../../providers/estadociviles/estadociviles';
 import { GenerosProvider } from '../../providers/generos/generos';
 
+@IonicPage()
 @Component({
   templateUrl: 'perfil.html'
 })
@@ -233,7 +233,7 @@ alertSelection(parametro,title,valor){
 }
 
 verNotificaciones(){
-  this.navCtrl.push(NotificacionesPage);
+  this.navCtrl.push('NotificacionesPage');
 }
 
 async summit(): Promise<void> {

@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { 
-  NavController, 
-  NavParams,
-  ViewController,
-  AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-promociones',
   templateUrl: 'promociones.html',
