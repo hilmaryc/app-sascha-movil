@@ -14,7 +14,7 @@ export class ComunicacionPage {
   public body:any = {
     "id_cliente":null,
     "id_motivo":null,
-    "contenido":""
+    "contenido": ""
   };
 
   public motivos:any;
@@ -64,8 +64,13 @@ export class ComunicacionPage {
   }
 
   esValido(){
+    console.log(JSON.stringify(this.body.contenido));
     if (this.body.id_motivo == null) {
       this.serviApp.alecrtMsg('Seleccione el tipo contacto y el motivo');
+      return false;
+    }
+    if (this.body.contenido == "") {
+      this.serviApp.alecrtMsg('Por favor escriba su comentario');
       return false;
     }
     if (this.body.id_cliente == null) {
