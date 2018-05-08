@@ -9,12 +9,11 @@ export class AppservicioProvider {
 
   constructor(
     public alertCtrl: AlertController, 
-    public loadingCtrl: LoadingController) {
-    this.loading = this.loadingCtrl.create();
-  }
+    public loadingCtrl: LoadingController) {}
 
   activarProgreso(enc: boolean){
   	if (enc){
+      this.loading = this.loadingCtrl.create();
       this.loading.present();
   	} else {
   	  this.loading.dismiss();
