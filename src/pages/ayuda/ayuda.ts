@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
+import { AppservicioProvider } from '../../providers/appservicio/appservicio';
+import { AyudasProvider } from '../../providers/ayudas/ayudas';
 
 @IonicPage()
 @Component({
@@ -7,18 +9,32 @@ import { IonicPage, NavController, NavParams, AlertController, ViewController } 
   templateUrl: 'ayuda.html',
 })
 export class AyudaPage {
-	ayudas = [
-		{"id":"1","pregunta":"¿Como reprogramo mi cita?","respuesta":" Ingresa en la opcion Mi Evolucion en el menu principal y presiona el boton Reprogramar"},
-		{"id":"2","pregunta":"¿Como visualizo mi progreso?","respuesta":"Ingresa en la opcion Mi Evolucion "},
-		{"id":"3","pregunta":"¿Como gestiono la garantia?","respuesta":"Ingresa en la opcion Comunicacion y realiza un reclamo"},
-		{"id":"4","pregunta":"¿Que hago si el servicio que necesito no esta disponible?","respuesta":"Ingresa en la opcion Comunicacion y dejanos tu sugerencia, te notificaremos cuando el servicio solicitado este disponible"},
-		{"id":"5","pregunta":"¿Como valoro el servicio?","respuesta":"¿Puedes valorar el servicio cada vez que asistas a una visita en la opcion Mi Evolucion?"}
-	];
+  
+  public ayudas: any;
+
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams, 
   			  public alertCtrl: AlertController,
   			  public viewCtrl: ViewController,
-          public nacCtrl: NavController) {}
+          public serviApp: AppservicioProvider,
+          public ayudasProv: AyudasProvider,
+          public nacCtrl: NavController) {
+    this.getAyudas();
+  }
+
+async getAyudas():Promise<void>{
+    this.serviApp.activarProgreso(true);
+    await this.ayudasProv.getAll()
+    .subscribe(
+      (res)=>{
+        this.ayudas = res['data'];
+        this.serviApp.activarProgreso(false);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    ); 
+  }
 
 mostrar(pregunta,respuesta){
 	let alert =this.alertCtrl.create({
