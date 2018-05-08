@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Storage } from '@ionic/storage';
 import { ServicioPage } from '../pages/servicio/servicio';
-//import { PlanPage as ModalPlanPage } from '../pages/plan/plan';
+
 import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
@@ -16,7 +16,7 @@ export class MyApp {
 
   public TAG: string = 'MyApp';
   public loading: Loading;
-  rootPage: any = 'AyudaPage';
+  rootPage: any = null;
   showMenu: any = 0;
   pages: Array<{title: string, component: any}>;
   constructor(
@@ -29,6 +29,7 @@ export class MyApp {
     private storage: Storage) {
     this.platform.ready().then(() => {
       this.androidPermissions.requestPermissions([
+        this.androidPermissions.PERMISSION.READ_CONTACTS,
         this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
         this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
       ]);

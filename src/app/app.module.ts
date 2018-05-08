@@ -5,6 +5,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { DatePickerModule } from 'ionic3-datepicker';
 import { MyApp } from './app.component';
 
 import { ServicioPage } from '../pages/servicio/servicio';
@@ -33,6 +34,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     ServicioPage
   ],
   imports: [
+    DatePickerModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),

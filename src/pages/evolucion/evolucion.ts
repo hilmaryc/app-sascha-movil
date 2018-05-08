@@ -34,7 +34,7 @@ export class EvolucionPage {
   }];
 
   public localDate: Date = new Date();
-  //public initDate: Date = new Date();
+  
   public initDate: Date = new Date(2018, 4, 15);
   
   public min: Date = new Date();
@@ -108,7 +108,6 @@ export class EvolucionPage {
   }
 
   verNotificaciones(){
-    //this.notificaciones.verNotificaciones();
      this.navCtrl.push('NotificacionesPage');
   }
 }
