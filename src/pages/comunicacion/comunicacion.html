@@ -20,8 +20,8 @@
   <ion-card>
     <ion-item>
       <ion-label>Tipo Contacto</ion-label>
-      <ion-select [(ngModel)]="motivo">
-        <ion-option *ngFor="let c of comunicaciones" value="{{c.nombre}}" (ionSelect)="itemView(c.razones);">{{c.nombre}}
+      <ion-select [(ngModel)]="tipo_motivo">
+        <ion-option *ngFor="let c of canales" value="{{c.id_tipo_motivo}}" (ionSelect)="selectView('motivos',c.motivos);">{{c.nombre}}
         </ion-option>
       </ion-select>
     </ion-item>
@@ -29,8 +29,8 @@
   <ion-card>
     <ion-item class="select">
       <ion-label>Motivo</ion-label>
-      <ion-select [(ngModel)]="razon" >
-        <ion-option *ngFor="let r of razones" value="{{r.id}}">{{r.nombre}}
+      <ion-select [(ngModel)]="motivo" >
+        <ion-option *ngFor="let m of motivos" value="{{m.id_motivo}}" (ionSelect)="selectView('motivo',m);">{{m.descripcion}}
         </ion-option>  
       </ion-select>
     </ion-item>
@@ -39,7 +39,7 @@
     <ion-card ion-row>
       <ion-item ion-col col-12>
         <ion-label floating>Comentario</ion-label>
-        <ion-textarea name="Comentario"></ion-textarea>
+        <ion-textarea [(ngModel)]="body.ccontenido" name="Comentario"></ion-textarea>
       </ion-item>
     </ion-card>
     <div ion-col col-12 margin text-center>

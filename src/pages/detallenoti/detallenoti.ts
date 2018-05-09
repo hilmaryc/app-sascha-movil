@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ServicioPage } from '../servicio/servicio';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class DetallenotiPage {
   }
 
   show(){
-    this.navCtrl.push('ServicioPage')
+    this.navCtrl.push(ServicioPage)
   }
 
   ionViewDidLoad() {

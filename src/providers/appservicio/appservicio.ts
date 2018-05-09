@@ -9,11 +9,12 @@ export class AppservicioProvider {
 
   constructor(
     public alertCtrl: AlertController, 
-    public loadingCtrl: LoadingController) {}
+    public loadingCtrl: LoadingController) {
+    this.loading = this.loadingCtrl.create();
+  }
 
   activarProgreso(enc: boolean){
   	if (enc){
-  	  this.loading = this.loadingCtrl.create();
       this.loading.present();
   	} else {
   	  this.loading.dismiss();
@@ -22,18 +23,19 @@ export class AppservicioProvider {
 
   errorConeccion(error){
     this.loading.dismiss();
-    console.log( JSON.stringify(error) );
+    console.log(this.TAG, JSON.stringify(error) );
     const alert: Alert = this.alertCtrl.create({
       message: 'Problema con la coneccion a internet',
-      buttons: [{ text: 'Ok', role: 'cancelar' }]
+      buttons:  ['OK']
     });
     alert.present();
   }
 
   alecrtMsg(msg){
+    this.loading.dismiss();
     const alert: Alert = this.alertCtrl.create({
       message: msg,
-      buttons: [{ text: 'Ok', role: 'cancelar' }]
+      buttons:  ['OK']
     });
     alert.present();
   }

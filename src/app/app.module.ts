@@ -27,6 +27,7 @@ import { EmpleadosProvider } from '../providers/empleados/empleados';
 import { MotivosSolicitudProvider } from '../providers/motivos-solicitud/motivos-solicitud';
 import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { CanalescuchaProvider } from '../providers/canalescucha/canalescucha';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     EmpleadosProvider,
     MotivosSolicitudProvider,
     SolicitudesProvider,
-    AndroidPermissions
+    AndroidPermissions,
+    CanalescuchaProvider
   ]
 })
 export class AppModule {}

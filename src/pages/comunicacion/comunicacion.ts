@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { AppservicioProvider } from '../../providers/appservicio/appservicio';
+import { CanalescuchaProvider } from '../../providers/canalescucha/canalescucha';
 
 @IonicPage()
 @Component({
@@ -8,65 +11,89 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class ComunicacionPage {
 
-  razones:any;
-  comunicaciones:any = [{
-    "id": 1,
-    "nombre": "Reclamo",
-    "razones": [{
-       "id": 1,
-       "nombre": "Mi plan nutricional tiene alimentos que no me corresponden"
-    } , {
-       "id": 2,
-       "nombre": "No vi los resultados esperados"
-    }]
-  } , {
-    "id": 1,
-    "nombre": "Quejas",
-    "razones": [{
-       "id": 1,
-       "nombre": "El Nutricionista llego tarde"
-    } , {
-       "id": 2,
-       "nombre": "El Nutricionista se fue de viaje"
-    }]
-  } , {
-    "id": 1,
-    "nombre": "Sugerencias",
-    "razones": [{
-       "id": 1,
-       "nombre": "El nutricionista debe mejorar la atencion al cliente"
-    } , {
-       "id": 2,
-       "nombre": "Agregar un servicio"
-    }]
-  }]
+  public body:any = {
+    "id_cliente":null,
+    "id_motivo":null,
+    "contenido":""
+  };
+
+  public motivos:any;
+  public canales:any;
 
   constructor(
+    private storage: Storage,
     public navCtrl:   NavController,
     public navParams: NavParams,
-    public alertCtrl: AlertController
-  ) {}
-
-  ionViewDidLoad() {
+    public alertCtrl: AlertController,
+    public serviApp: AppservicioProvider,
+    public canalescuchaProv: CanalescuchaProvider
+  ) {
+    this.getCliente();
+    this.getCanales();
   }
 
-  itemView(razones){
-    console.log('Seleccionado:');
-    console.log(razones);
-    this.razones = razones;
+  async getCanales():Promise<void>{
+    this.serviApp.activarProgreso(true);
+    await this.canalescuchaProv.getAll()
+    .subscribe(
+      (res)=>{
+        this.canales = res['data'];
+        this.serviApp.activarProgreso(false);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    ); 
   }
 
-  enviar(){
-    let alert = this.alertCtrl.create({
-      title:    'Mensaje',
-      subTitle: 'Su Mensaje ha sido enviada exitosamente!',
-      buttons:  ['OK']
+  async getCliente() {
+    await this.storage.ready().then(() => {
+      this.storage.get('usuario').then( (usuario) => {
+      this.body.id_cliente = usuario.data.cliente.id_cliente;
+      }).catch((err) =>{
+          this.serviApp.alecrtMsg(err);
+      });
     });
-    alert.present();
+  }
+
+  ionViewDidLoad() { }
+
+  selectView(entidad,data){
+    if (entidad == 'motivos') this.motivos = data;
+    if (entidad == 'motivo' ) this.body.id_motivo = data.id_motivo;
+  }
+
+  esValido(){
+    if (this.body.id_motivo == null) {
+      this.serviApp.alecrtMsg('Seleccione el tipo contacto y el motivo');
+      return false;
+    }
+    if (this.body.id_cliente == null) {
+      this.serviApp.alecrtMsg('El cliente no esta disponible inicie sesion nuevamente');
+      return false;
+    }
+    return true;
+  }
+
+  async enviar(){
+    if (this.esValido()){
+      console.log(JSON.stringify(this.body));
+   /* this.serviApp.activarProgreso(true);
+    this.canalescuchaProv().create(this.body)
+    .subscribe(
+      (res)=>{
+        this.canales = res['data'];
+        this.serviApp.activarProgreso(false);
+        this.serviApp.alecrtMsg('Su Mensaje ha sido enviada exitosamente!');
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    ); */  
+    }
   }
 
   verNotificaciones(){
-    //this.notificaciones.verNotificaciones();
      this.navCtrl.push('NotificacionesPage');
   }
 
