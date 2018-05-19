@@ -23,12 +23,12 @@ export class AyudaPage {
   }
 
 async getAyudas():Promise<void>{
-    this.serviApp.activarProgreso(true);
+    this.serviApp.activarProgreso(true,'AyudaPage: metodo getAyudas');
     await this.ayudasProv.getAll()
     .subscribe(
       (res)=>{
         this.ayudas = res['data'];
-        this.serviApp.activarProgreso(false);
+        this.serviApp.activarProgreso(false,'AyudaPage: metodo getAyudas');
       },
       (error)=>{
         this.serviApp.errorConeccion(error);

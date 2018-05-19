@@ -16,7 +16,7 @@
 <ion-content padding>
   <div>
     <ion-segment [(ngModel)]="seg_servicio" >
-      <ion-segment-button  value="servi">Servicios</ion-segment-button>
+      <ion-segment-button  value="servi">{{ titulo_servicio }}</ion-segment-button>
       <ion-segment-button value="promocion" (click)="showSegment()" >Promociones</ion-segment-button>
     </ion-segment>
   </div>
@@ -49,28 +49,9 @@
     </ion-list>
   </div>  
   <ion-fab right bottom>
-    <button ion-fab mini (click)="showFilter()"><ion-icon name="ios-funnel-outline"></ion-icon></button>
+      <button ion-fab mini (click)="showFilter()"><ion-icon name="ios-funnel-outline"></ion-icon></button>  
+  </ion-fab>
+  <ion-fab bottom style="position: relative; top: 77%; right: -80%;">
+    <button ion-fab mini (click)="showServicio()" ><ion-icon name="{{ico}}"></ion-icon></button>
   </ion-fab>
 </ion-content>
-  <!--ion-list>
-    <ion-item>
-      <h2 align="center">Servicios</h2>
-    </ion-item>
-    <div class="list card">
-      <ion-item *ngFor="let s of services" >
-        <div (click)="showDetail(s)" >
-          <h2 align="center" text-wrap>{{ s.titulo }}</h2>
-          <ion-item>
-            <ion-thumbnail item-start align-items-center>
-              <img src="{{ s.img }}" >
-            </ion-thumbnail>
-            <p text-wrap>{{ s.descripcion }}</p>
-          </ion-item>
-        </div>
-      </ion-item>
-    </div>
-</ion-list>  
-<ion-fab right bottom>
-  <button ion-fab mini (click)="showFilter()"><ion-icon name="ios-funnel-outline"></ion-icon></button>
-</ion-fab>
-</ion-content-->

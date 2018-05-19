@@ -19,6 +19,7 @@ export class ComunicacionPage {
 
   public motivos:any;
   public canales:any;
+  public tipo_contacto:string = 'Mensaje';
 
   constructor(
     private storage: Storage,
@@ -27,18 +28,20 @@ export class ComunicacionPage {
     public alertCtrl: AlertController,
     public serviApp: AppservicioProvider,
     public canalescuchaProv: CanalescuchaProvider
-  ) {
+  ) { }
+
+  ngOnInit(){
     this.getCliente();
     this.getCanales();
   }
 
   async getCanales():Promise<void>{
-    this.serviApp.activarProgreso(true);
+    this.serviApp.activarProgreso(true,'ComunicacionPage: metodo getCanales');
     await this.canalescuchaProv.getAll()
     .subscribe(
       (res)=>{
         this.canales = res['data'];
-        this.serviApp.activarProgreso(false);
+        this.serviApp.activarProgreso(false,'ComunicacionPage: metodo getCanales');
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -56,10 +59,11 @@ export class ComunicacionPage {
     });
   }
 
-  ionViewDidLoad() { }
-
   selectView(entidad,data){
-    if (entidad == 'motivos') this.motivos = data;
+    if (entidad == 'motivos') {
+      this.motivos = data.motivos;
+      this.tipo_contacto = data.nombre;
+    }
     if (entidad == 'motivo' ) this.body.id_motivo = data.id_motivo;
   }
 
@@ -81,20 +85,18 @@ export class ComunicacionPage {
   }
 
   async enviar(){
+    this.serviApp.activarProgreso(true,'ComunicacionPage: metodo enviar');
     if (this.esValido()){
       console.log(JSON.stringify(this.body));
-   /* this.serviApp.activarProgreso(true);
-    this.canalescuchaProv().create(this.body)
-    .subscribe(
-      (res)=>{
-        this.canales = res['data'];
-        this.serviApp.activarProgreso(false);
-        this.serviApp.alecrtMsg('Su Mensaje ha sido enviada exitosamente!');
-      },
-      (error)=>{
-        this.serviApp.errorConeccion(error);
-      }
-    ); */  
+     await this.canalescuchaProv.create(this.body)
+      .subscribe(
+        (res)=>{
+          this.serviApp.alecrtMsg('Su '+ this.tipo_contacto +' ha sido enviada exitosamente!');
+        },
+        (error)=>{
+          this.serviApp.errorConeccion(error);
+        }
+      ); 
     }
   }
 

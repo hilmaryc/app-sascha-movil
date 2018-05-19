@@ -16,7 +16,8 @@ export class SolicitudesProvider extends GeneralService {
   		"id_servicio": data.servicio.id_servicio,
   		"id_motivo": data.motivo.id_motivo,
   		"id_bloque_horario": data.bloque_horario.id_bloque_horario,
-  		"fecha": data.fecha
+  		"fecha": data.fecha,
+      "acepto_precio": data.acepto_precio
   	};
     return super.create(body);
   }

@@ -19,7 +19,7 @@
   </ion-item>
   <ion-card>
     <ion-item>
-      <h2 align="center">{{ solicitudes[0].servicio.titulo }}</h2>
+      <h2 align="center">{{ solicitudes[0].servicio.nombre }}</h2>
     </ion-item>
     <ion-item>
       <ion-thumbnail item-start align-items-center>
@@ -51,7 +51,7 @@
             <span ion-datepicker
               (ionChanged)="setDate($event);"
               [max]="maxDate" 
-              [min]="initDate2"
+              [min]="min"
               [value]="fecha"
               [showMaxAndMin]="true"
               [disabledDates]="disabledDates"

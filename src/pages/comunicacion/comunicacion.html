@@ -21,7 +21,7 @@
     <ion-item>
       <ion-label>Tipo Contacto</ion-label>
       <ion-select [(ngModel)]="tipo_motivo">
-        <ion-option *ngFor="let c of canales" value="{{c.id_tipo_motivo}}" (ionSelect)="selectView('motivos',c.motivos);">{{c.nombre}}
+        <ion-option *ngFor="let c of canales" value="{{c.id_tipo_motivo}}" (ionSelect)="selectView('motivos',c);">{{c.nombre}}
         </ion-option>
       </ion-select>
     </ion-item>

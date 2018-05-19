@@ -6,11 +6,16 @@ import { GeneralService } from './../general.service';
 export class BloquehorariosProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'bloquehorario','s')
+    //super(http,'bloquehorario','s')
+    super(http,'horarioporempleadoydia','')
   }
 
   getAll(){
     return super.getAll();
+  }
+
+  getBody(body){
+  	return super.getBody(body);
   }
 
 }

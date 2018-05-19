@@ -11,17 +11,25 @@ export class AppservicioProvider {
     public alertCtrl: AlertController, 
     public loadingCtrl: LoadingController) {}
 
-  activarProgreso(enc: boolean){
+  activarProgreso(enc: boolean,msg: string){
+    console.log(msg);
   	if (enc){
       this.loading = this.loadingCtrl.create();
       this.loading.present();
   	} else {
-  	  this.loading.dismiss();
+  	   this.loadingDismiss();  
   	}
   }
 
+  loadingDismiss(){
+    if ( this.loading != null ){
+      this.loading.dismiss();
+      this.loading = null;
+    }
+  }
+
   errorConeccion(error){
-    this.loading.dismiss();
+    this.loadingDismiss();
     console.log(this.TAG, JSON.stringify(error) );
     const alert: Alert = this.alertCtrl.create({
       message: 'Problema con la coneccion a internet',
@@ -31,7 +39,7 @@ export class AppservicioProvider {
   }
 
   alecrtMsg(msg){
-    this.loading.dismiss();
+    this.loadingDismiss();
     const alert: Alert = this.alertCtrl.create({
       message: msg,
       buttons:  ['OK']
