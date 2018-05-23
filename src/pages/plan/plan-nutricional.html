@@ -37,7 +37,7 @@
         <ion-card *ngFor="let s of suplementos" >
           <h2 align="center">{{ s.nombre }}</h2>
           <p align="center">Tomar {{ s.frecuencia }} pastilla al dia</p>
-          <p align="center">{{ s.cantidad }}</p>
+          <p align="center">{{ s.cantidad }} {{s.unidad_abreviatura}}</p>
         </ion-card>
     </ion-item>
     <ion-item *ngSwitchCase="'actividades'">

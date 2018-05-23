@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
+
+import { EvolucionesProvider } from '../../providers/evoluciones/evoluciones';
+import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 
 @IonicPage()
 @Component({
@@ -8,27 +12,10 @@ import { IonicPage, ModalController, NavController } from 'ionic-angular';
 })
 export class PlanPage {
   plan;
-  suplementos:any = [{
-    "nombre":"Ornitina",
-    "frecuencia": 2,
-    "cantidad": "100ml"
-  } , {
-    "nombre":"Acidófilos",
-    "frecuencia": 3,
-    "cantidad": "500ml"
-  } , {
-    "nombre":"Omega3",
-    "frecuencia": 1,
-    "cantidad": "50ml"
-  } , {
-    "nombre":"Creatina",
-    "frecuencia": 2,
-    "cantidad": "4ml"
-  } , {
-    "nombre":"Calcio",
-    "frecuencia": 3,
-    "cantidad": "300ml"
-  }];
+
+  public servicio:any[] = [];
+
+  suplementos:any = [];
 
   actividades:any = [{
     "nombre":"Caminar",
@@ -49,13 +36,47 @@ export class PlanPage {
   }];
 
   constructor(
+    private storage: Storage,
     public modalCtrl: ModalController, 
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public planesProv: EvolucionesProvider,
+    public serviApp: AppservicioProvider) {
     this.plan = "comida";
   }
 
  ionViewDidEnter(){
-    console.log('ionViewDidLoad PlanPage');
+    this.getCliente();
+  }
+
+  async getCliente(){
+    this.serviApp.activarProgreso(true,'PlanPage: metodo getCliente');
+    await this.storage.ready().then(() => {
+      this.storage
+          .get('usuario')
+          .then( (usuario) => {
+            this.serviApp.activarProgreso(false,'PlanPage: metodo getCliente');
+            this.getPlanes(usuario.data.cliente.id_cliente);
+          })
+          .catch((err) =>{
+            this.serviApp.errorConeccion(err);
+          });
+    });
+  }
+
+  async getPlanes(id): Promise<void> {
+    this.serviApp.activarProgreso(true,'PlanPage: metodo getPlanes');
+    await this.planesProv.get(id)
+      .subscribe(
+      (res)=>{
+        this.serviApp.activarProgreso(false,'PlanPage: metodo getPlanes');
+        this.servicio = res['data'].orden_servicio.servicio;
+        this.suplementos = res['data'].orden_servicio.servicio.plan_suplemento.suplementos;
+        this.actividades = res['data'].orden_servicio.servicio.plan_ejercicio.ejercicios;
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
   }
 
  openModal(characterNum) {
