@@ -49,7 +49,7 @@ export class EvolucionPage {
               this.getPerfiles(usuario.data.cliente.id_cliente);
           })
           .catch((err) =>{
-            this.serviApp.errorConeccion(err);
+            console.log(JSON.stringify(err));
           });
     });
   }

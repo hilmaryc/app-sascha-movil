@@ -174,7 +174,7 @@ export class SolicitudPage {
       console.log(this.TAG,JSON.stringify(usuario.data.cliente));
         this.solicitudes[0].cliente = usuario.data.cliente;
       }).catch((err) =>{
-          console.log(err);
+          console.log(JSON.stringify(err));
       });
     });
   }

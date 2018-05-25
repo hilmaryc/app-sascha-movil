@@ -80,7 +80,7 @@ async getCliente(){
               this.loading.dismiss();
           })
           .catch((err) =>{
-            console.log(err);
+            console.log(JSON.stringify(err));
           });
     });
   }
