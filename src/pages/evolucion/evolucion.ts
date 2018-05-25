@@ -92,19 +92,19 @@ export class EvolucionPage {
     });
 
     alert.addInput({
-      type: 'checkbox',
+      type: 'radio',
       label: 'Bueno',
       value: 'value2'
     });
 
     alert.addInput({
-      type: 'checkbox',
+      type: 'radio',
       label: 'Regular',
       value: 'value3'
     });
 
     alert.addInput({
-      type: 'checkbox',
+      type: 'radio',
       label: 'Deficiente',
       value: 'value4'
     });
@@ -126,5 +126,9 @@ export class EvolucionPage {
 
   verNotificaciones(){
      this.navCtrl.push('NotificacionesPage');
+  }
+
+  verMeta(){
+     this.navCtrl.push('MetaPage');
   }
 }
