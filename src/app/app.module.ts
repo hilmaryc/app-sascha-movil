@@ -31,6 +31,7 @@ import { CanalescuchaProvider } from '../providers/canalescucha/canalescucha';
 import { AyudasProvider } from '../providers/ayudas/ayudas';
 import { PerfilesProvider } from '../providers/perfiles/perfiles';
 import { EvolucionesProvider } from '../providers/evoluciones/evoluciones';
+import { ValoracionesProvider } from '../providers/valoraciones/valoraciones';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { EvolucionesProvider } from '../providers/evoluciones/evoluciones';
     CanalescuchaProvider,
     AyudasProvider,
     PerfilesProvider,
-    EvolucionesProvider
+    EvolucionesProvider,
+    ValoracionesProvider
   ]
 })
 export class AppModule {}
