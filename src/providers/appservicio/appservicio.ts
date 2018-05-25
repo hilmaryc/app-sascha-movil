@@ -14,8 +14,10 @@ export class AppservicioProvider {
   activarProgreso(enc: boolean,msg: string){
     console.log(msg);
   	if (enc){
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
+      if ( this.loading == null ){
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+      }
   	} else {
   	   this.loadingDismiss();  
   	}

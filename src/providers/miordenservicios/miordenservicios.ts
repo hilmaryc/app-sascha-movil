@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GeneralService } from './../general.service'; 
-
+import { GeneralService } from './../general.service';
 @Injectable()
-export class EvolucionesProvider extends GeneralService {
+export class MiordenserviciosProvider extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'planes/cliente','')
+    super(http,'orden_servicios/cliente','')
   }
 
   get(id){

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { ModalController, NavParams, NavController } from 'ionic-angular';
 
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 import { ServiciosProvider } from '../../providers/servicios/servicios';
+import { MiserviciosProvider } from '../../providers/miservicios/miservicios';
 import { PromocionesProvider } from '../../providers/promociones/promociones';
 
 @Component({
@@ -14,12 +16,7 @@ export class ServicioPage {
   public TAG: string = 'ServicioPage ';
   seg_servicio;
   ico='arrow-dropup';
-  public services: any[]=[{
-    nombre:"",
-    url_imagen:"",
-    descripcion:""
-  }];
-  public miservices: any[]=[];
+  public services: any[]=[];
   private esMiServicio: boolean = false;
   public titulo_servicio: any = 'Servicios';
   public promos: any[]=[];
@@ -35,11 +32,13 @@ export class ServicioPage {
   errorMessage: string;
 
   constructor(
+    private storage: Storage,
     public navCtrl: NavController,
     public modalCtrl: ModalController, 
     public params: NavParams, 
     public serviApp: AppservicioProvider,
     public serviciosProv: ServiciosProvider,
+    public miserviciosProv: MiserviciosProvider,
     public promocionesProv: PromocionesProvider) { 
     this.seg_servicio = "servi";
   }
@@ -60,7 +59,13 @@ export class ServicioPage {
         this.serviApp.activarProgreso(false,'servicio: metodo getServicios');
         this.titulo_servicio = "Servicios";
         this.ico = 'arrow-dropup';
-        this.services = res['data'];
+        let array:any[] = res['data'];
+        for ( let i in array ){
+          this.services.push({
+            "servicio": array[i],
+            "estado": 0
+          });
+        }
         this.esMiServicio = false;
       },
       (error)=>{
@@ -69,9 +74,24 @@ export class ServicioPage {
     );  
   }
 
-  async getMiServicios(): Promise<void> {
-    this.serviApp.activarProgreso(true,'servicio: metodo getMiServicios');
-    await this.serviciosProv.getAll()
+  async getCliente(){
+    this.serviApp.activarProgreso(true,'ServicioPage: metodo getCliente');
+    await this.storage.ready().then(() => {
+      this.storage
+          .get('usuario')
+          .then( (usuario) => {
+            this.serviApp.activarProgreso(false,'ServicioPage: metodo getCliente');
+              this.getMiServicios(usuario.data.cliente.id_cliente)
+          })
+          .catch((err) =>{
+            this.serviApp.errorConeccion(err);
+          });
+    });
+  }
+
+  async getMiServicios(id): Promise<void> {
+    this.serviApp.activarProgreso(true,'ServicioPage: metodo getMiServicios');
+    await this.miserviciosProv.get(id)
       .subscribe(
       (res)=>{
         if ( res['data'].length == 1 ) this.titulo_servicio = "Mi Servicio"
@@ -79,7 +99,7 @@ export class ServicioPage {
         this.ico = 'arrow-dropdown';
         this.services = res['data'];
         this.esMiServicio = true;
-        this.serviApp.activarProgreso(false,'servicio: metodo getMiServicios');
+        this.serviApp.activarProgreso(false,'ServicioPage: metodo getMiServicios');
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -112,7 +132,7 @@ export class ServicioPage {
 
   showServicio() {
     if(this.esMiServicio) this.getServicios();  
-    else this.getMiServicios();
+    else this.getCliente();
   }
 
   showDetail(params){

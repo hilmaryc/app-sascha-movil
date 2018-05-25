@@ -31,6 +31,11 @@ import { CanalescuchaProvider } from '../providers/canalescucha/canalescucha';
 import { AyudasProvider } from '../providers/ayudas/ayudas';
 import { PerfilesProvider } from '../providers/perfiles/perfiles';
 import { EvolucionesProvider } from '../providers/evoluciones/evoluciones';
+import { MiserviciosProvider } from '../providers/miservicios/miservicios';
+import { TiporeclamosProvider } from '../providers/tiporeclamos/tiporeclamos';
+import { MiordenserviciosProvider } from '../providers/miordenservicios/miordenservicios';
+import { ReclamosProvider } from '../providers/reclamos/reclamos';
+import { OrdenProvider } from '../providers/orden/orden';
 
 @NgModule({
   declarations: [
@@ -73,7 +78,12 @@ import { EvolucionesProvider } from '../providers/evoluciones/evoluciones';
     CanalescuchaProvider,
     AyudasProvider,
     PerfilesProvider,
-    EvolucionesProvider
+    EvolucionesProvider,
+    MiserviciosProvider,
+    TiporeclamosProvider,
+    MiordenserviciosProvider,
+    ReclamosProvider,
+    OrdenProvider
   ]
 })
 export class AppModule {}

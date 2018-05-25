@@ -27,10 +27,7 @@
   <div [ngSwitch]="plan">
     <ion-list *ngSwitchCase="'comida'"> 
       <ion-list>
-        <a ion-item (click)="openModal({charNum: 0})">Desayuno</a>
-        <a ion-item (click)="openModal({charNum: 1})">Almuerzo</a>
-        <a ion-item (click)="openModal({charNum: 2})">Cena</a>
-        <a ion-item (click)="openModal({charNum: 3})">Meriendas</a>
+        <a ion-item *ngFor="let c of comidas" (click)="openModal({ grupo_alimenticios: c.grupos_alimenticios })">{{ c.nombre }}</a>
       </ion-list>
     </ion-list>
     <ion-item *ngSwitchCase="'suplementos'">
@@ -44,6 +41,7 @@
         <ion-card *ngFor="let s of actividades" >
           <h2 align="center">{{ s.nombre }}</h2>
           <p align="center">{{ s.cantidad }} {{ s.unidad }} todos los dias</p>
+          <p align="center" text-wrap style="margin-left: 5%;margin-right: 5%;">{{ s.descripcion }}</p>
         </ion-card>
     </ion-item>
   </div>

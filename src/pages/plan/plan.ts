@@ -17,23 +17,9 @@ export class PlanPage {
 
   suplementos:any = [];
 
-  actividades:any = [{
-    "nombre":"Caminar",
-    "cantidad": 1,
-    "unidad":"hora"
-  } , {
-    "nombre":"Correr",
-    "cantidad": 2,
-    "unidad":"kilometros"
-  } , {
-    "nombre":"Ejercicio de piernas",
-    "cantidad": 30,
-    "unidad":"minutos"
-  } , {
-    "nombre":"Ejercicio de brazos",
-    "cantidad": 30,
-    "unidad":"minutos"
-  }];
+  actividades:any = [];
+
+  comidas:any = [];
 
   constructor(
     private storage: Storage,
@@ -69,9 +55,10 @@ export class PlanPage {
       .subscribe(
       (res)=>{
         this.serviApp.activarProgreso(false,'PlanPage: metodo getPlanes');
-        this.servicio = res['data'].orden_servicio.servicio;
-        this.suplementos = res['data'].orden_servicio.servicio.plan_suplemento.suplementos;
-        this.actividades = res['data'].orden_servicio.servicio.plan_ejercicio.ejercicios;
+        this.servicio = res['data'].servicio;
+        this.suplementos = res['data'].servicio.plan_suplemento.suplementos;
+        this.actividades = res['data'].servicio.plan_ejercicio.ejercicios;
+        this.comidas = res['data'].servicio.plan_dieta.comidas;
       },
       (error)=>{
         this.serviApp.errorConeccion(error);

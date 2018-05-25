@@ -24,12 +24,19 @@
     <ion-list *ngSwitchCase="'servi'">
       <ion-item *ngFor="let s of services" >
         <div (click)="showDetail(s)" >
-          <h2 align="center" text-wrap>{{ s.nombre }}</h2>
+          <h2 align="center" text-wrap>{{ s.servicio.nombre }}</h2>
           <ion-item>
             <ion-thumbnail item-start align-items-center>
-              <img src="{{ s.url_imagen }}" >
+              <img src="{{ s.servicio.url_imagen }}" >
             </ion-thumbnail>
-            <p text-wrap>{{ s.descripcion }}</p>
+            <p text-wrap>{{ s.servicio.descripcion }}</p>
+          </ion-item>
+          <ion-item *ngIf="esMiServicio == true">
+            <h2 align="center" *ngIf="s.estado == 1" style="color: #35d503;"> En Proceso </h2>
+            <h2 align="center" *ngIf="s.estado == 2" style="color: #d3e00d;"> De Promocion  </h2>
+            <h2 align="center" *ngIf="s.estado == 3" style="color: #0d78e0;"> Por Garantia </h2>
+            <h2 align="center" *ngIf="s.estado == 4" style="color: #f83c1d;"> Fue Reclamada </h2>
+            <h2 align="center" *ngIf="s.estado == 5" style="color: #35d503;"> Finalizada </h2>
           </ion-item>
         </div>
       </ion-item>

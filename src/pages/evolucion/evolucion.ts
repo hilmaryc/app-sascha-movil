@@ -16,7 +16,6 @@ export class EvolucionPage {
   testCheckboxOpen: boolean;
   testCheckboxResult;
 
-  public id_cliente:string='';
   public perfiles: any[]=[];
 
   public localDate: Date = new Date();
@@ -47,8 +46,7 @@ export class EvolucionPage {
           .get('usuario')
           .then( (usuario) => {
             this.serviApp.activarProgreso(false,'EvolucionPage: metodo getCliente');
-              this.id_cliente = usuario.data.cliente.id_cliente;
-              this.getPerfiles(this.id_cliente)
+              this.getPerfiles(usuario.data.cliente.id_cliente);
           })
           .catch((err) =>{
             this.serviApp.errorConeccion(err);

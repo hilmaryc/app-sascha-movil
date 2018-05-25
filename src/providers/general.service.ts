@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Observable';
 
 export class GeneralService {
 
-  //private urlBaseApi = "http://localhost:5000";
-  private urlBaseApi = "https://api-sascha.herokuapp.com";
+  private urlBaseApi = "http://localhost:5000";
+  //private urlBaseApi = "https://api-sascha.herokuapp.com";
 
   constructor(protected http: HttpClient, protected urlModulo: String, protected plural: String) { }
 

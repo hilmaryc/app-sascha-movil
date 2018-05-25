@@ -17,32 +17,34 @@
   <ion-item>
     <h2 align="center">{{ titulo_servicio }}</h2>
   </ion-item>
-  <ion-card>
+  <ion-card *ngIf="servicio != null">
     <ion-item>
-      <h2 align="center">{{ servicio.nombre }}</h2>
+      <h2 align="center">{{ servicio.servicio.nombre }}</h2>
     </ion-item>
     <ion-item>
       <ion-thumbnail item-start align-items-center>
-        <img src="{{ servicio.url_imagen }}" >
+        <img src="{{ servicio.servicio.url_imagen }}" >
       </ion-thumbnail>
-      <p text-wrap>{{ servicio.descripcion }}</p>
+      <p text-wrap>{{ servicio.servicio.descripcion }}</p>
     </ion-item>
-    <ion-item *ngIf="servicio.plan_dieta != null">
-      <h2 align="center">{{ servicio.plan_dieta.nombre }}</h2>
-      <p text-wrap>{{ servicio.plan_dieta.descripcion }}</p>
+    <ion-item *ngIf="servicio.servicio.plan_dieta != null">
+      <h2 align="center">{{ servicio.servicio.plan_dieta.nombre }}</h2>
+      <p text-wrap>{{ servicio.servicio.plan_dieta.descripcion }}</p>
     </ion-item>
-    <ion-item *ngIf="servicio.plan_ejercicio != null">
-      <h2 align="center">{{ servicio.plan_ejercicio.nombre }}</h2>
-      <p text-wrap>{{ servicio.plan_ejercicio.descripcion }}</p>
+    <ion-item *ngIf="servicio.servicio.plan_ejercicio != null">
+      <h2 align="center">{{ servicio.servicio.plan_ejercicio.nombre }}</h2>
+      <p text-wrap>{{ servicio.servicio.plan_ejercicio.descripcion }}</p>
     </ion-item>
-    <ion-item *ngIf="servicio.plan_suplemento != null">
-      <h2 align="center">{{ servicio.plan_suplemento.nombre }}</h2>
-      <p text-wrap>{{ servicio.plan_suplemento.descripcion }}</p>
-    </ion-item>
+    <ion-item *ngIf="servicio.servicio.plan_suplemento != null">
+      <h2 align="center">{{ servicio.servicio.plan_suplemento.nombre }}</h2>
+      <p text-wrap>{{ servicio.servicio.plan_suplemento.descripcion }}</p>
+    </ion-item>  
     <ion-item >
-      <h2 align="center">Con un precio de {{ servicio.precio }} BsS</h2>
+      <h2 align="center">Con un precio de {{ servicio.servicio.precio }} BsS</h2>
     </ion-item>
-    <button *ngIf="titulo_servicio != 'Mi Servicio'" ion-button color="primary" block clear (click)="solicitar()" >Solicitar Servicio</button>
-    <button *ngIf="titulo_servicio == 'Mi Servicio'" ion-button color="858580" block clear (click)="cancelar()" >Cancelar Servicio</button>
+    <button *ngIf="servicio.estado == 0" ion-button color="primary" block clear (click)="solicitar(servicio.servicio)" >Solicitar Servicio</button>
+    <button *ngIf="servicio.estado == 1" ion-button color="f83c1d" block clear (click)="getTipoReclamos()" >Cancelar Servicio</button>
+    <button *ngIf="servicio.estado == 2" ion-button color="d3e00d" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Promocion</button>
+    <button *ngIf="servicio.estado == 3" ion-button color="0d78e0" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Garantia</button>
   </ion-card>
 </ion-content>

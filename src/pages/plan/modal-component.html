@@ -13,15 +13,21 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item>
+    <!--ion-item>
       <ion-avatar item-start>
         <img src="{{character.image}}">
       </ion-avatar>
       <h2>{{character.name}}</h2>
-    </ion-item>
-    <ion-card text-wrap class="comidas" *ngFor="let item of character['items']">
-      <h2 align="center">{{item.title}} {{item.cantidad}}</h2>
-      <h3 align="center">{{item.note}}</h3>
+    </ion-item-->
+    <ion-card text-wrap class="comidas" *ngFor="let grupo of grupo_alimenticios">
+      <h2 align="center">{{grupo.nombre}} {{grupo.cantidad}} {{ grupo.unidad_abreviatura }}</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngFor="let a of grupo.alimentos" >
+            <h3 align="center"> {{a.nombre}} </h3>      
+          </ion-col>
+        </ion-row>  
+      </ion-grid>
     </ion-card>
   </ion-list>
 </ion-content>
