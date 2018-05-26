@@ -54,7 +54,7 @@ export class ComunicacionPage {
       this.storage.get('usuario').then( (usuario) => {
       this.body.id_cliente = usuario.data.cliente.id_cliente;
       }).catch((err) =>{
-          console.log(JSON.stringify(err));
+          this.serviApp.errorConeccion(err);
       });
     });
   }

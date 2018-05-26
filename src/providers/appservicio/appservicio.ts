@@ -12,13 +12,14 @@ export class AppservicioProvider {
     public loadingCtrl: LoadingController) {}
 
   activarProgreso(enc: boolean,msg: string){
-    console.log(msg);
   	if (enc){
+      console.log('inicio '+msg);
       if ( this.loading == null ){
         this.loading = this.loadingCtrl.create();
         this.loading.present();
       }
   	} else {
+        console.log('fin '+msg);
   	   this.loadingDismiss();  
   	}
   }
@@ -31,13 +32,14 @@ export class AppservicioProvider {
   }
 
   errorConeccion(error){
-    this.loadingDismiss();
-    console.log(this.TAG, JSON.stringify(error) );
-    const alert: Alert = this.alertCtrl.create({
-      message: 'Problema con la coneccion a internet',
-      buttons:  ['OK']
-    });
-    alert.present();
+    if ( !error.status ){
+      console.log(this.TAG, JSON.stringify(error) );
+    } else{
+      if ( error.status == 500 )
+        this.alecrtMsg('Problema con la conexion del internet');
+      if ( error.status == 404 || error.status == 400 )
+        this.alecrtMsg(error.error.data.mensaje);  
+    }
   }
 
   alecrtMsg(msg){

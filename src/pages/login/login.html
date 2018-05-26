@@ -4,11 +4,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content >
-<div padding class="auth-page" >
-
+<div padding class="auth-page">
  <img src="https://res.cloudinary.com/saschanutric/image/upload/v1524779283/logosascha.png" class="logo" alt="sascha" class="img-logo">
-
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+    <br>
     <ion-item [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.touched"
       [class.valid]="loginForm.controls.email.valid && loginForm.controls.email.touched">
       <ion-label stacked>Correo</ion-label>
@@ -29,16 +28,12 @@
     && loginForm.controls.password.touched">
       <p>Tu contraseña debe ser de mas de 6 caracteres.</p>
     </ion-item>
-
-    <ion-label stacked class="ion-label-oc" (click)="logout()" > ¿Olvidaste tu Contraseña? </ion-label>
-
+    <br>
     <button ion-button block type="submit" [disabled]="!loginForm.valid">
       Ingresar
     </button>
-
-    <ion-label stacked (click)="da()" > Suscribirse a sascha </ion-label>
-
+    <ion-label stacked > Suscribirse a sascha </ion-label>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
   </form>
-  <div padding ></div>
 </div>
 </ion-content>

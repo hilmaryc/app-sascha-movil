@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PerfilesProvider } from '../../../providers/perfiles/perfiles';
-import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
+import { IonicPage NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,56 +8,39 @@ import { AppservicioProvider } from '../../../providers/appservicio/appservicio'
 })
 export class MetaPage {
   
-  public data:any;
-
-  public id_cliente:string='';
-  public perfiles: any[]=[];
-
+  public metas: any[]=[];
   
   constructor(
-    private storage: Storage,
-    public navCtrl: NavController, 
     public navParams: NavParams, 
-    public alertCtrl: AlertController,
-    public perfilesProv: PerfilesProvider,
-    public serviApp: AppservicioProvider) {}
-
-  ionViewDidEnter(){
-    this.getCliente();
-  }
-    
-  async getCliente(){
-    this.serviApp.activarProgreso(true,'EvolucionPage: metodo getCliente');
-    await this.storage.ready().then(() => {
-      this.storage
-          .get('usuario')
-          .then( (usuario) => {
-            this.serviApp.activarProgreso(false,'EvolucionPage: metodo getCliente');
-              this.id_cliente = usuario.data.cliente.id_cliente;
-              this.getPerfiles(this.id_cliente)
-          })
-          .catch((err) =>{
-            console.log(JSON.stringify(err));
+    ) {
+    let visitas = navParams.data;
+    for ( let i in visitas ){
+      let visita = visitas[i];
+      if ( '[' + JSON.stringify(visita.metas[i]) + ']' != '[undefined]' ) {
+        if ( visita.metas.length > 0  && this.metas.length == 0) {
+          this.metas.push({
+            "parametro": visita.metas[0].parametro,
+            "valor_minimo": visita.metas[0].valor_minimo,
+            "unidad_abreviatura": visita.metas[0].unidad_abreviatura
           });
-    });
-  }
-
-  async getPerfiles(id): Promise<void> {
-    this.serviApp.activarProgreso(true,'EvolucionPage: metodo getPerfiles');
-    await this.perfilesProv.get(id)
-      .subscribe(
-      (res)=>{
-        this.serviApp.activarProgreso(false,'EvolucionPage: metodo getPerfiles');
-        this.perfiles = res['data'];
-      },
-      (error)=>{
-        this.serviApp.errorConeccion(error);
+        }
+        let enc: boolean = false;
+        for ( let j in this.metas ){
+          if ( this.metas[j].parametro == visita.metas[i].parametro && 
+              this.metas[j].valor_minimo == visita.metas[i].valor_minimo ){
+            enc = true
+            break
+          }
+        }
+        if(!enc){
+          this.metas.push({
+            "parametro": visita.metas[i].parametro,
+            "valor_minimo": visita.metas[i].valor_minimo,
+            "unidad_abreviatura": visita.metas[i].unidad_abreviatura
+          });
+        }
       }
-    );  
-  }
-
-  public Log(stuff): void {
-    console.log(stuff);
+    }
   }
 
 }

@@ -116,7 +116,7 @@ async getEstadoCiviles(parametro,title,valor): Promise<void> {
         this.loading.dismiss();
       },
       (error)=>{
-        this.errorConeccion(error);
+        console.log(JSON.stringify(error));
       }
     );  
   }

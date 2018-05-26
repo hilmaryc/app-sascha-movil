@@ -10,6 +10,9 @@
       <button ion-button icon-only (click)="verNotificaciones()" >
         <ion-icon name="notifications"></ion-icon>
       </button>
+      <button ion-button icon-only (click)="ngOnInit()" >
+        <ion-icon name="refresh"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -20,8 +23,8 @@
   <div>
 
     <ion-segment [(ngModel)]="evolucion">
-      <ion-segment-button  value="perfil">Perfil</ion-segment-button>
-      <ion-segment-button value="visita">Visitas</ion-segment-button>
+      <ion-segment-button  (click)="showSegment('perfil')" value="perfil">Perfil</ion-segment-button>
+      <ion-segment-button (click)="showSegment('visita')" value="visita">Visitas</ion-segment-button>
     </ion-segment>
   </div>
 
@@ -80,7 +83,7 @@
     </ion-item>
   </ion-list>
 </div>
-<ion-fab right bottom style="position: relative; top: 80%; right: -80%;">
+<ion-fab right bottom style="position: relative; top: 80%; right: -78%;">
       <button ion-fab mini color="third" (click)="verMeta()">Meta</button>  
 </ion-fab>
 </ion-content>

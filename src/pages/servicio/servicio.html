@@ -10,14 +10,17 @@
       <button ion-button icon-only (click)="verNotificaciones()" >
         <ion-icon name="notifications"></ion-icon>
       </button>
+      <button ion-button icon-only (click)="ngOnInit()" >
+        <ion-icon name="refresh"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
   <div>
     <ion-segment [(ngModel)]="seg_servicio" >
-      <ion-segment-button  value="servi">{{ titulo_servicio }}</ion-segment-button>
-      <ion-segment-button value="promocion" (click)="showSegment()" >Promociones</ion-segment-button>
+      <ion-segment-button (click)="showSegment('servi')" value="servi">{{ titulo_servicio }}</ion-segment-button>
+      <ion-segment-button (click)="showSegment('promocion')" value="promocion">Promociones</ion-segment-button>
     </ion-segment>
   </div>
   <div [ngSwitch]="seg_servicio">

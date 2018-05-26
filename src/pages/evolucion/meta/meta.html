@@ -9,20 +9,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-<ion-item>
-      <ion-card>
-        <ion-grid>
-           <ion-row>
-              <ion-item>
-                 <h2 align="center">Mi meta</h2>
-               </ion-item>
-            </ion-row>
-            <ion-row *ngFor="let p of perfiles" >
-                <ion-col>
-                    <p align="left">{{ p.meta }}</p>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-      </ion-card>
-    </ion-item>
+  <ion-item>
+    <h2 align="center" text-wrap color="">
+        Mis Metas
+    </h2> 
+    <ion-card *ngFor="let meta of metas">
+      <h2 align="center" text-wrap color="">
+        {{ meta.parametro }}: {{ meta.valor_minimo }} {{ meta.unidad_abreviatura }}
+      </h2> 
+    </ion-card>
+  </ion-item>
 </ion-content>

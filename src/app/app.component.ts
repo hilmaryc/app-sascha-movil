@@ -16,7 +16,7 @@ export class MyApp {
 
   public TAG: string = 'MyApp';
   public loading: Loading;
-  rootPage: any = null;
+  rootPage: any;
   showMenu: any = 0;
   pages: Array<{title: string, component: any}>;
   constructor(
@@ -27,6 +27,7 @@ export class MyApp {
     private androidPermissions: AndroidPermissions,
     public auth: AuthProvider,
     private storage: Storage) {
+    this.rootPage = null;
     this.platform.ready().then(() => {
       this.androidPermissions.requestPermissions([
         this.androidPermissions.PERMISSION.READ_CONTACTS,
@@ -49,18 +50,12 @@ export class MyApp {
   }
 
   async isAuth(){
-    this.loading = this.loadingCtrl.create();
-    this.loading.present();
     await this.storage.ready().then(() => {
       this.storage
           .get('usuario')
           .then( (usuario) => {
               var error: boolean = usuario.error;
-              if ( error ) {
-                this.showMenu = 0;
-                this.rootPage = 'LoginPage';
-              }
-              else {
+              if ( !error ) {
                 this.showMenu = 1;
                 this.pages = [
                   { title:  usuario.data.cliente.nombres , component: 'PerfilPage' },
@@ -72,15 +67,12 @@ export class MyApp {
                 ];
                 this.rootPage = ServicioPage;
               }
-              this.loading.dismiss();
           })
           .catch((err) =>{
             console.log(err);
             this.rootPage = 'LoginPage';
-            this.loading.dismiss();
           });
     });
-
   }
 
   async logoutUser() { 
@@ -94,10 +86,8 @@ export class MyApp {
   }
 
   logout() {
-    this.loading.present();
     this.logoutUser();
     this.showMenu = 0;
-    this.loading.dismiss();
     window.location.reload();
   }
 

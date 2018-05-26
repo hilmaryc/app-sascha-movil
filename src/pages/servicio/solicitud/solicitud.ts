@@ -174,7 +174,7 @@ export class SolicitudPage {
       console.log(this.TAG,JSON.stringify(usuario.data.cliente));
         this.solicitudes[0].cliente = usuario.data.cliente;
       }).catch((err) =>{
-          console.log(JSON.stringify(err));
+        this.serviApp.errorConeccion(err);
       });
     });
   }
@@ -193,7 +193,7 @@ export class SolicitudPage {
         {
           text: 'Ok',
           handler: data => {
-            if( JSON.stringify(data) != 'undefined')
+            if( '[' + JSON.stringify(data) + ']' != '[undefined]')
             {
               if ( entidad == 'bloque_horario' )
                 this.solicitudes[0].bloque_horario = data || {};

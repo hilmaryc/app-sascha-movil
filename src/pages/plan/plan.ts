@@ -44,7 +44,7 @@ export class PlanPage {
             this.getPlanes(usuario.data.cliente.id_cliente);
           })
           .catch((err) =>{
-            console.log(JSON.stringify(err));
+            this.serviApp.errorConeccion(err);
           });
     });
   }

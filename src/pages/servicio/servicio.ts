@@ -16,10 +16,12 @@ export class ServicioPage {
   public TAG: string = 'ServicioPage ';
   seg_servicio;
   ico='arrow-dropup';
+
   public services: any[]=[];
+  public promos: any[]=[];
+
   private esMiServicio: boolean = false;
   public titulo_servicio: any = 'Servicios';
-  public promos: any[]=[];
   
   public valoracion: any = [{
     "id":"1",
@@ -39,33 +41,23 @@ export class ServicioPage {
     public serviApp: AppservicioProvider,
     public serviciosProv: ServiciosProvider,
     public miserviciosProv: MiserviciosProvider,
-    public promocionesProv: PromocionesProvider) { 
-    this.seg_servicio = "servi";
-  }
+    public promocionesProv: PromocionesProvider) { }
 
   ngOnInit(){
+    this.seg_servicio = "servi";
     this.getServicios();
   }
 
-  ionViewDidLoad(): void {
-    console.log(this.TAG);
-  }
-
   async getServicios(): Promise<void> {
-    this.serviApp.activarProgreso(true,'servicio: metodo getServicios');
+    let metodo = ': metodo getServicios';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.serviciosProv.getAll()
       .subscribe(
       (res)=>{
-        this.serviApp.activarProgreso(false,'servicio: metodo getServicios');
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
         this.titulo_servicio = "Servicios";
         this.ico = 'arrow-dropup';
-        let array:any[] = res['data'];
-        for ( let i in array ){
-          this.services.push({
-            "servicio": array[i],
-            "estado": 0
-          });
-        }
+        this.cargarServicios(res['data']);
         this.esMiServicio = false;
       },
       (error)=>{
@@ -74,32 +66,45 @@ export class ServicioPage {
     );  
   }
 
+  cargarServicios(servicios){
+    let array:any[] = servicios;
+    this.services = [];
+    for (var i = array.length - 1; i >= 0; i--) {
+      this.services.push({
+        "servicio": array[i],
+        "estado": 0
+      });
+    }
+  }
+
   async getCliente(){
-    this.serviApp.activarProgreso(true,'ServicioPage: metodo getCliente');
+    let metodo = ': metodo getCliente';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.storage.ready().then(() => {
-      this.storage
-          .get('usuario')
-          .then( (usuario) => {
-            this.serviApp.activarProgreso(false,'ServicioPage: metodo getCliente');
-              this.getMiServicios(usuario.data.cliente.id_cliente)
-          })
-          .catch((err) =>{
-            console.log(JSON.stringify(err));
-          });
+    this.storage
+      .get('usuario')
+      .then( (usuario) => {
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+        this.getMiServicios(usuario.data.cliente.id_cliente)
+      })
+      .catch((err) =>{
+        this.serviApp.errorConeccion(err);
+      });
     });
   }
 
   async getMiServicios(id): Promise<void> {
-    this.serviApp.activarProgreso(true,'ServicioPage: metodo getMiServicios');
+    let metodo = ': metodo getMiServicios';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.miserviciosProv.get(id)
       .subscribe(
       (res)=>{
         if ( res['data'].length == 1 ) this.titulo_servicio = "Mi Servicio"
         else this.titulo_servicio = "Mis Servicios";
         this.ico = 'arrow-dropdown';
-        this.services = res['data'];
+        this.cargarServicios(res['data']);
         this.esMiServicio = true;
-        this.serviApp.activarProgreso(false,'ServicioPage: metodo getMiServicios');
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -108,12 +113,13 @@ export class ServicioPage {
   }
 
   async getPromociones():Promise<void>{
-    this.serviApp.activarProgreso(true,'servicio: metodo getPromociones');
+    let metodo = ': metodo getPromociones';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.promocionesProv.getAll()
     .subscribe(
       (res)=>{
         this.promos = res['data'];
-        this.serviApp.activarProgreso(false,'servicio: metodo getPromociones');
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -121,8 +127,9 @@ export class ServicioPage {
     ); 
   }
 
-  showSegment(){
-    this.getPromociones();
+  showSegment(segment){
+    if ( segment == 'servi' && this.services.length == 0 ) this.getServicios();
+    if ( segment == 'promocion' && this.promos.length == 0 ) this.getPromociones();
   }
 
   showFilter() {
@@ -150,7 +157,4 @@ export class ServicioPage {
     this.navCtrl.push('PromocionesPage',promo)
   }
 
-  ionViewDidEnter(){
-    console.log(this.TAG,' showDetail ');
-  }
 }

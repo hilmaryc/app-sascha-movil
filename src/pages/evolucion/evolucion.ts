@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
+import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
+import { VisitasProvider } from '../../providers/visitas/visitas';
 import { PerfilesProvider } from '../../providers/perfiles/perfiles';
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 
@@ -11,12 +13,17 @@ import { AppservicioProvider } from '../../providers/appservicio/appservicio';
   templateUrl: 'evolucion.html',
 })
 export class EvolucionPage {
+
+  public TAG:string = 'EvolucionPage';
+
   evolucion;
   public data:any;
   testCheckboxOpen: boolean;
   testCheckboxResult;
 
+  public id_cliente:string = null;
   public perfiles: any[]=[];
+  public visitas: any[]=[];
 
   public localDate: Date = new Date();
   public initDate: Date = new Date(2018, 4, 15);
@@ -31,36 +38,78 @@ export class EvolucionPage {
     public navParams: NavParams, 
     public alertCtrl: AlertController,
     public perfilesProv: PerfilesProvider,
-    public serviApp: AppservicioProvider ) {
-    this.evolucion = "perfil";
-  }
+    public visitasProv: VisitasProvider,
+    public ordenServiciosProv: MiordenserviciosProvider,
+    public serviApp: AppservicioProvider ) { }
 
-  ionViewDidLoad(): void {
+  ngOnInit(){
+    this.evolucion = "perfil";
     this.getCliente();
   }
     
+  showSegment(segment){
+    if ( segment == 'perfil' && this.perfiles.length == 0 ) this.getCliente();
+    if ( segment == 'visita' && this.id_cliente != null ) this.getMiOrdenServicios();
+  }
+
   async getCliente(){
-    this.serviApp.activarProgreso(true,'EvolucionPage: metodo getCliente');
+    let metodo = ': metodo getCliente';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.storage.ready().then(() => {
       this.storage
           .get('usuario')
           .then( (usuario) => {
-            this.serviApp.activarProgreso(false,'EvolucionPage: metodo getCliente');
-              this.getPerfiles(usuario.data.cliente.id_cliente);
+            this.getPerfiles(usuario.data.cliente.id_cliente);
+            this.id_cliente = usuario.data.cliente.id_cliente;
           })
           .catch((err) =>{
-            console.log(JSON.stringify(err));
+            this.serviApp.errorConeccion(err);
           });
     });
   }
 
   async getPerfiles(id): Promise<void> {
-    this.serviApp.activarProgreso(true,'EvolucionPage: metodo getPerfiles');
+    let metodo =':metodo getPerfiles';
     await this.perfilesProv.get(id)
       .subscribe(
       (res)=>{
-        this.serviApp.activarProgreso(false,'EvolucionPage: metodo getPerfiles');
         this.perfiles = res['data'];
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
+  }
+
+  async getMiOrdenServicios(): Promise<void> {
+    let metodo = ': metodo getMiOrdenServicios';
+    if ( this.id_cliente != null ){
+      await this.ordenServiciosProv.get(this.id_cliente)
+      .subscribe(
+        (res)=>{
+          let orden_servicios = res['data'];
+          this.serviApp.activarProgreso(false,this.TAG + metodo);
+          if ( this.id_cliente || orden_servicios[0] )
+            this.getVisitas(this.id_cliente,orden_servicios[0]);
+        },
+        (error)=>{
+          this.serviApp.errorConeccion(error);
+        }
+      );    
+    }
+  }
+
+  async getVisitas(id_cliente,id_orden_servicio): Promise<void> {
+    this.serviApp.activarProgreso(true,'EvolucionPage: metodo getVisitas');
+    await this.visitasProv.getBody({
+        "id_cliente": id_cliente,
+        "id_orden_servicio": id_orden_servicio
+      })
+      .subscribe(
+      (res)=>{
+        this.visitas = res['data'];
+        this.serviApp.activarProgreso(false,'EvolucionPage: metodo getVisitas');
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -129,6 +178,6 @@ export class EvolucionPage {
   }
 
   verMeta(){
-     this.navCtrl.push('MetaPage');
+     this.navCtrl.push('MetaPage',this.visitas);
   }
 }

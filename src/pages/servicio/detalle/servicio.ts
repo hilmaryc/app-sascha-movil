@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { IonicPage, AlertController, ModalController, NavController, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, AlertController, NavController, NavParams } from 'ionic-angular';
 
-import { OrdenProvider } from '../../../providers/orden/orden';
+import { ServicioPage } from '../../../pages/servicio/servicio';
+
 import { ReclamosProvider } from '../../../providers/reclamos/reclamos';
 import { TiporeclamosProvider } from '../../../providers/tiporeclamos/tiporeclamos';
 import { MiordenserviciosProvider } from '../../../providers/miordenservicios/miordenservicios';
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
-
 
 @IonicPage()
 @Component({
@@ -25,13 +25,10 @@ export class ServicioDetallePage {
     private storage: Storage,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    public modalCtrl: ModalController, 
     public navParams: NavParams,
-    public viewCtrl: ViewController,
     public tiporeclamosProv: TiporeclamosProvider,
     public reclamosProv: ReclamosProvider,
     public ordenServiciosProv: MiordenserviciosProvider,
-    public ordenProv: OrdenProvider,
     public serviApp: AppservicioProvider) {
 
     let data = navParams.data;
@@ -52,48 +49,50 @@ export class ServicioDetallePage {
 
   ionViewDidLoad() {
     this.getCliente()
-   }
+  }
 
   solicitar(servicio){
     this.navCtrl.push( 'SolicitudPage', servicio );
   }
 
   async getCliente(){
-    this.serviApp.activarProgreso(true,'ServicioDetallePage: metodo getCliente');
+    let metodo = ': metodo getCliente';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.storage.ready().then(() => {
-      this.storage
-          .get('usuario')
-          .then( (usuario) => {
-            this.serviApp.activarProgreso(false,'ServicioDetallePage: metodo getCliente');
-            this.id_cliente = usuario.data.cliente.id_cliente;
-          })
-          .catch((err) =>{
-            console.log(JSON.stringify(err));
-          });
+    this.storage
+      .get('usuario')
+      .then( (usuario) => {
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+        this.id_cliente = usuario.data.cliente.id_cliente;
+      })
+      .catch((err) =>{
+        this.serviApp.errorConeccion(err);
+      });
     });
   }
 
   async getTipoReclamos(): Promise<void> {
-    this.serviApp.activarProgreso(true,'ServicioDetallePage: metodo getTipoReclamos');
+    let metodo = ': metodo getTipoReclamos';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.tiporeclamosProv.getAll()
       .subscribe(
       (res)=>{
-          console.log(res['data'])
-         let objetos: any[] = res['data'].motivos || [];
-          console.log(res['data'].motivos)
-          if (objetos.length != 0){
-            let myImputs:any =[];
-            for ( let i in objetos ){
-              let data:any = { 
-                type: 'radio',
-                label: objetos[i].descripcion,
-                value: objetos[i]
-              };
-              myImputs.push(data);
-            }
-            this.alertSelection(myImputs);
+        console.log(res['data'])
+        let objetos: any[] = res['data'].motivos || [];
+        console.log(res['data'].motivos)
+        if (objetos.length != 0){
+          let myImputs:any =[];
+          for ( let i in objetos ){
+            let data:any = { 
+              type: 'radio',
+              label: objetos[i].descripcion,
+              value: objetos[i]
+            };
+            myImputs.push(data);
           }
-        this.serviApp.activarProgreso(false,'ServicioDetallePage: metodo getTipoReclamos');
+          this.alertSelection(myImputs);
+        }
+      this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -133,20 +132,20 @@ export class ServicioDetallePage {
   }
 
   async getMiOrdenServicios(id_cliente, id_motivo): Promise<void> {
-    this.serviApp.activarProgreso(true,'ServicioDetallePage: metodo getMiOrdenServicios');
+    let metodo = ': metodo getMiOrdenServicios';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.ordenServiciosProv.get(id_cliente)
       .subscribe(
       (res)=>{
         let orden_servicios = res['data'];
         this.id_orden_servicio = orden_servicios[0];
-         this.serviApp.activarProgreso(false,'ServicioDetallePage: metodo getMiOrdenServicios');
         if ( this.id_cliente != '' && this.id_orden_servicio != '' ){
           this.reclamar({
             "id_motivo": id_motivo,
             "id_orden_servicio": this.id_orden_servicio
           });
         }
-        this.serviApp.activarProgreso(false,'ServicioDetallePage: metodo getMiOrdenServicios');
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -155,13 +154,13 @@ export class ServicioDetallePage {
   }
 
   async reclamar(body){
-    this.serviApp.activarProgreso(true,'ServicioDetallePage: metodo reclamar');
+    let metodo = ': metodo reclamar';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
     await this.reclamosProv.create(body).subscribe(
       (res)=>{
-        this.serviApp.activarProgreso(false,'ServicioDetallePage: metodo reclamar');
-        this.procederCancelacion(this.id_orden_servicio,{
-          "estado": 4
-        });  
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+        this.serviApp.alecrtMsg('Su reclamo ya fue enviado');
+        this.navCtrl.push(ServicioPage);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -169,41 +168,4 @@ export class ServicioDetallePage {
     );
   }
 
-  procederCancelacion(id,body) {   
-    let alert = this.alertCtrl.create({
-      title:    'Esta seguro de cancelar el servicio',
-      subTitle: 'Su reclamo ya fue enviado' ,
-      buttons:  [{
-        text: "SI",
-        handler: data => {
-          this.cancelarServ(id,body);
-        } 
-      } , {
-        text: "NO",
-        handler: data => {
-          this.serviApp.alecrtMsg('Su servicio no se cancelo');
-        } 
-      }]
-    });
-    alert.present(); 
-  }
-
-  async cancelarServ(id,body){
-    this.serviApp.activarProgreso(true,'ServicioDetallePage: metodo cancelarServ');
-    await this.ordenProv.update(id,body)
-    .subscribe(
-      (res)=>{
-        this.serviApp.activarProgreso(false,'ServicioDetallePage: metodo cancelarServ');
-        this.serviApp.alecrtMsg('Su servicio se cancelo exitosamente');
-        this.dismiss();
-      },
-      (error)=>{
-        this.serviApp.errorConeccion(error);
-      }
-    ); 
-  }
-
-  dismiss() {
-   this.viewCtrl.dismiss();
-  }
 }
