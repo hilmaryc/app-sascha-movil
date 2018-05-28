@@ -51,9 +51,9 @@
     </ion-item>
   </ion-list>
   <ion-list *ngSwitchCase="'visita'">
-    <ion-item>
+    <ion-item *ngIf="proximaVisita != null" >
       <ion-card class="nueva">
-        <h2 align="center" style="color: white;">VISITA #2</h2>
+        <h2 align="center" style="color: white;">VISITA #{{proximaVisita.numero}}</h2>
         <span ion-datepicker
           (ionChanged)="setDate($event);"
           [max]="maxDate" 
@@ -75,31 +75,15 @@
         </span>
       </ion-card>
     </ion-item>
-    <ion-item>
+    <ion-item *ngFor="let v of visitas" >
       <ion-card class="anterior">
-        <button ion-button clear style="color: white" (click)="doCheckbox()">Visita #1</button>
-        <p align="center" style="color: white">10/04/2018</p>
+        <button ion-button clear style="color: white" (click)="doCheckbox(v)">Visita #{{v.numero}}</button>
+        <p align="center" style="color: white">{{v.fecha_atencion}}</p>
       </ion-card>
     </ion-item>
   </ion-list>
 </div>
-<ion-fab right bottom style="position: relative; top: 80%; right: -78%;">
-      <button ion-fab mini color="third" (click)="verMeta()">Meta</button>  
+<ion-fab right bottom style="position: relative; top: 80%; right: -78%;" *ngIf="proximaVisita != null">
+      <button ion-fab mini color="third" (click)="verMeta(proximaVisita.metas)">Meta</button>  
 </ion-fab>
 </ion-content>
-
-      <!--ion-card class="anterior">     
-        <h2 align="center" style="color: white">Visita #1</h2>
-        <p align="center" style="color: white">10/04/2018</p>
-        <h3 align="center" style="color: white">Valorar Visita</h3>
-        <ion-item>
-          <ion-range [(ngModel)]="brightness">
-            <ion-icon range-left small name="thumbs-down"></ion-icon>
-            <ion-icon range-right name="thumbs-up"></ion-icon>
-          </ion-range>
-        </ion-item>
-      </ion-card>
-    </ion-item>
-  </ion-list>
-</div>
-</ion-content-->

@@ -1,24 +1,18 @@
 <ion-header>
   <ion-toolbar color="blanco">
-     <ion-avatar item-start >
-        <img class="logo-menu" src="https://res.cloudinary.com/saschanutric/image/upload/v1524779283/logosascha.png">
-     </ion-avatar>
-     <ion-buttons start>
+    <ion-buttons start>
         <button ion-button (click)="dismiss()">
         <span ion-text showWhen="ios">Volver</span>
            <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
         </button>
      </ion-buttons>
+     <ion-avatar item-start >
+        <img class="logo-menu" src="https://res.cloudinary.com/saschanutric/image/upload/v1524779283/logosascha.png">
+     </ion-avatar>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list>
-    <!--ion-item>
-      <ion-avatar item-start>
-        <img src="{{character.image}}">
-      </ion-avatar>
-      <h2>{{character.name}}</h2>
-    </ion-item-->
     <ion-card text-wrap class="comidas" *ngFor="let grupo of grupo_alimenticios">
       <h2 align="center">{{grupo.nombre}} {{grupo.cantidad}} {{ grupo.unidad_abreviatura }}</h2>
       <ion-grid>

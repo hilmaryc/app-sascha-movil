@@ -16,8 +16,10 @@ export class ServicioPage {
   public TAG: string = 'ServicioPage ';
   seg_servicio;
   ico='arrow-dropup';
+  myInput='';
 
   public services: any[]=[];
+  public aux_services: any[]=[];
   public promos: any[]=[];
 
   private esMiServicio: boolean = false;
@@ -57,7 +59,7 @@ export class ServicioPage {
         this.serviApp.activarProgreso(false,this.TAG + metodo);
         this.titulo_servicio = "Servicios";
         this.ico = 'arrow-dropup';
-        this.cargarServicios(res['data']);
+        this.cargarServicios(res['data'],this.titulo_servicio);
         this.esMiServicio = false;
       },
       (error)=>{
@@ -66,15 +68,23 @@ export class ServicioPage {
     );  
   }
 
-  cargarServicios(servicios){
+  cargarServicios(servicios,tipo){
     let array:any[] = servicios;
+   // console.log(this.TAG+'metodo: cargarServicios: '+ JSON.stringify(array));
     this.services = [];
     for (var i = array.length - 1; i >= 0; i--) {
-      this.services.push({
-        "servicio": array[i],
-        "estado": 0
-      });
+      if (tipo == 'Servicios')
+        this.services.push({
+          "servicio": array[i],
+          "estado_orden_servicio": 0
+        });
+      if (tipo == 'Mis Servicios' || tipo == 'Mi Servicio')
+        this.services.push({
+          "servicio": array[i].servicio,
+          "estado_orden_servicio": array[i].estado_orden_servicio
+        });
     }
+    this.aux_services = this.services;
   }
 
   async getCliente(){
@@ -102,7 +112,7 @@ export class ServicioPage {
         if ( res['data'].length == 1 ) this.titulo_servicio = "Mi Servicio"
         else this.titulo_servicio = "Mis Servicios";
         this.ico = 'arrow-dropdown';
-        this.cargarServicios(res['data']);
+        this.cargarServicios(res['data'],this.titulo_servicio);
         this.esMiServicio = true;
         this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
@@ -155,6 +165,21 @@ export class ServicioPage {
 
   verPromocion(promo){
     this.navCtrl.push('PromocionesPage',promo)
+  }
+
+  getItems(ev: any) {
+    let val = ev.target.value;
+    this.services = this.aux_services;
+    if (val && val.trim() != '') {  
+      this.services = this.services.filter((item) => {
+        return (item.servicio.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    } 
+  }
+
+  onCancel(ev: any){
+    this.myInput = '';
+    this.services = this.aux_services;
   }
 
 }

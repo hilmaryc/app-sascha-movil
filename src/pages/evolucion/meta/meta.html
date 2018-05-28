@@ -14,9 +14,11 @@
         Mis Metas
     </h2> 
     <ion-card *ngFor="let meta of metas">
+      <br>
       <h2 align="center" text-wrap color="">
         {{ meta.parametro }}: {{ meta.valor_minimo }} {{ meta.unidad_abreviatura }}
-      </h2> 
+      </h2>
+      <br> 
     </ion-card>
   </ion-item>
 </ion-content>

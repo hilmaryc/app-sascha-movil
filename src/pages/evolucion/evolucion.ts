@@ -24,6 +24,7 @@ export class EvolucionPage {
   public id_cliente:string = null;
   public perfiles: any[]=[];
   public visitas: any[]=[];
+  public proximaVisita: any=null;
 
   public localDate: Date = new Date();
   public initDate: Date = new Date(2018, 4, 15);
@@ -109,12 +110,19 @@ export class EvolucionPage {
       .subscribe(
       (res)=>{
         this.visitas = res['data'];
+        this.cargarProximaVisita(this.visitas[0]);
+        this.visitas.splice(0, 1);
         this.serviApp.activarProgreso(false,'EvolucionPage: metodo getVisitas');
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
       }
     );  
+  }
+
+  cargarProximaVisita(visita){
+    this.proximaVisita = visita;
+    this.setDate(new Date(visita.fecha_atencion));
   }
 
   public Log(stuff): void {
@@ -129,7 +137,7 @@ export class EvolucionPage {
     this.initDate = date;
   }
 
-  doCheckbox() {
+  doCheckbox(visita) {
     let alert = this.alertCtrl.create();
     alert.setTitle('¡Por favor valore su visita realizada!');
 
@@ -177,7 +185,7 @@ export class EvolucionPage {
      this.navCtrl.push('NotificacionesPage');
   }
 
-  verMeta(){
-     this.navCtrl.push('MetaPage',this.visitas);
+  verMeta(metas){
+     this.navCtrl.push('MetaPage',metas);
   }
 }

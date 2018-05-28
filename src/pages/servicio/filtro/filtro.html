@@ -49,28 +49,9 @@
           </ion-select-->
     </ion-list>
     <ion-item *ngSwitchCase="'filtroExtra'">
-        
       <ion-list>
-        <ion-item *ngFor="let c of parametros[1].checkeres ">
-          <h2 align="center">{{ c.titulo }}</h2>
-          <br>
-          <ion-item *ngFor="let p of c.patologias">
-            <ion-grid> 
-              <ion-row> 
-                <ion-col>        
-                  <ion-item>
-                    <ion-checkbox [(ngModel)]="p.valor" ></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col>
-                  <h2>{{ p.nombre }}</h2>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </ion-item>
+        
       </ion-list>
-
     </ion-item>
   </div>
   <ion-row>

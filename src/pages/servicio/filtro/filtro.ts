@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform, NavParams, ViewController } from 'ionic-angular';
+import { AlertController, IonicPage, Platform, NavParams, ViewController } from 'ionic-angular';
+
+import { TipoparametrosProvider } from '../../../providers/tipoparametros/tipoparametros';
+import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 
 @IonicPage()
 @Component({
@@ -8,99 +11,71 @@ import { IonicPage, Platform, NavParams, ViewController } from 'ionic-angular';
 })
 export class FiltroPage {
   filtro;
+
+  public TAG:string = 'FiltroPage';
   public parfilter:any;
-  public parametros: any = [{
-    "ranges": [{
-      "id": "parametro_1",
-      "titulo": "Precio",
-      "min": 20,
-      "max": 100,
-      "valor": 100,
-      "slep": 2,
-      "unidad": "$"
-    } , {
-      "id": "parametro_2",
-      "titulo": "Duracion en",
-      "min": 1,
-      "max": 10,
-      "valor": 10,
-      "slep": 1,
-      "unidad": "visitas"
-    }] ,
-    "selectores": [{
-      "id": "parametro_3",
-      "titulo": "Valorado con",
-      "min": 1,
-      "max": 5,
-      "valor": 5,
-      "slep": 1,
-      "unidad": "estrellas",
-      "tipo_seleccion": "conjunto",
-      "imagenes":[{
-        "id" : "1",
-        "img" : "assets/imgs/estrella1.png",
-        "valor" : "1",
-        "isSeleccion": true
-      } , {
-        "id" : "2",
-        "img" : "assets/imgs/estrella.png",
-        "valor" : "2",
-        "isSeleccion": true
-      } , {
-        "id" : "3",
-        "img" : "assets/imgs/estrella3.png",
-        "valor" : "3",
-        "isSeleccion": true
-      }, {
-        "id" : "4",
-        "img" : "assets/imgs/estrella4.png",
-        "valor" : "4",
-        "isSeleccion": true
-      } , {
-        "id" : "5",
-        "img" : "assets/imgs/estrella5.png",
-        "valor" : "5",
-        "isSeleccion": false
-      }]
-    }],
-    "checkeres": []
-  } , {
-    "ranges": [] ,
-    "selectores": [],
-    "checkeres": [{
-      "id": "parametro_4",
-      "titulo": "Patologia uno",
-      "patologias": [{
-        "id": 1,
-        "nombre": "diabetes",
-        "valor": false
-      } , {
-        "id": 2,
-        "nombre": "hipertencion",
-        "valor": false
-      }]
-    } , {
-      "id": "parametro_5",
-      "titulo": "Patologia dos",
-      "patologias": [{
-        "id": 1,
-        "nombre": "diabetes",
-        "valor": false
-      } , {
-        "id": 2,
-        "nombre": "hipertencion",
-        "valor": false
-      }]
-    }]
-  }];
+  public parametros: any[]=[];
   
   constructor(public platform: Platform,
     public params: NavParams,
-    public viewCtrl: ViewController) {
+    public alertCtrl: AlertController,
+    public tipoparametrosProv: TipoparametrosProvider,
+    public viewCtrl: ViewController,
+    public serviApp: AppservicioProvider) {
     this.filtro = "filtroTop";
   }
 
 
+  async getTipoParametros(): Promise<void> {
+    let metodo = ': metodo getTipoParametros';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.tipoparametrosProv.getAll()
+      .subscribe(
+      (res)=>{
+        console.log(res['data'])
+        let objetos: any[] = res['data'].parametros || [];
+        console.log(res['data'].parametros)
+        if (objetos.length != 0){
+          let myImputs:any =[];
+          for ( let i in objetos ){
+            let data:any = { 
+              type: 'radio',
+              label: objetos[i].nombre,
+              value: objetos[i]
+            };
+            myImputs.push(data);
+          }
+          this.alertSelection(myImputs,res['data'].nombre);
+        }
+      this.serviApp.activarProgreso(false,this.TAG + metodo);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
+  }
+
+  alertSelection(myImputs,titulo){
+   let editar = this.alertCtrl.create({
+      title: titulo,
+      inputs: myImputs,
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancelar clicked' + JSON.stringify(data) );
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+           console.log('Ok clicked' + JSON.stringify(data) ); 
+          }
+        }
+      ]
+    });
+    editar.present();
+  }
 
   rangeChange(evento,idRange){
     console.log(evento.value);
@@ -142,10 +117,6 @@ export class FiltroPage {
 
   }
 
-  ionViewDidLoad() {
-    
-  }
-  
   dismiss() {
    this.viewCtrl.dismiss();
   }
