@@ -19,6 +19,7 @@ export class SolicitudesProvider extends GeneralService {
   		"fecha": data.fecha,
       "acepto_precio": data.acepto_precio
   	};
+    console.log('Este es el cuerpo de la solicitud: '+ JSON.stringify(body));
     return super.create(body);
   }
 

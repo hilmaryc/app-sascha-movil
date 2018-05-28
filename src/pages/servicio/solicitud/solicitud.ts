@@ -98,7 +98,7 @@ export class SolicitudPage {
           this.serviApp.activarProgreso(false,'solicitud: metodo getBloqueHoras');
         },
         (error)=>{
-           this.serviApp.alecrtMsg('El nutricionista trabaja los dias '+JSON.stringify(this.dia_laborables));
+           this.serviApp.alecrtMsg('El nutricionisa labora solo los dias '+JSON.stringify(this.dia_laborables)+' intenta seleccionar unos de estos dias');
         }
       );  
     } else {
@@ -302,7 +302,7 @@ export class SolicitudPage {
 	setDate(date: Date) {
 		console.log(date);
 		this.fecha = date;
-    this.diaSemana = date.getUTCDay();
+    this.diaSemana = date.getUTCDay()+1;
 		this.solicitudes[0].fecha = this.fecha;
     this.solicitudes[0].bloque_horario = {};
 	}
