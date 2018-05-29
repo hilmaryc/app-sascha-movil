@@ -39,6 +39,7 @@ import { OrdenProvider } from '../providers/orden/orden';
 import { ValoracionesProvider } from '../providers/valoraciones/valoraciones';
 import { VisitasProvider } from '../providers/visitas/visitas';
 import { TipoparametrosProvider } from '../providers/tipoparametros/tipoparametros';
+import { VisitadetallesProvider } from '../providers/visitadetalles/visitadetalles';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { TipoparametrosProvider } from '../providers/tipoparametros/tipoparametr
     OrdenProvider,
     ValoracionesProvider,
     VisitasProvider,
-    TipoparametrosProvider
+    TipoparametrosProvider,
+    VisitadetallesProvider
   ]
 })
 export class AppModule {}

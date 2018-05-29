@@ -11,43 +11,116 @@ import { AppservicioProvider } from '../../../providers/appservicio/appservicio'
 })
 export class FiltroPage {
   filtro;
-
   public TAG:string = 'FiltroPage';
-  public parfilter:any;
-  public parametros: any[]=[];
+  public filtrables:any[]=[];
+  public parametros: any = [{
+    "ranges": [{
+      "id": "parametro_1",
+      "titulo": "Precio",
+      "min": 20,
+      "max": 100,
+      "valor": 100,
+      "slep": 2,
+      "unidad": "$"
+    } , {
+      "id": "parametro_2",
+      "titulo": "Duracion en",
+      "min": 1,
+      "max": 10,
+      "valor": 10,
+      "slep": 1,
+      "unidad": "visitas"
+    }] ,
+    "selectores": [{
+      "id": "parametro_3",
+      "titulo": "Valorado con",
+      "min": 1,
+      "max": 5,
+      "valor": 5,
+      "slep": 1,
+      "unidad": "estrellas",
+      "tipo_seleccion": "conjunto",
+      "imagenes":[{
+        "id" : "1",
+        "img" : "assets/imgs/estrella1.png",
+        "valor" : "1",
+        "isSeleccion": true
+      } , {
+        "id" : "2",
+        "img" : "assets/imgs/estrella.png",
+        "valor" : "2",
+        "isSeleccion": true
+      } , {
+        "id" : "3",
+        "img" : "assets/imgs/estrella3.png",
+        "valor" : "3",
+        "isSeleccion": true
+      }, {
+        "id" : "4",
+        "img" : "assets/imgs/estrella4.png",
+        "valor" : "4",
+        "isSeleccion": true
+      } , {
+        "id" : "5",
+        "img" : "assets/imgs/estrella5.png",
+        "valor" : "5",
+        "isSeleccion": false
+      }]
+    }],
+    "checkeres": []
+  } , {
+    "ranges": [] ,
+    "selectores": [],
+    "checkeres": [{
+      "id": "parametro_4",
+      "titulo": "Patologia uno",
+      "patologias": [{
+        "id": 1,
+        "nombre": "diabetes",
+        "valor": false
+      } , {
+        "id": 2,
+        "nombre": "hipertencion",
+        "valor": false
+      }]
+    } , {
+      "id": "parametro_5",
+      "titulo": "Patologia dos",
+      "patologias": [{
+        "id": 1,
+        "nombre": "diabetes",
+        "valor": false
+      } , {
+        "id": 2,
+        "nombre": "hipertencion",
+        "valor": false
+      }]
+    }]
+  }];
   
-  constructor(public platform: Platform,
-    public params: NavParams,
+  public evalParametros: any[] = [];
+
+  constructor(
+    public platform: Platform,
     public alertCtrl: AlertController,
-    public tipoparametrosProv: TipoparametrosProvider,
+    public params: NavParams,
     public viewCtrl: ViewController,
-    public serviApp: AppservicioProvider) {
+    public filtrablesProv: TipoparametrosProvider,
+    public serviApp: AppservicioProvider) { }
+
+  ngOnInit(){
     this.filtro = "filtroTop";
+    this.getFiltrables();
   }
 
-
-  async getTipoParametros(): Promise<void> {
+  async getFiltrables(): Promise<void> {
     let metodo = ': metodo getTipoParametros';
     this.serviApp.activarProgreso(true,this.TAG + metodo);
-    await this.tipoparametrosProv.getAll()
-      .subscribe(
+    await this.filtrablesProv.getAll()
+    .subscribe(
       (res)=>{
-        console.log(res['data'])
-        let objetos: any[] = res['data'].parametros || [];
-        console.log(res['data'].parametros)
-        if (objetos.length != 0){
-          let myImputs:any =[];
-          for ( let i in objetos ){
-            let data:any = { 
-              type: 'radio',
-              label: objetos[i].nombre,
-              value: objetos[i]
-            };
-            myImputs.push(data);
-          }
-          this.alertSelection(myImputs,res['data'].nombre);
-        }
-      this.serviApp.activarProgreso(false,this.TAG + metodo);
+        this.filtrables = res['data'] || [];
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -55,27 +128,94 @@ export class FiltroPage {
     );  
   }
 
-  alertSelection(myImputs,titulo){
+  selectView(id_tipo_parametro,parametros){
+    let aux: any[]=[];
+    for ( let i in this.evalParametros ){
+      if ( this.evalParametros[i].id_tipo_parametro == id_tipo_parametro ){
+        aux = this.evalParametros[i].parametros;
+        break;
+      } 
+    }
+    let objetos: any[] = parametros
+    if (objetos.length != 0){
+      let myImputs:any =[];
+      for ( let i in objetos ){
+        let isCheck: boolean = true;
+        for ( let y in aux){
+          if ( objetos[i].id_parametro == aux[y].id_parametro ){
+            isCheck = true;
+            break;
+          }else isCheck = false;
+        }
+        let data:any = { 
+          type: 'checkbox',
+          label: objetos[i].nombre,
+          value: objetos[i],
+          checked: isCheck
+        };
+        myImputs.push(data);
+      }
+      this.alertSelection(id_tipo_parametro,myImputs);
+    }
+  }
+
+  alertSelection(id_tipo_parametro,myImputs){
    let editar = this.alertCtrl.create({
-      title: titulo,
+      title: 'selectores',
       inputs: myImputs,
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancelar clicked' + JSON.stringify(data) );
-          }
-        },
-        {
-          text: 'Ok',
-          handler: data => {
-           console.log('Ok clicked' + JSON.stringify(data) ); 
+      buttons: [{
+        text: 'Cancelar',
+        handler: data => {
+          console.log('Cancelar clicked' + JSON.stringify(data) );
+        }
+      } , {
+        text: 'Ok',
+        handler: data => {
+          let objeto = {
+            id_tipo_parametro: id_tipo_parametro,
+            parametros: data
+          };
+          let index: any = -1;
+          if ( this.evalParametros.length == 0 ){
+            this.evalParametros.push(objeto);
+          } else {
+            let enc: boolean = false;
+            for ( let i in this.evalParametros ){
+              if ( this.evalParametros[i].id_tipo_parametro == objeto.id_tipo_parametro ){
+                index = i;
+                enc = true;
+                break;
+              } 
+            }  
+            if (!enc) this.evalParametros.push(objeto);
+            else if ( index != -1 ) this.evalParametros[index] = objeto;
           }
         }
-      ]
+      }]
     });
     editar.present();
   }
+
+  dismiss() {
+   this.viewCtrl.dismiss();
+  }
+
+  aceptar(){
+
+    let id_parametros: any[]=[];
+    for ( let i in this.evalParametros ){
+      for ( let y in this.evalParametros[i].parametros ){
+        id_parametros.push(this.evalParametros[i].parametros[y].id_parametro)
+      }
+    }
+
+    this.viewCtrl.dismiss({
+      "id_parametros": id_parametros
+    }); 
+  }
+
+
+
 
   rangeChange(evento,idRange){
     console.log(evento.value);
@@ -117,14 +257,10 @@ export class FiltroPage {
 
   }
 
-  dismiss() {
-   this.viewCtrl.dismiss();
+  ionViewDidLoad() {
+    
   }
-
-  aceptar(){
-   this.viewCtrl.dismiss(); 
-  }
-
+  
   onChange( valor ){
     console.info("onChange:");
     console.info(valor);

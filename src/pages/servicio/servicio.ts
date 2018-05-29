@@ -144,6 +144,9 @@ export class ServicioPage {
 
   showFilter() {
     let modal = this.modalCtrl.create('FiltroPage');
+    modal.onDidDismiss(data => {
+     console.log(data);
+   });
     modal.present();
   }
 

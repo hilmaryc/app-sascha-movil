@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams } from 'ionic-angular';
+
+import { VisitadetallesProvider } from '../../../providers/visitadetalles/visitadetalles';
+import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 
 @IonicPage()
 @Component({
@@ -8,25 +11,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetalleEvolucionPage {
 
-  public services: any = [{
-    "tipo_parametro":"Antropometrico",
-    "parametro":"peso",
-    "valor":"50kg"
-  },{
-    "tipo_parametro":"Bioquimico",
-    "parametro":"Glicemia",
-    "valor":"92 mg/dm"
-  },{
-    "tipo_parametro":"Patologico",
-    "parametro":"Diabetes",
-    "valor":" "
-  }];
+  public TAG:string = 'DetalleEvolucionPage';
+  public id_visita:string=null;
+  public detalles: any=null;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navParams: NavParams,
+    public detalleProv: VisitadetallesProvider,
+    public serviApp: AppservicioProvider
+    ) {
+    this.id_visita = navParams.data;
+    if (this.id_visita != null ) this.getDetalle(this.id_visita);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetaevoPage');
+  async getDetalle(id): Promise<void> {
+    let metodo = ': metodo getDetalle';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.detalleProv.get(id)
+      .subscribe(
+      (res)=>{
+        this.detalles = res['data'].detalles || [];
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
   }
 
   verNotificaciones(){

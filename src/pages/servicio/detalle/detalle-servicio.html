@@ -42,9 +42,9 @@
     <ion-item >
       <h2 align="center">Con un precio de {{ servicio.servicio.precio }} BsS</h2>
     </ion-item>
-    <button *ngIf="servicio.estado == 0" ion-button color="primary" block clear (click)="solicitar(servicio.servicio)" >Solicitar Servicio</button>
-    <button *ngIf="servicio.estado == 1" ion-button color="f83c1d" block clear (click)="getTipoReclamos()" >Cancelar Servicio</button>
-    <button *ngIf="servicio.estado == 2" ion-button color="d3e00d" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Promocion</button>
-    <button *ngIf="servicio.estado == 3" ion-button color="0d78e0" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Garantia</button>
+    <button *ngIf="servicio.estado_orden_servicio == 0" ion-button color="primary" block clear (click)="solicitar(servicio.servicio)" >Solicitar Servicio</button>
+    <button *ngIf="servicio.estado_orden_servicio == 1" ion-button color="f83c1d" block clear (click)="getTipoReclamos()" >Cancelar Servicio</button>
+    <button *ngIf="servicio.estado_orden_servicio == 2" ion-button color="d3e00d" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Promocion</button>
+    <button *ngIf="servicio.estado_orden_servicio == 3" ion-button color="0d78e0" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Garantia</button>
   </ion-card>
 </ion-content>

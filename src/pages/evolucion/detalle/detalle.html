@@ -14,20 +14,20 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-<ion-item *ngFor="let s of services" >
+<ion-item *ngFor="let d of detalles" >
       <ion-card>
         <ion-grid>
            <ion-row>
               <ion-item>
-                 <h2 align="center">{{ s.tipo_parametro }}</h2>
+                 <h2 align="center">{{ d.tipo_parametro }}</h2>
                </ion-item>
             </ion-row>
             <ion-row>
                 <ion-col>
-                    <p align="center">{{ s.parametro }}</p>
+                    <p align="center">{{ d.nombre }}</p>
                 </ion-col>
                 <ion-col>
-                    <p align="center">{{ s.valor }}</p>
+                    <p align="center">{{ d.valor }} {{ d.unidad_abreviatura }}</p>
                 </ion-col>
             </ion-row>
         </ion-grid>

@@ -173,7 +173,7 @@ export class EvolucionPage {
         console.log('Checkbox data:', data);
         this.testCheckboxOpen = false;
         this.testCheckboxResult = data;
-        this.navCtrl.push('DetalleEvolucionPage');
+        this.navCtrl.push('DetalleEvolucionPage',visita.id_visita);
       }
     });
     alert.present().then(() => {
