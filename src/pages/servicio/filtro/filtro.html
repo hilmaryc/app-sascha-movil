@@ -1,24 +1,14 @@
-<ion-header>
-  <ion-toolbar color="blanco">
-  <ion-title>Filtrar por</ion-title>
-  <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Volver</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-      </button>
-    </ion-buttons>
-    </ion-toolbar>
-</ion-header>
 <ion-content  style="background: #42414199;">
+  <div style="padding: 10%;margin-top: 20%;">
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="filtro">
       <ion-segment-button ngSelected="selected" value="filtroTop">General</ion-segment-button>
-      <ion-segment-button value="filtroExtra">Extra</ion-segment-button>
+      <ion-segment-button value="filtroExtra" (click)="getFiltrables()">Extra</ion-segment-button>
     </ion-segment>
   </ion-toolbar>  
   <div class="modulo-filtro" [ngSwitch]="filtro">
-    <ion-list *ngSwitchCase="'filtroTop'"> 
-        <ion-card *ngFor="let r of parametros[0].ranges " >
+    <ion-item *ngSwitchCase="'filtroTop'"> 
+        <ion-card *ngFor="let r of filtro_top.ranges " >
           <h2 align="center">{{ r.titulo }} {{ r.valor }} {{ r.unidad }}</h2>
           <ion-item>
             <ion-range [(ngModel)]="r.valor" min="{{ r.min }}" max="{{ r.max }}" step="{{ r.slep }}" pin="true" [(ngModel)]="brightness" (ionChange)="rangeChange($event,r.id)">
@@ -27,23 +17,16 @@
             </ion-range>
           </ion-item>
         </ion-card>
-        <ion-card *ngFor="let s of parametros[0].selectores " >
-          <h2 align="center">{{ s.titulo }} {{ s.valor }} {{ s.unidad }}</h2>
-          <ion-item>
-            <ion-buttons>
-              <ion-item align="center">
-              <button color="star" ion-button icon-only align="center" *ngFor="let i of s.imagenes " clear="{{ i.isSeleccion }}" (click)="selectorClick(s.id,i.id)"  style="width: 40px;height: 40px;">
-                <img class="logo" src="{{ i.img }}" style="margin-left: auto; margin-right: auto;">
-              </button>
-              </ion-item>
-            </ion-buttons>
-          </ion-item>
+        <ion-card>
+          <button ion-button full (click)="getEspecialidades()" >
+            Especialidades
+          </button>
         </ion-card>
-    </ion-list>
+    </ion-item>
     <ion-item *ngSwitchCase="'filtroExtra'">
       <ion-list>
         <ion-item *ngFor="let f of filtrables">
-          <button ion-button full (click)="selectView(f.id_tipo_parametro,f.parametros)" >
+          <button ion-button full (click)="selectView(f.id_tipo_parametro,f.nombre,f.parametros)" >
             {{ f.nombre }}
           </button>
         </ion-item>
@@ -58,4 +41,5 @@
   		  <button ion-button color="primary" block (click)="aceptar()" >Aplicar</button>
   	 </ion-col>
   </ion-row>
+  </div>
 </ion-content>

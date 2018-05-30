@@ -3,9 +3,13 @@ import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
 import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
+import { TipoincideciasProvider } from '../../providers/tipoincidecias/tipoincidecias';
+import { ProximavisitaProvider } from '../../providers/proximavisita/proximavisita';
 import { VisitasProvider } from '../../providers/visitas/visitas';
 import { PerfilesProvider } from '../../providers/perfiles/perfiles';
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
+
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -25,13 +29,11 @@ export class EvolucionPage {
   public perfiles: any[]=[];
   public visitas: any[]=[];
   public proximaVisita: any=null;
+  public numeroVisita: number = 1;
 
-  public localDate: Date = new Date();
-  public initDate: Date = new Date(2018, 4, 15);
+  public fecha: Date = new Date();
   public min: Date = new Date();
   public maxDate: Date = new Date(new Date().setDate(new Date().getDate() + 800));
-  public disabledDates: Date[] = [new Date(2018, 3, 1), new Date(2018, 3, 3), new Date(2018, 3, 5)];
-  public markDates: Date[] = [new Date(2018, 3, 2), new Date(2018, 3, 4), new Date(2018, 3, 6)];
 
   constructor(
     private storage: Storage,
@@ -39,9 +41,13 @@ export class EvolucionPage {
     public navParams: NavParams, 
     public alertCtrl: AlertController,
     public perfilesProv: PerfilesProvider,
+    public tipoincidenciasProv: TipoincideciasProvider,
     public visitasProv: VisitasProvider,
+    public proximaVisitaProv: ProximavisitaProvider,
     public ordenServiciosProv: MiordenserviciosProvider,
-    public serviApp: AppservicioProvider ) { }
+    public serviApp: AppservicioProvider ) { 
+    console.log(moment.locale())
+  }
 
   ngOnInit(){
     this.evolucion = "perfil";
@@ -50,7 +56,8 @@ export class EvolucionPage {
     
   showSegment(segment){
     if ( segment == 'perfil' && this.perfiles.length == 0 ) this.getCliente();
-    if ( segment == 'visita' && this.id_cliente != null ) this.getMiOrdenServicios();
+    if ( segment == 'visita' && this.id_cliente != null && this.visitas.length == 0 ) 
+      this.getMiOrdenServicios();
   }
 
   async getCliente(){
@@ -75,6 +82,8 @@ export class EvolucionPage {
       .subscribe(
       (res)=>{
         this.perfiles = res['data'];
+        if ( this.perfiles.length == 0 ) 
+          this.serviApp.alecrtMsg('Acude a tu cita para que te asigne un perfil');
         this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
@@ -86,11 +95,11 @@ export class EvolucionPage {
   async getMiOrdenServicios(): Promise<void> {
     let metodo = ': metodo getMiOrdenServicios';
     if ( this.id_cliente != null ){
+      this.serviApp.activarProgreso(true,this.TAG + metodo);
       await this.ordenServiciosProv.get(this.id_cliente)
       .subscribe(
         (res)=>{
           let orden_servicios = res['data'];
-          this.serviApp.activarProgreso(false,this.TAG + metodo);
           if ( this.id_cliente || orden_servicios[0] )
             this.getVisitas(this.id_cliente,orden_servicios[0]);
         },
@@ -110,9 +119,13 @@ export class EvolucionPage {
       .subscribe(
       (res)=>{
         this.visitas = res['data'];
-        this.cargarProximaVisita(this.visitas[0]);
-        this.visitas.splice(0, 1);
-        this.serviApp.activarProgreso(false,'EvolucionPage: metodo getVisitas');
+        for ( let i in this.visitas ){
+          this.numeroVisita = this.numeroVisita + 1;
+          this.visitas[i].fecha_atencion = moment(this.visitas[i].fecha_atencion).format("DD/MM/YYYY");
+        }
+        
+        //this.visitas.splice(0, 1);
+        this.getProximaVisita(this.id_cliente);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -120,21 +133,86 @@ export class EvolucionPage {
     );  
   }
 
-  cargarProximaVisita(visita){
-    this.proximaVisita = visita;
-    this.setDate(new Date(visita.fecha_atencion));
+  async getProximaVisita(id_cliente): Promise<void> {
+    await this.proximaVisitaProv.get(id_cliente)
+      .subscribe(
+      (res)=>{
+        this.proximaVisita = res['data'];
+        this.setDate(new Date(this.proximaVisita.fecha));
+        this.serviApp.activarProgreso(false,'EvolucionPage: metodo getProximaVisita');
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
   }
 
   public Log(stuff): void {
     console.log(stuff);
   }
-  public event(data: Date): void {
-    this.localDate = data;
-  }
+
+  public event(data: Date): void {}
 
   setDate(date: Date) {
-    console.log(date);
-    this.initDate = date;
+    if( date != this.fecha ){
+      this.fecha = date;
+    }
+  }
+
+  async getTipoIncidencias(): Promise<void> {
+    let metodo = ': metodo getTipoIncidencias';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.tipoincidenciasProv.getAll()
+      .subscribe(
+      (res)=>{
+        console.log(res['data'])
+        let objetos: any[] = res['data'].motivos || [];
+        console.log(res['data'].motivos)
+        if (objetos.length != 0){
+          let myImputs:any =[];
+          for ( let i in objetos ){
+            let data:any = { 
+              type: 'radio',
+              label: objetos[i].descripcion,
+              value: objetos[i]
+            };
+            myImputs.push(data);
+          }
+          this.alertSelection(myImputs);
+        }
+      this.serviApp.activarProgreso(false,this.TAG + metodo);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
+  }
+
+  alertSelection(myImputs){
+   let editar = this.alertCtrl.create({
+      title: 'Por que deseas reprogramar la fecha?',
+      inputs: myImputs,
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancelar clicked' + JSON.stringify(data) );
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if( '['+JSON.stringify(data)+']' != '[undefined]') this.reprogramar(data);
+            else this.serviApp.alecrtMsg('Seleccione un motivo');
+          }
+        }
+      ]
+    });
+    editar.present();
+  }
+
+  reprogramar(data){
+    console.log('reprogramar clicked' + JSON.stringify(data) );
   }
 
   doCheckbox(visita) {

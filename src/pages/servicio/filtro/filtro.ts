@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, Platform, NavParams, ViewController } from 'ionic-angular';
 
+import { EspecialidadesProvider } from '../../../providers/especialidades/especialidades';
 import { TipoparametrosProvider } from '../../../providers/tipoparametros/tipoparametros';
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 
@@ -13,92 +14,37 @@ export class FiltroPage {
   filtro;
   public TAG:string = 'FiltroPage';
   public filtrables:any[]=[];
-  public parametros: any = [{
+  public filtro_top: any = {
     "ranges": [{
       "id": "parametro_1",
-      "titulo": "Precio",
-      "min": 20,
-      "max": 100,
-      "valor": 100,
+      "titulo": "Precio Desde",
+      "min": 0,
+      "max": 0,
+      "valor": 0,
       "slep": 2,
       "unidad": "$"
     } , {
       "id": "parametro_2",
+      "titulo": "Precio Hasta",
+      "min": 0,
+      "max": 0,
+      "valor": 0,
+      "slep": 2,
+      "unidad": "$"
+    } , {
+      "id": "parametro_3",
       "titulo": "Duracion en",
       "min": 1,
-      "max": 10,
-      "valor": 10,
+      "max": 1,
+      "valor": 1,
       "slep": 1,
       "unidad": "visitas"
     }] ,
-    "selectores": [{
-      "id": "parametro_3",
-      "titulo": "Valorado con",
-      "min": 1,
-      "max": 5,
-      "valor": 5,
-      "slep": 1,
-      "unidad": "estrellas",
-      "tipo_seleccion": "conjunto",
-      "imagenes":[{
-        "id" : "1",
-        "img" : "assets/imgs/estrella1.png",
-        "valor" : "1",
-        "isSeleccion": true
-      } , {
-        "id" : "2",
-        "img" : "assets/imgs/estrella.png",
-        "valor" : "2",
-        "isSeleccion": true
-      } , {
-        "id" : "3",
-        "img" : "assets/imgs/estrella3.png",
-        "valor" : "3",
-        "isSeleccion": true
-      }, {
-        "id" : "4",
-        "img" : "assets/imgs/estrella4.png",
-        "valor" : "4",
-        "isSeleccion": true
-      } , {
-        "id" : "5",
-        "img" : "assets/imgs/estrella5.png",
-        "valor" : "5",
-        "isSeleccion": false
-      }]
-    }],
-    "checkeres": []
-  } , {
-    "ranges": [] ,
-    "selectores": [],
-    "checkeres": [{
-      "id": "parametro_4",
-      "titulo": "Patologia uno",
-      "patologias": [{
-        "id": 1,
-        "nombre": "diabetes",
-        "valor": false
-      } , {
-        "id": 2,
-        "nombre": "hipertencion",
-        "valor": false
-      }]
-    } , {
-      "id": "parametro_5",
-      "titulo": "Patologia dos",
-      "patologias": [{
-        "id": 1,
-        "nombre": "diabetes",
-        "valor": false
-      } , {
-        "id": 2,
-        "nombre": "hipertencion",
-        "valor": false
-      }]
-    }]
-  }];
+    "especialidades":[]
+  };
   
   public evalParametros: any[] = [];
+  public evalEspecialidades: any[] = [];
 
   constructor(
     public platform: Platform,
@@ -106,11 +52,23 @@ export class FiltroPage {
     public params: NavParams,
     public viewCtrl: ViewController,
     public filtrablesProv: TipoparametrosProvider,
-    public serviApp: AppservicioProvider) { }
+    public especialidadesProv: EspecialidadesProvider,
+    public serviApp: AppservicioProvider) {
+      let max = params.data.rangoPrecio.max;
+      let min = params.data.rangoPrecio.min;
+      this.filtro_top.ranges[0].max = max;
+      this.filtro_top.ranges[0].min = min;
+      this.filtro_top.ranges[0].valor = min;
+      this.filtro_top.ranges[1].max = max;
+      this.filtro_top.ranges[1].min = min;
+      this.filtro_top.ranges[1].valor = max;
+      this.filtro_top.ranges[2].max = params.data.max_duracion;
+      this.filtro_top.ranges[2].valor = params.data.max_duracion;
+      console.log(JSON.stringify(params.data));
+    }
 
   ngOnInit(){
     this.filtro = "filtroTop";
-    this.getFiltrables();
   }
 
   async getFiltrables(): Promise<void> {
@@ -128,7 +86,7 @@ export class FiltroPage {
     );  
   }
 
-  selectView(id_tipo_parametro,parametros){
+  selectView(id_tipo_parametro,tipo,parametros){
     let aux: any[]=[];
     for ( let i in this.evalParametros ){
       if ( this.evalParametros[i].id_tipo_parametro == id_tipo_parametro ){
@@ -140,7 +98,7 @@ export class FiltroPage {
     if (objetos.length != 0){
       let myImputs:any =[];
       for ( let i in objetos ){
-        let isCheck: boolean = true;
+        let isCheck: boolean = false;
         for ( let y in aux){
           if ( objetos[i].id_parametro == aux[y].id_parametro ){
             isCheck = true;
@@ -155,13 +113,13 @@ export class FiltroPage {
         };
         myImputs.push(data);
       }
-      this.alertSelection(id_tipo_parametro,myImputs);
+      this.alertSelection(id_tipo_parametro,tipo,myImputs);
     }
   }
 
-  alertSelection(id_tipo_parametro,myImputs){
+  alertSelection(id_tipo_parametro,titulo,myImputs){
    let editar = this.alertCtrl.create({
-      title: 'selectores',
+      title: titulo,
       inputs: myImputs,
       buttons: [{
         text: 'Cancelar',
@@ -201,74 +159,110 @@ export class FiltroPage {
   }
 
   aceptar(){
-
     let id_parametros: any[]=[];
     for ( let i in this.evalParametros ){
       for ( let y in this.evalParametros[i].parametros ){
         id_parametros.push(this.evalParametros[i].parametros[y].id_parametro)
       }
     }
-
+    let id_especialidades: any[]=[];
+    for ( let i in this.evalEspecialidades ){
+        id_especialidades.push(this.evalEspecialidades[i].id_especialidad);
+    }
+    let rangoPrecio: any = {
+      "desde": this.filtro_top.ranges[0].valor, 
+      "hasta": this.filtro_top.ranges[1].valor
+    };
+    let duracion: number = this.filtro_top.ranges[2].valor; 
     this.viewCtrl.dismiss({
-      "id_parametros": id_parametros
+      "id_parametros": id_parametros,
+      "id_especialidades": id_especialidades,
+      "rangoPrecio": rangoPrecio,
+      "duracion": duracion
     }); 
   }
 
-
-
-
   rangeChange(evento,idRange){
-    console.log(evento.value);
+    //console.log(evento.value);
     console.log(idRange);
-    for( var _i = 0; _i < this.parametros[0].ranges.length; _i++ ){
-      if( this.parametros[0].ranges.id == idRange ){
-        this.parametros[0].ranges[_i].valor = evento.value;  
-      }
-      console.log(JSON.stringify(this.parametros[0].ranges[_i]));  
+    let ranges: any[]=[];
+    for( var _i = 0; _i < this.filtro_top.ranges.length; _i++ ){
+      ranges = this.filtro_top.ranges;
+      if( ranges[_i].id == idRange ){
+        let desval: number = ranges[0].valor;
+        let hasval: number = ranges[1].valor;
+        console.log( desval +' < '+hasval)
+        if ( idRange == 'parametro_1' )
+          this.filtro_top.ranges[_i].valor = ( desval < hasval )? evento.value : this.filtro_top.ranges[1].valor;
+        else if ( idRange == 'parametro_2' )
+          this.filtro_top.ranges[_i].valor = ( desval < hasval )? evento.value : this.filtro_top.ranges[0].valor;
+        else this.filtro_top.ranges[_i].valor = evento.value;
+      }    
     }
+    console.log(JSON.stringify(ranges));
   }
 
-  selectorChange(evento,idRange){
-    console.log(evento.value);
-    console.log(idRange);
-    for( var _i = 0; _i < this.parametros[0].ranges.length; _i++ ){
-      if( this.parametros[0].ranges.id == idRange )
-        this.parametros[0].ranges[_i].valor = evento.value;  
-    } 
-    console.log(JSON.stringify(this.parametros[0].ranges[_i]));     
-  }
-
-  selectorClick(idSelector,idImagen){
-   console.log(idSelector+ '  ' + idImagen );
-    for( var _i = 0; _i < this.parametros[0].selectores.length; _i++ ){
-        for( var _j = 0; _j < this.parametros[0].selectores[_i].imagenes.length; _j++ ){
-          if( this.parametros[0].selectores[_i].id == idSelector && this.parametros[0].selectores[_i].imagenes[_j].id == idImagen ){
-            this.parametros[0].selectores[_i].imagenes[_j].isSeleccion = this.parametros[0].selectores[_i].imagenes[_j].isSeleccion ? false : true;
-            this.parametros[0].selectores[_i].valor = this.parametros[0].selectores[_i].imagenes[_j].valor;
-          } else {
-            this.parametros[0].selectores[_i].imagenes[_j].isSeleccion = true;
+  async getEspecialidades(): Promise<void> {
+    if ( this.filtro_top.especialidades.length == 0 ){
+      let metodo = ': metodo getEspecialidades';
+      this.serviApp.activarProgreso(true,this.TAG + metodo);
+      await this.especialidadesProv.getAll()
+        .subscribe(
+        (res)=>{
+          let objetos: any[] = res['data'];
+          for ( let i in objetos ){
+            let checkeded: boolean = false;
+            let data:any = { 
+              type: 'checkbox',
+              label: objetos[i].nombre,
+              value: objetos[i],
+              checked: checkeded 
+            };
+            this.filtro_top.especialidades.push(data);
           }
+          this.serviApp.activarProgreso(false,this.TAG + metodo);
+          this.alertEspecialidades(this.filtro_top.especialidades);
+        },
+        (error)=>{
+          this.serviApp.errorConeccion(error);
+        }
+      );  
+    } else this.alertEspecialidades(this.filtro_top.especialidades);
+  }
+
+  alertEspecialidades(especialidades){
+   let editar = this.alertCtrl.create({
+      title: "Especialidades",
+      inputs: especialidades,
+      buttons: [{
+        text: 'Cancelar',
+        handler: data => {
+          console.log('Cancelar clicked' + JSON.stringify(data) );
+        }
+      } , {
+        text: 'Ok',
+        handler: data => {
+          console.log(JSON.stringify(data))
+          this.evalEspecialidades = data;
+          this.resetIscheck();
+          for ( let i in data ) this.ischeck(data[i].id_especialidad);
+        }
+      }]
+    });
+    editar.present();
+  }
+
+  resetIscheck(){
+    for ( let i in this.filtro_top.especialidades )  
+      this.filtro_top.especialidades[i].checked = false;
+  }
+
+  ischeck(id_especialidad){
+    for ( let i in this.filtro_top.especialidades )  
+      if ( this.filtro_top.especialidades[i].value.id_especialidad == id_especialidad ){
+        this.filtro_top.especialidades[i].checked = true ;
+        break
       }
-    } 
-    console.log(JSON.stringify(this.parametros[0].ranges[_i]));     
-  }
-
-  checkClick(){
-
-  }
-
-  ionViewDidLoad() {
-    
-  }
-  
-  onChange( valor ){
-    console.info("onChange:");
-    console.info(valor);
-  }
-
-  onClick( params ){
-    console.info("onClick:");
-    console.info(params);
   }
 
 }

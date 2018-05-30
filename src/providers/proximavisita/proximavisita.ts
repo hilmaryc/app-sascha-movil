@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GeneralService } from './../general.service'; 
 @Injectable()
-export class EspecialidadesProvider extends GeneralService {
+export class ProximavisitaProvider extends GeneralService {
+
   constructor(protected http: HttpClient) {
-    super(http,'especialidad','es')
+    super(http,'proximavisita/cliente','')
   }
-  getAll(){
-    return super.getAll();
+
+  get(id){
+    return super.get(id);
   }
+
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ModalController, NavParams, NavController } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
+import { FiltrablesProvider } from '../../providers/filtrables/filtrables';
 import { ServiciosProvider } from '../../providers/servicios/servicios';
 import { MiserviciosProvider } from '../../providers/miservicios/miservicios';
 import { PromocionesProvider } from '../../providers/promociones/promociones';
@@ -39,8 +40,8 @@ export class ServicioPage {
     private storage: Storage,
     public navCtrl: NavController,
     public modalCtrl: ModalController, 
-    public params: NavParams, 
     public serviApp: AppservicioProvider,
+    public filtrablesProv: FiltrablesProvider,
     public serviciosProv: ServiciosProvider,
     public miserviciosProv: MiserviciosProvider,
     public promocionesProv: PromocionesProvider) { }
@@ -143,11 +144,56 @@ export class ServicioPage {
   }
 
   showFilter() {
-    let modal = this.modalCtrl.create('FiltroPage');
+    var precios: number[]=[];
+    var duraciones: number[]=[];
+    for ( let i in this.services ) {
+      precios.push( this.services[i].servicio.precio );
+      duraciones.push( this.services[i].servicio.numero_visitas );
+    } 
+    let rangoPrecio: any = {
+      max: Math.max.apply(null, precios),
+      min: Math.min.apply(null, precios)
+    }
+    let body: any = {
+      rangoPrecio: rangoPrecio,
+      max_duracion: Math.max.apply(null, duraciones)
+    }
+    let modal = this.modalCtrl.create('FiltroPage',body);
     modal.onDidDismiss(data => {
-     console.log(data);
+     if ( data.length != 0 ) this.getServiciosFiltrados(data);
    });
     modal.present();
+  }
+
+  isParametro(parametros,id_parametro): boolean{
+    for ( let i in parametros )
+      if ( parametros[i].id_parametro == id_parametro ) return true;
+    return false;
+  }
+
+  isService(services,id_servicio): boolean{
+    for ( let i in services )
+      if ( services[i].servicio.id_servicio == id_servicio ) return true;
+    return false;
+  }
+
+  async getServiciosFiltrados(body):Promise<void>{
+    console.log(JSON.stringify(body));
+    let metodo = ': metodo getServiciosFiltrados';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.filtrablesProv.getBody(body)
+      .subscribe(
+      (res)=>{
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+        this.titulo_servicio = "Servicios";
+        this.ico = 'arrow-dropup';
+        this.cargarServicios(res['data'],this.titulo_servicio);
+        this.esMiServicio = false;
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );
   }
 
   showServicio() {

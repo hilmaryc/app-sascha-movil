@@ -53,22 +53,20 @@
   <ion-list *ngSwitchCase="'visita'">
     <ion-item *ngIf="proximaVisita != null" >
       <ion-card class="nueva">
-        <h2 align="center" style="color: white;">VISITA #{{proximaVisita.numero}}</h2>
+        <h2 align="center" style="color: white;">VISITA #{{numeroVisita}}</h2>
         <span ion-datepicker
           (ionChanged)="setDate($event);"
           [max]="maxDate" 
           [min]="min"
-          [value]="initDate"
+          [value]="fecha"
           [showMaxAndMin]="true"
-          [disabledDates]="disabledDates"
-          [markDates]="markDates"
           [okText]="Aceptar"
           [cancelText]="Cancelar"
           [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
           clear
           class="ScheduleDate">
           <span style="color: white;">
-            {{initDate | date: 'dd/MM/yyyy' }} 
+            {{fecha | date: 'dd/MM/yyyy' }} 
             <ion-icon name="calendar" item-left></ion-icon> 
              Reprogramar
           </span>
@@ -78,7 +76,7 @@
     <ion-item *ngFor="let v of visitas" >
       <ion-card class="anterior">
         <button ion-button clear style="color: white" (click)="doCheckbox(v)">Visita #{{v.numero}}</button>
-        <p align="center" style="color: white">{{v.fecha_atencion}}</p>
+        <p align="center" style="color: white">{{ v.fecha_atencion }}</p>
       </ion-card>
     </ion-item>
   </ion-list>

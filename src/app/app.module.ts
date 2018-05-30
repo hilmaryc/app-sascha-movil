@@ -40,6 +40,10 @@ import { ValoracionesProvider } from '../providers/valoraciones/valoraciones';
 import { VisitasProvider } from '../providers/visitas/visitas';
 import { TipoparametrosProvider } from '../providers/tipoparametros/tipoparametros';
 import { VisitadetallesProvider } from '../providers/visitadetalles/visitadetalles';
+import { FiltrablesProvider } from '../providers/filtrables/filtrables';
+import { TipoincideciasProvider } from '../providers/tipoincidecias/tipoincidecias';
+import { ProximavisitaProvider } from '../providers/proximavisita/proximavisita';
+import { ProximacitaProvider } from '../providers/proximacita/proximacita';
 
 
 @NgModule({
@@ -92,7 +96,12 @@ import { VisitadetallesProvider } from '../providers/visitadetalles/visitadetall
     ValoracionesProvider,
     VisitasProvider,
     TipoparametrosProvider,
-    VisitadetallesProvider
+    VisitadetallesProvider,
+    FiltrablesProvider,
+    EspecialidadesProvider,
+    TipoincideciasProvider,
+    ProximavisitaProvider,
+    ProximacitaProvider
   ]
 })
 export class AppModule {}

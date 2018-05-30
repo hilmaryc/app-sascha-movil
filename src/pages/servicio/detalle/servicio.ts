@@ -106,7 +106,7 @@ export class ServicioDetallePage {
 
   alertSelection(myImputs){
    let editar = this.alertCtrl.create({
-      title: 'Por que deseas cancelar el servicio?',
+      title: 'Por que deseas reclamar el servicio?',
       inputs: myImputs,
       buttons: [
         {
@@ -118,7 +118,7 @@ export class ServicioDetallePage {
         {
           text: 'Ok',
           handler: data => {
-            if( '['+JSON.stringify(data)+']' != '[undefined]') this.cancelar(data);
+            if( '['+JSON.stringify(data)+']' != '[undefined]') this.Reclamar(data);
             else this.serviApp.alecrtMsg('Seleccione un motivo');
           }
         }
@@ -127,7 +127,7 @@ export class ServicioDetallePage {
     editar.present();
   }
 
-  async cancelar(data){
+  async Reclamar(data){
     await this.getMiOrdenServicios(this.id_cliente,data.id_motivo);
   }
 

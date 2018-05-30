@@ -57,9 +57,9 @@ export class SolicitudPage {
 	seleccion(entidad,title) {
   	if ( entidad == 'bloque_horario' )
     	this.getBloqueHoras(entidad,title);
-    else if ( entidad == 'empleado' )
+    else if ( entidad == 'empleado' &&  JSON.stringify(this.solicitudes[0].empleado) == '{}' )
     	this.getEmpleados(entidad,title);
-    else if ( entidad == 'motivos-solicitud' )
+    else if ( entidad == 'motivos-solicitud' &&  JSON.stringify(this.solicitudes[0].motivo) == '{}' )
     	this.getMotivoSolicitud(entidad,title);
 	}
 
@@ -75,7 +75,7 @@ export class SolicitudPage {
       await this.horariosProv.getBody(body)
         .subscribe(
         (res)=>{    
-
+          this.serviApp.activarProgreso(false,'solicitud: metodo getBloqueHoras');
           let objetos: any[] = res['data'].bloques_horarios || [];
           if (objetos.length != 0){
             let myImputs:any =[];
@@ -95,7 +95,6 @@ export class SolicitudPage {
             }
             this.alertSelection(entidad,title,myImputs);
           }
-          this.serviApp.activarProgreso(false,'solicitud: metodo getBloqueHoras');
         },
         (error)=>{
            this.serviApp.alecrtMsg('El nutricionisa labora solo los dias '+JSON.stringify(this.dia_laborables)+' intenta seleccionar unos de estos dias');
