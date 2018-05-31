@@ -102,7 +102,8 @@ import { FCM } from '@ionic-native/fcm';
     TipoincideciasProvider,
     ProximavisitaProvider,
     ProximacitaProvider,
-    FCM
+    FCM,
+    NotificacionesProvider
   ]
 })
 export class AppModule {}

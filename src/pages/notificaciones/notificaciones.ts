@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/Rx';
 
 @IonicPage()
 @Component({
@@ -38,16 +40,29 @@ export class NotificacionesPage {
     { image: "assets/imgs/meta.jpeg", titulo: '¿Quieres bajar de peso?', detalle  : 'Tu proxima cita de control es para el dia 20/05/2018 por favor asiste', fecha: '12/04/2018' }
   ];
 
+  public subscription;
+
+  constructor(
+    public navCtrl: NavController,
+    private storage: Storage) {
+    this.subscription = Observable.interval(10000).subscribe(x => {
+      // the number 1000 is on miliseconds so every second is going to have an iteration of what is inside this code.
+      this.getNotificaciones();
+    });
+  }
+
   itemSelected(item: string) {
     console.log("Selected Item", item);
   }
 
-  constructor(public navCtrl: NavController) {
-    console.log(this.TAG,' verNotificaciones ');
-  }
-
-  ionViewDidEnter(){
-    console.log('ionViewDidLoad NotificacionesPage');
+  getNotificaciones(){
+     this.storage.ready().then(() => {
+      this.storage.get('notificacion').then( (notificacion) => {
+        console.log(this.TAG,JSON.stringify(notificacion));
+      }).catch((err) =>{
+        console.log(err);
+      });
+    });
   }
   
   showDetail(params){

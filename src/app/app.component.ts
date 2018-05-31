@@ -9,6 +9,7 @@ import { ServicioPage } from '../pages/servicio/servicio';
 import { AuthProvider } from '../providers/auth/auth';
 
 import { FCM } from '@ionic-native/fcm';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,6 +22,10 @@ export class MyApp {
   rootPage: any;
   showMenu: any = 0;
   pages: Array<{title: string, component: any}>;
+
+  public subscription;
+  public index = 0;
+
   constructor(
     public platform: Platform, 
     public loadingCtrl: LoadingController,
@@ -58,11 +63,24 @@ export class MyApp {
       //end notifications.
       ////////
       */
-      
+
       this.statusBar.styleDefault();
       this.hideSplashScreen();
       this.isAuth();
     });
+  }
+
+  ngOnInit() {
+    this.subscription = Observable.interval(5000).subscribe(x => {
+      // the number 1000 is on miliseconds so every second is going to have an iteration of what is inside this code.
+      this.storage.set('notificacion', this.index);
+      this.index++;
+    });
+  }
+
+    // to unsubscribe the function and stop the iterations
+  stopTheIterations () {
+    this.subscription.unsubscribe();
   }
 
   hideSplashScreen() {
