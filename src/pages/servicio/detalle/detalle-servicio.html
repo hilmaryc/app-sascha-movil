@@ -40,7 +40,7 @@
       <p text-wrap>{{ servicio.servicio.plan_suplemento.descripcion }}</p>
     </ion-item>  
     <ion-item >
-      <h2 align="center">Con un precio de {{ servicio.servicio.precio }} BsS</h2>
+      <h2 align="center">Con un precio de BsS {{ servicio.servicio.precio }} </h2>
     </ion-item>
     <button *ngIf="servicio.estado_orden_servicio == 0" ion-button color="primary" block clear (click)="solicitar(servicio.servicio)" >Solicitar Servicio</button>
     <button *ngIf="servicio.estado_orden_servicio == 1" ion-button color="f83c1d" block clear (click)="getTipoReclamos()" >Cancelar Servicio</button>

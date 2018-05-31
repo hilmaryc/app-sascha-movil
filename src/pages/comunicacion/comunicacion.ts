@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { Storage } from '@ionic/storage';
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 import { CanalescuchaProvider } from '../../providers/canalescucha/canalescucha';
-
+import { ServicioPage } from '../servicio/servicio';
 @IonicPage()
 @Component({
   selector: 'page-comunicacion',
@@ -92,6 +92,7 @@ export class ComunicacionPage {
       .subscribe(
         (res)=>{
           this.serviApp.alecrtMsg('Su '+ this.tipo_contacto +' ha sido enviada exitosamente!');
+          this.navCtrl.push(ServicioPage);
         },
         (error)=>{
           this.serviApp.errorConeccion(error);

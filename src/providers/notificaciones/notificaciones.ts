@@ -1,17 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-/*
-  Generated class for the NotificacionesProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+import { GeneralService } from './../general.service';
 @Injectable()
-export class NotificacionesProvider {
+export class NotificacionesProvider extends GeneralService {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello NotificacionesProvider Provider');
+  constructor(protected http: HttpClient) {
+    super(http,'notificaciones/usuario','')
+  }
+
+  get(id){
+    return super.get(id);
   }
 
 }
