@@ -3,7 +3,6 @@ import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
 import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
-import { TipoincideciasProvider } from '../../providers/tipoincidecias/tipoincidecias';
 import { ProximavisitaProvider } from '../../providers/proximavisita/proximavisita';
 import { VisitasProvider } from '../../providers/visitas/visitas';
 import { PerfilesProvider } from '../../providers/perfiles/perfiles';
@@ -31,17 +30,12 @@ export class EvolucionPage {
   public proximaVisita: any=null;
   public numeroVisita: number = 1;
 
-  public fecha: Date = new Date();
-  public min: Date = new Date();
-  public maxDate: Date = new Date(new Date().setDate(new Date().getDate() + 800));
-
   constructor(
     private storage: Storage,
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public alertCtrl: AlertController,
     public perfilesProv: PerfilesProvider,
-    public tipoincidenciasProv: TipoincideciasProvider,
     public visitasProv: VisitasProvider,
     public proximaVisitaProv: ProximavisitaProvider,
     public ordenServiciosProv: MiordenserviciosProvider,
@@ -138,81 +132,14 @@ export class EvolucionPage {
       .subscribe(
       (res)=>{
         this.proximaVisita = res['data'];
-        this.setDate(new Date(this.proximaVisita.fecha));
+        this.proximaVisita.fecha=moment(this.proximaVisita.fecha).format("DD/MM/YYYY");
+        //this.setDate(new Date(this.proximaVisita.fecha));
         this.serviApp.activarProgreso(false,'EvolucionPage: metodo getProximaVisita');
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
       }
     );  
-  }
-
-  public Log(stuff): void {
-    console.log(stuff);
-  }
-
-  public event(data: Date): void {}
-
-  setDate(date: Date) {
-    if( date != this.fecha ){
-      this.fecha = date;
-    }
-  }
-
-  async getTipoIncidencias(): Promise<void> {
-    let metodo = ': metodo getTipoIncidencias';
-    this.serviApp.activarProgreso(true,this.TAG + metodo);
-    await this.tipoincidenciasProv.getAll()
-      .subscribe(
-      (res)=>{
-        console.log(res['data'])
-        let objetos: any[] = res['data'].motivos || [];
-        console.log(res['data'].motivos)
-        if (objetos.length != 0){
-          let myImputs:any =[];
-          for ( let i in objetos ){
-            let data:any = { 
-              type: 'radio',
-              label: objetos[i].descripcion,
-              value: objetos[i]
-            };
-            myImputs.push(data);
-          }
-          this.alertSelection(myImputs);
-        }
-      this.serviApp.activarProgreso(false,this.TAG + metodo);
-      },
-      (error)=>{
-        this.serviApp.errorConeccion(error);
-      }
-    );  
-  }
-
-  alertSelection(myImputs){
-   let editar = this.alertCtrl.create({
-      title: 'Por que deseas reprogramar la fecha?',
-      inputs: myImputs,
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancelar clicked' + JSON.stringify(data) );
-          }
-        },
-        {
-          text: 'Ok',
-          handler: data => {
-            if( '['+JSON.stringify(data)+']' != '[undefined]') this.reprogramar(data);
-            else this.serviApp.alecrtMsg('Seleccione un motivo');
-          }
-        }
-      ]
-    });
-    editar.present();
-  }
-
-  reprogramar(data){
-    console.log('reprogramar clicked' + JSON.stringify(data) );
   }
 
   doCheckbox(visita) {
@@ -265,5 +192,9 @@ export class EvolucionPage {
 
   verMeta(metas){
      this.navCtrl.push('MetaPage',metas);
+  }
+
+  irReprogramar(visita){
+    this.navCtrl.push('DetallereprogramacionPage',visita);
   }
 }

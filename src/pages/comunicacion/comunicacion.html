@@ -19,13 +19,13 @@
   </ion-item>
   <ion-card>
     <ion-item>
-      <ion-label>Tipo Contacto</ion-label>
-      <ion-select [(ngModel)]="tipo_motivo">
-        <ion-option *ngFor="let c of canales" value="{{c.id_tipo_motivo}}" (ionSelect)="selectView('motivos',c);">{{c.nombre}}
+         <ion-label>Tipo Contacto </ion-label>
+         <ion-select  [(ngModel)]="tipo_motivo">
+         <ion-option   *ngFor="let c of canales" value="{{c.id_tipo_motivo}}" (ionSelect)="selectView('motivos',c);">{{c.nombre}}
         </ion-option>
       </ion-select>
-    </ion-item>
-  </ion-card>
+      </ion-item>
+    </ion-card>
   <ion-card>
     <ion-item class="select">
       <ion-label>Motivo</ion-label>
