@@ -56,9 +56,12 @@ export class PlanPage {
       (res)=>{
         this.serviApp.activarProgreso(false,'PlanPage: metodo getPlanes');
         this.servicio = res['data'].servicio;
-        this.suplementos = res['data'].servicio.plan_suplemento.suplementos;
-        this.actividades = res['data'].servicio.plan_ejercicio.ejercicios;
-        this.comidas = res['data'].servicio.plan_dieta.comidas;
+        if ( res['data'].servicio.plan_suplemento != null )
+          this.suplementos = res['data'].servicio.plan_suplemento.suplementos;
+        if ( res['data'].servicio.plan_ejercicio != null )
+          this.actividades = res['data'].servicio.plan_ejercicio.ejercicios;
+        if ( res['data'].servicio.plan_dieta != null )
+          this.comidas = res['data'].servicio.plan_dieta.comidas;
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -66,6 +69,10 @@ export class PlanPage {
     );  
   }
 
+  verNotificaciones(){
+     this.navCtrl.push('NotificacionesPage');
+  }
+  
  openModal(characterNum) {
     let modal = this.modalCtrl.create('ModalContentPage', characterNum);
     modal.present();

@@ -24,10 +24,7 @@ export class DetallereprogramacionPage {
   private dia_laborables: any[] = [];
 
   public reprogramar: any = {
-    bloque_horario:{
-      hora_inicio:'',
-      hora_fin:''
-    },
+    bloque_horario:{},
     motivo: {}
   }
 

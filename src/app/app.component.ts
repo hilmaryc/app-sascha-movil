@@ -46,9 +46,12 @@ export class MyApp {
   }
 
   ngOnInit() {
-    this.subscription = Observable.interval(10000).subscribe(x => {
-      if ( this.id_cliente == null && this._isAuth) this.getCliente()
-      else this.getNotificaciones(this.id_cliente);
+    let time: number = 10000;
+    this.subscription = Observable.interval(time).subscribe(x => {
+      if (this._isAuth){
+        if (this.id_cliente == null) this.getCliente();
+        else this.getNotificaciones(this.id_cliente);
+      } 
     });
   }
 
@@ -76,7 +79,7 @@ export class MyApp {
       (res)=>{
         this.storage.remove('notificaciones');
         this.storage.set('notificaciones', res['data']);
-        console.log(res['data']);
+        //console.log(res['data']);
       },
       (error)=>{
         this.serviApp.errorConeccion(error);
@@ -140,7 +143,11 @@ export class MyApp {
   logout() {
     this.logoutUser();
     this.showMenu = 0;
+    this.stopTheIterations();
     window.location.reload();
   }
 
+  stopTheIterations () {
+    this.subscription.unsubscribe ();
+  }
 }

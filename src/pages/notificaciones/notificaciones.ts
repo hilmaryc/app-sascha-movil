@@ -20,7 +20,26 @@ export class NotificacionesPage {
     public navCtrl: NavController,
     private storage: Storage,
     public serviApp: AppservicioProvider) {
+    this.storage.ready().then(() => {
+      this.storage
+        .get('usuario')
+        .then( (usuario) => {
+          if (!usuario){
+            this.init;     
+          } else this.stopTheIterations();
+          
+      })
+      .catch((err) =>{
+        this.serviApp.errorConeccion(err);
+      });
+    });
+  }
 
+  stopTheIterations () {
+    this.subscription.unsubscribe ();
+  }
+
+  init() {
     this.subscription = Observable.interval(2500).subscribe(x => {
       this.getNotificaciones();
     });
@@ -29,7 +48,7 @@ export class NotificacionesPage {
   getNotificaciones(){
     this.storage.ready().then(() => {
       this.storage.get('notificaciones').then( (data) => {
-        console.log(this.TAG,JSON.stringify(data)+'notificaciones');
+        //console.log(this.TAG,JSON.stringify(data)+'notificaciones');
         this.notificaciones = data;
       }).catch((err) =>{
         console.log(err);
