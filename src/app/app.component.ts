@@ -26,6 +26,7 @@ export class MyApp {
   public subscription;
   public index = 0;
   public id_cliente = null;
+  public _isAuth:boolean = false;
 
   constructor(
     public platform: Platform, 
@@ -45,6 +46,7 @@ export class MyApp {
   }
 
   ngOnInit() {
+    if (this._isAuth)
     this.subscription = Observable.interval(10000).subscribe(x => {
       if ( this.id_cliente == null ) this.getCliente()
       else this.getNotificaciones(this.id_cliente);
@@ -112,11 +114,13 @@ export class MyApp {
                   { title: 'Ayuda', component: 'AyudaPage' }          
                 ];
                 this.rootPage = ServicioPage;
+                this._isAuth = true;
               }
           })
           .catch((err) =>{
             console.log(err);
             this.rootPage = 'LoginPage';
+            this._isAuth = false;
           });
     });
   }

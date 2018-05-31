@@ -25,15 +25,14 @@
         [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
         clear
         class="ScheduleDate">
-        <span end>{{fecha | date: 'dd/MM/yyyy' }} 
+        <span end color="primary">{{fecha | date: 'dd/MM/yyyy' }} 
            <ion-icon name="calendar" item-left></ion-icon> 
-           Reprogramar
+           Selecciona la fecha
         </span>
       </span>
     </ion-item>
    </ion-card>
-
-    <!--ion-card (click)="seleccion('bloque_horario', 'Seleccione la hora')">
+    <ion-card (click)="seleccion('bloque_horario', 'Seleccione la hora')">
       <ion-row style="margin-left: 2%;margin-right: 4%;">
         <ion-col col-auto align-self-start>
           <h2>Hora</h2>
@@ -50,7 +49,8 @@
         </ion-thumbnail>
       </ion-row>
     </ion-card>
-    <ion-card (click)="seleccion('motivos-solicitud', 'Seleccione el motivo')">
+    <button ion-button color="primary" block (click)="solicitar()" >Enviar</button>
+    <!--ion-card (click)="seleccion('motivos-solicitud', 'Seleccione el motivo')">
       <ion-row style="margin-left: 2%;margin-right: 4%;">
         <ion-col col-auto align-self-start>
           <h2>Motivo</h2>
@@ -66,6 +66,6 @@
         </ion-thumbnail>
       </ion-row>
     </ion-card>
-    <button ion-button color="primary" block (click)="solicitar()" >Enviar</button>
+    
   </ion-card-->
 </ion-content>
