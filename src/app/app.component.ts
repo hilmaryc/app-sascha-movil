@@ -46,9 +46,8 @@ export class MyApp {
   }
 
   ngOnInit() {
-    if (this._isAuth)
     this.subscription = Observable.interval(10000).subscribe(x => {
-      if ( this.id_cliente == null ) this.getCliente()
+      if ( this.id_cliente == null && this._isAuth) this.getCliente()
       else this.getNotificaciones(this.id_cliente);
     });
   }
@@ -61,6 +60,7 @@ export class MyApp {
           .get('usuario')
           .then( (usuario) => {
             this.id_cliente = usuario.data.cliente.id_cliente;
+            console.log(usuario)
             this.serviApp.activarProgreso(false,this.TAG + metodo);
           })
           .catch((err) =>{
@@ -74,7 +74,7 @@ export class MyApp {
     await this.notificacionesProv.get(id_cliente)
       .subscribe(
       (res)=>{
-        this.storage.remove('notificacion');
+        this.storage.remove('notificaciones');
         this.storage.set('notificaciones', res['data']);
         console.log(res['data']);
       },
@@ -128,7 +128,9 @@ export class MyApp {
   async logoutUser() { 
     console.log(this.TAG,' logoutUser ' + 'se ha removido el token');
     await this.storage.remove('usuario');
+    await this.storage.remove('notificaciones');
     await this.storage.clear();
+    this.serviApp.loadingDismiss();
   }
 
   openPage(page) {

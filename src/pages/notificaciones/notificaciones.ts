@@ -29,7 +29,7 @@ export class NotificacionesPage {
   getNotificaciones(){
     this.storage.ready().then(() => {
       this.storage.get('notificaciones').then( (data) => {
-        console.log(this.TAG,JSON.stringify(data)+'notificacion');
+        console.log(this.TAG,JSON.stringify(data)+'notificaciones');
         this.notificaciones = data;
       }).catch((err) =>{
         console.log(err);
