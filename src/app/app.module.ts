@@ -45,8 +45,6 @@ import { TipoincideciasProvider } from '../providers/tipoincidecias/tipoincideci
 import { ProximavisitaProvider } from '../providers/proximavisita/proximavisita';
 import { ProximacitaProvider } from '../providers/proximacita/proximacita';
 
-import { FCM } from '@ionic-native/fcm';
-
 @NgModule({
   declarations: [
     MyApp,
@@ -102,7 +100,6 @@ import { FCM } from '@ionic-native/fcm';
     TipoincideciasProvider,
     ProximavisitaProvider,
     ProximacitaProvider,
-    FCM,
     NotificacionesProvider
   ]
 })

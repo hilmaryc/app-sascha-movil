@@ -2,13 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Loading, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-//import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Storage } from '@ionic/storage';
 import { ServicioPage } from '../pages/servicio/servicio';
 
 import { AuthProvider } from '../providers/auth/auth';
 
-import { FCM } from '@ionic-native/fcm';
 import { Observable } from 'rxjs/Rx';
 import { NotificacionesProvider } from '../providers/notificaciones/notificaciones';
 import { AppservicioProvider } from '../providers/appservicio/appservicio';
@@ -37,38 +35,9 @@ export class MyApp {
     public notificacionesProv: NotificacionesProvider,
     public auth: AuthProvider,
     private storage: Storage,
-    private fcm: FCM,
     public serviApp: AppservicioProvider) {
     this.rootPage = null;
     this.platform.ready().then(() => {
-      /*this.androidPermissions.requestPermissions([
-        this.androidPermissions.PERMISSION.READ_CONTACTS,
-        this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
-        this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
-      ]);*/
-      ///////////
-      //Notifications
-      /*
-      fcm.subscribeToTopic('all');
-      fcm.getToken().then(token=>{
-        console.log(token);
-      })
-      */
-      /*
-      fcm.onNotification().subscribe(data=>{
-        if(data.wasTapped){
-          console.log("Received in background");
-        } else {
-          console.log("Received in foreground");
-        };
-      })
-      fcm.onTokenRefresh().subscribe(token=>{
-        console.log(token);
-      });
-      //end notifications.
-      ////////
-      */
-
       this.statusBar.styleDefault();
       this.hideSplashScreen();
       this.isAuth();
@@ -113,7 +82,6 @@ export class MyApp {
     );  
   }
 
-    // to unsubscribe the function and stop the iterations
   stopTheIterations () {
     this.subscription.unsubscribe();
   }

@@ -39,9 +39,7 @@ export class EvolucionPage {
     public visitasProv: VisitasProvider,
     public proximaVisitaProv: ProximavisitaProvider,
     public ordenServiciosProv: MiordenserviciosProvider,
-    public serviApp: AppservicioProvider ) { 
-    console.log(moment.locale())
-  }
+    public serviApp: AppservicioProvider ) { }
 
   ngOnInit(){
     this.evolucion = "perfil";

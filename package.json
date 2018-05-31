@@ -66,8 +66,7 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-android-permissions": {},
-      "cordova-sqlite-storage": {},
-      "cordova-plugin-fcm": {}
+      "cordova-sqlite-storage": {}
     },
     "platforms": [
       "browser"
