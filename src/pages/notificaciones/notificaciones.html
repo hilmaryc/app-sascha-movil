@@ -9,26 +9,28 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="list-avatar-page">
-  <ion-list>
-    <button ion-item *ngFor="let noti of notificaciones">
+  <ion-list *ngFor="let noti of notificaciones">
       <ion-item>
-        <ion-avatar item-start>
-          <h2 style="text">
+        <ion-thumbnail item-start align-items-center>
+          <h1 style="text">
             <ion-icon *ngIf="noti.tipo_notificacion == 1" name="medkit"></ion-icon>
             <ion-icon *ngIf="noti.tipo_notificacion == 2" name="pricetags"></ion-icon>
             <ion-icon *ngIf="noti.tipo_notificacion == 3" name="start"></ion-icon>
-          </h2>
-        </ion-avatar>
+            <ion-icon *ngIf="noti.tipo_notificacion == 4" name="warning"></ion-icon>
+            <ion-icon *ngIf="noti.tipo_notificacion == 5" name="calendar"></ion-icon>
+            <ion-icon *ngIf="noti.tipo_notificacion == 6" name="quote"></ion-icon> 
+            <ion-icon *ngIf="noti.tipo_notificacion == 7" name="ribbon"></ion-icon>
+            <ion-icon *ngIf="noti.tipo_notificacion == 8" name="text"></ion-icon>
+            <ion-icon *ngIf="noti.tipo_notificacion == 9" name="chatbubbles"></ion-icon>
+          </h1>
+        </ion-thumbnail>
         <div>
           <h2 style="font-weight: bold;" align="center">{{noti.titulo}}</h2>
         </div>
         <div>
            <h3 text-wrap>{{noti.mensaje}}</h3>
-           <h3>Descuento: </h3>
-           <h3>aqui va el descuento</h3>
         </div>
       </ion-item> 
-    </button>
   </ion-list>
 </ion-content>
 

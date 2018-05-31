@@ -87,9 +87,7 @@ export class MyApp {
     );  
   }
 
-  stopTheIterations () {
-    this.subscription.unsubscribe();
-  }
+
 
   hideSplashScreen() {
     console.log(this.TAG,JSON.stringify(this.splashScreen));
