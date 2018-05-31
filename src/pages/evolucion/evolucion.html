@@ -21,13 +21,11 @@
   	<h2 align="center">Mi Evolucion</h2>
   </ion-item>
   <div>
-
     <ion-segment [(ngModel)]="evolucion">
       <ion-segment-button  (click)="showSegment('perfil')" value="perfil">Perfil</ion-segment-button>
       <ion-segment-button (click)="showSegment('visita')" value="visita">Visitas</ion-segment-button>
     </ion-segment>
   </div>
-
 <div [ngSwitch]="evolucion">
   <ion-list *ngSwitchCase="'perfil'">
     <ion-item *ngFor="let p of perfiles" >
@@ -51,31 +49,19 @@
     </ion-item>
   </ion-list>
   <ion-list *ngSwitchCase="'visita'">
+  <div>
     <ion-item *ngIf="proximaVisita != null" >
-      <ion-card class="nueva">
+      <ion-card class="nueva" (click)="irReprogramar(proximaVisita)">
+        <br>
         <h2 align="center" style="color: white;">VISITA #{{numeroVisita}}</h2>
-        <span ion-datepicker
-          (ionChanged)="setDate($event);"
-          [max]="maxDate" 
-          [min]="min"
-          [value]="fecha"
-          [showMaxAndMin]="true"
-          [okText]="Aceptar"
-          [cancelText]="Cancelar"
-          [localeStrings]="{ weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'], months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], monday:true }"
-          clear
-          class="ScheduleDate">
-          <span style="color: white;">
-            {{fecha | date: 'dd/MM/yyyy' }} 
-            <ion-icon name="calendar" item-left></ion-icon> 
-             Reprogramar
-          </span>
-        </span>
+        <br>
+        <h2 align="center" style="color: white;">{{proximaVisita.fecha}} Reprogramar</h2>
       </ion-card>
     </ion-item>
+  </div>
     <ion-item *ngFor="let v of visitas" >
       <ion-card class="anterior">
-        <button ion-button clear style="color: white" (click)="doCheckbox(v)">Visita #{{v.numero}}</button>
+        <button ion-button clear style="color: white" (click)="doCheckbox(v)">VISITA #{{v.numero}}</button>
         <p align="center" style="color: white">{{ v.fecha_atencion }}</p>
       </ion-card>
     </ion-item>
