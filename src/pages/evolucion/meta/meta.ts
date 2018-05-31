@@ -12,6 +12,7 @@ export class MetaPage {
   
   constructor(public navParams: NavParams) {
     this.metas = navParams.data;
+    console.log(this.metas)
   }
 
 }

@@ -26,7 +26,7 @@ import { EspecialidadesProvider } from '../providers/especialidades/especialidad
 import { EmpleadosProvider } from '../providers/empleados/empleados';
 import { MotivosSolicitudProvider } from '../providers/motivos-solicitud/motivos-solicitud';
 import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+//import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { CanalescuchaProvider } from '../providers/canalescucha/canalescucha';
 import { AyudasProvider } from '../providers/ayudas/ayudas';
 import { PerfilesProvider } from '../providers/perfiles/perfiles';
@@ -45,6 +45,7 @@ import { TipoincideciasProvider } from '../providers/tipoincidecias/tipoincideci
 import { ProximavisitaProvider } from '../providers/proximavisita/proximavisita';
 import { ProximacitaProvider } from '../providers/proximacita/proximacita';
 
+import { FCM } from '@ionic-native/fcm';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,6 @@ import { ProximacitaProvider } from '../providers/proximacita/proximacita';
     EmpleadosProvider,
     MotivosSolicitudProvider,
     SolicitudesProvider,
-    AndroidPermissions,
     CanalescuchaProvider,
     AyudasProvider,
     PerfilesProvider,
@@ -101,7 +101,8 @@ import { ProximacitaProvider } from '../providers/proximacita/proximacita';
     EspecialidadesProvider,
     TipoincideciasProvider,
     ProximavisitaProvider,
-    ProximacitaProvider
+    ProximacitaProvider,
+    FCM
   ]
 })
 export class AppModule {}

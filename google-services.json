@@ -1,27 +1,31 @@
 {
   "project_info": {
-    "project_number": "688850941863",
-    "firebase_url": "https://app-sascha-movil-a631e.firebaseio.com",
-    "project_id": "app-sascha-movil-a631e",
-    "storage_bucket": "app-sascha-movil-a631e.appspot.com"
+    "project_number": "801925976242",
+    "firebase_url": "https://app-sascha-notification.firebaseio.com",
+    "project_id": "app-sascha-notification",
+    "storage_bucket": "app-sascha-notification.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:688850941863:android:115ce391e1b554b8",
+        "mobilesdk_app_id": "1:801925976242:android:115ce391e1b554b8",
         "android_client_info": {
           "package_name": "com.ionic.sascha"
         }
       },
       "oauth_client": [
         {
-          "client_id": "688850941863-f5necskorakr2vaiap26f1r6b4tun5l2.apps.googleusercontent.com",
+          "client_id": "801925976242-ddh8rf6af2gmk1ijcsq4p154lo1a3q4p.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "801925976242-ddh8rf6af2gmk1ijcsq4p154lo1a3q4p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUqm3ORqwFgkGYmnUkrg94ScpMsxEn23M"
+          "current_key": "AIzaSyCHS6MlQ41TvYnADIMCJdl_5gxB7EGY8Fc"
         }
       ],
       "services": {
