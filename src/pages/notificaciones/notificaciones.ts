@@ -19,27 +19,13 @@ export class NotificacionesPage {
   constructor(
     public navCtrl: NavController,
     private storage: Storage,
-    public serviApp: AppservicioProvider) {
-    this.storage.ready().then(() => {
-      this.storage
-        .get('usuario')
-        .then( (usuario) => {
-          if (!usuario){
-            this.init;     
-          } else this.stopTheIterations();
-          
-      })
-      .catch((err) =>{
-        this.serviApp.errorConeccion(err);
-      });
-    });
-  }
+    public serviApp: AppservicioProvider) { }
 
   stopTheIterations () {
     this.subscription.unsubscribe ();
   }
 
-  init() {
+  ngOnInit() {
     this.subscription = Observable.interval(2500).subscribe(x => {
       this.getNotificaciones();
     });

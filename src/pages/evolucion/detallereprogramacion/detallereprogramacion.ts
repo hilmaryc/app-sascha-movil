@@ -3,7 +3,9 @@ import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angu
 
 import { TipoincideciasProvider } from '../../../providers/tipoincidecias/tipoincidecias';
 import { BloquehorariosProvider } from '../../../providers/bloquehorarios/bloquehorarios';
+import { AgendareproProvider } from '../../../providers/agendarepro/agendarepro'
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
+import { ServicioPage } from '../../servicio/servicio';
 
 @IonicPage()
 @Component({
@@ -24,8 +26,10 @@ export class DetallereprogramacionPage {
   private dia_laborables: any[] = [];
 
   public reprogramar: any = {
-    bloque_horario:{},
-    motivo: {}
+    "bloque_horario":{},
+    "motivo": {},
+    "numeroVisita": 1,
+    "id_cliente": null
   }
 
   constructor(
@@ -34,10 +38,11 @@ export class DetallereprogramacionPage {
     public alertCtrl: AlertController,
   	public tipoincidenciasProv: TipoincideciasProvider,
     public horariosProv: BloquehorariosProvider,
+    public reprosProv: AgendareproProvider,
   	public serviApp: AppservicioProvider) { 
-  		this.visita = navParams.data;
-      console.log('POLICE');
-      console.log(this.visita);
+  		this.visita = navParams.data.visita;
+      this.reprogramar.numeroVisita = navParams.data.numeroVisita;
+      this.reprogramar.id_cliente = navParams.data.id_cliente;
   }
 
   public Log(stuff): void {
@@ -45,7 +50,6 @@ export class DetallereprogramacionPage {
   }
 
   public event(data: Date): void {}
-
 
   setDate(date: Date) {
     this.fecha = date;
@@ -168,8 +172,30 @@ export class DetallereprogramacionPage {
         {
           text: 'Ok',
           handler: data => {
-            if( '['+JSON.stringify(data)+']' != '[undefined]') this.enviarReprogramacion(data);
-            else this.serviApp.alecrtMsg('Seleccione un motivo');
+            let id_tipo_cita = 1;
+            if ( this.reprogramar.numeroVisita != 1 ) id_tipo_cita = 2
+            if( '['+JSON.stringify(data)+']' != '[undefined]'){
+              let body: any = {
+                "fecha": this.fecha,
+                "id_tipo_cita": id_tipo_cita,
+                "id_orden_servicio": this.visita.id_orden_servicio,
+                "id_cliente": this.visita.id_cliente,
+                "id_bloque_horario": this.reprogramar.bloque_horario.id_bloque_horario,
+                "id_empleado": this.visita.id_empleado
+              } 
+              console.log(body);
+              this.reprosProv.getBody(body)
+              .subscribe(
+                (res)=>{  
+                  this.serviApp.activarProgreso(false,this.TAG);
+                  this.serviApp.alecrtMsg('Su reprogramacion fue exitosa');
+                  this.navCtrl.push(ServicioPage);
+                },
+                (error)=>{
+                  this.serviApp.errorConeccion(error);
+                }
+              );             
+            } 
           }
         }
       ]
@@ -177,8 +203,21 @@ export class DetallereprogramacionPage {
     editar.present();
   }
 
-  enviarReprogramacion(data){
-    console.log('reprogramar clicked' + JSON.stringify(data) );
+esValido(data): boolean{
+    if ( JSON.stringify(this.reprogramar)=='{}' ) {
+      this.serviApp.alecrtMsg('Seleccione todo los campos');
+      return false;
+    }
+    if ( JSON.stringify(this.reprogramar.bloque_horario)=='{}' ) {
+      this.serviApp.alecrtMsg('Seleccione la hora');
+      return  false;
+    }
+    return true;
+  }
+  
+  enviarReprogramacion(){
+    if ( this.esValido(this.visita) )
+      this.getTipoIncidencias();
   }
 
 }

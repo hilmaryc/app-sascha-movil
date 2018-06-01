@@ -62,33 +62,30 @@ export class MyApp {
       this.storage
           .get('usuario')
           .then( (usuario) => {
-            this.id_cliente = usuario.data.cliente.id_cliente;
+            this.id_cliente = usuario.data.cliente.id_usuario;
             console.log(usuario)
             this.serviApp.activarProgreso(false,this.TAG + metodo);
           })
           .catch((err) =>{
-            this.serviApp.errorConeccion(err);
+            console.log(err);
+            
           });
     });
   }
 
   async getNotificaciones(id_cliente): Promise<void> {
-    let metodo =':metodo getNotificaciones';
+    console.log(id_cliente)
+    this.storage.remove('notificaciones');
     await this.notificacionesProv.get(id_cliente)
       .subscribe(
       (res)=>{
-        this.storage.remove('notificaciones');
         this.storage.set('notificaciones', res['data']);
-        //console.log(res['data']);
+        console.log(res['data']);
       },
       (error)=>{
-        this.serviApp.errorConeccion(error);
+        console.log(error);
       }
     );  
-  }
-
-  stopTheIterations () {
-    this.subscription.unsubscribe();
   }
 
   hideSplashScreen() {
@@ -105,7 +102,9 @@ export class MyApp {
       this.storage
           .get('usuario')
           .then( (usuario) => {
+              console.log('Cliente: '+usuario.data.cliente.id_cliente)
               var error: boolean = usuario.error;
+              this.id_cliente = usuario.data.cliente.id_usuario;
               if ( !error ) {
                 this.showMenu = 1;
                 this.pages = [
@@ -123,6 +122,8 @@ export class MyApp {
           .catch((err) =>{
             console.log(err);
             this.rootPage = 'LoginPage';
+            this.storage.remove('notificaciones');
+            this.storage.clear();
             this._isAuth = false;
           });
     });
@@ -131,9 +132,8 @@ export class MyApp {
   async logoutUser() { 
     console.log(this.TAG,' logoutUser ' + 'se ha removido el token');
     await this.storage.remove('usuario');
-    await this.storage.remove('notificaciones');
     await this.storage.clear();
-    this.serviApp.loadingDismiss();
+    this.id_cliente = null;
   }
 
   openPage(page) {
@@ -141,6 +141,7 @@ export class MyApp {
   }
 
   logout() {
+    this.serviApp.loadingDismiss();
     this.logoutUser();
     this.showMenu = 0;
     this.stopTheIterations();

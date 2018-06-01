@@ -193,6 +193,10 @@ export class EvolucionPage {
   }
 
   irReprogramar(visita){
-    this.navCtrl.push('DetallereprogramacionPage',visita);
+    this.navCtrl.push('DetallereprogramacionPage',{
+      "visita": visita,
+      "numeroVisita": this.numeroVisita,
+      "id_cliente": this.id_cliente
+    });
   }
 }
