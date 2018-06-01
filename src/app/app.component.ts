@@ -46,7 +46,7 @@ export class MyApp {
   }
 
   ngOnInit() {
-    let time: number = 10000;
+    let time: number = 10000*1;
     this.subscription = Observable.interval(time).subscribe(x => {
       if (this._isAuth){
         if (this.id_cliente == null) this.getCliente();
@@ -63,24 +63,23 @@ export class MyApp {
           .get('usuario')
           .then( (usuario) => {
             this.id_cliente = usuario.data.cliente.id_usuario;
-            console.log(usuario)
+            //console.log(usuario)
             this.serviApp.activarProgreso(false,this.TAG + metodo);
           })
           .catch((err) =>{
             console.log(err);
-            
+
           });
     });
   }
 
   async getNotificaciones(id_cliente): Promise<void> {
-    console.log(id_cliente)
-    this.storage.remove('notificaciones');
     await this.notificacionesProv.get(id_cliente)
       .subscribe(
       (res)=>{
+        this.storage.remove('notificaciones');
         this.storage.set('notificaciones', res['data']);
-        console.log(res['data']);
+       // console.log(res['data']);
       },
       (error)=>{
         console.log(error);
@@ -102,7 +101,7 @@ export class MyApp {
       this.storage
           .get('usuario')
           .then( (usuario) => {
-              console.log('Cliente: '+usuario.data.cliente.id_cliente)
+              console.log('Usuario: '+usuario.data.cliente.id_usuario)
               var error: boolean = usuario.error;
               this.id_cliente = usuario.data.cliente.id_usuario;
               if ( !error ) {

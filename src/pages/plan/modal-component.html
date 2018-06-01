@@ -12,12 +12,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
+    <ion-list>
     <ion-card text-wrap class="comidas" *ngFor="let grupo of grupo_alimenticios">
       <h2 align="center">{{grupo.nombre}} {{grupo.cantidad}} {{ grupo.unidad_abreviatura }}</h2>
       <ion-grid>
         <ion-row>
-          <ion-col *ngFor="let a of grupo.alimentos" >
+          <ion-col  col-6 style="width: 90%;" *ngFor="let a of grupo.alimentos" >
             <h3 align="center"> {{a.nombre}} </h3>      
           </ion-col>
         </ion-row>  

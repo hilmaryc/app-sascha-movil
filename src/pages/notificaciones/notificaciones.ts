@@ -26,7 +26,7 @@ export class NotificacionesPage {
   }
 
   ngOnInit() {
-    this.subscription = Observable.interval(2500).subscribe(x => {
+    this.subscription = Observable.interval(2000).subscribe(x => {
       this.getNotificaciones();
     });
   }
