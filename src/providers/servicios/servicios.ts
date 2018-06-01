@@ -12,4 +12,7 @@ export class ServiciosProvider extends GeneralService {
     return super.getAll();
   }
 
+  get(id){
+    return super.get(id);
+  }
 }

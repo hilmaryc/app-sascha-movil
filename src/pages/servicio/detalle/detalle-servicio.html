@@ -42,6 +42,24 @@
     <ion-item >
       <h2 align="center">Con un precio de BsS {{ servicio.servicio.precio }} </h2>
     </ion-item>
+    <ion-item *ngIf=" promocion != null ">
+      <ion-item>
+        <h2 align="center" text-wrap style="color: #92b740;">"Aprovecha esta oportunidad"</h2>
+        <h2 align="center" text-wrap style="color: #92b740;">Promocion {{ promocion.nombre }}</h2>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail item-start align-items-center>
+          <img src="{{ promocion.url_imagen }}" >
+        </ion-thumbnail>
+        <p text-wrap>{{ promocion.descripcion }}</p>
+      </ion-item>
+      <ion-item>
+        <h2 text-wrap>Valido desde {{ promocion.valido_desde }} y hasta {{ promocion.valido_hasta }}</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Con un descuento de {{ promocion.descuento }}%</h2>
+      </ion-item>
+    </ion-item>
     <button *ngIf="servicio.estado_orden_servicio == 0" ion-button color="primary" block clear (click)="solicitar(servicio.servicio)" >Solicitar Servicio</button>
     <button *ngIf="servicio.estado_orden_servicio == 1" ion-button color="f83c1d" block clear (click)="getTipoReclamos()" >Cancelar Servicio</button>
     <button *ngIf="servicio.estado_orden_servicio == 2" ion-button color="d3e00d" block clear (click)="solicitarPromocion_Garantia(servicio)" >Solicitar Promocion</button>

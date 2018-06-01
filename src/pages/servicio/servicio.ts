@@ -36,6 +36,8 @@ export class ServicioPage {
 
   errorMessage: string;
 
+  public tipo_servicio: any=null;
+
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
@@ -203,6 +205,9 @@ export class ServicioPage {
 
   showDetail(params){
     this.navCtrl.push('ServicioDetallePage', {
+      "tipo_notificacion": null,
+      "promocion": null,
+      "garantia": null,
       "titulo_servicio": this.titulo_servicio,
       "servicio": params
     });

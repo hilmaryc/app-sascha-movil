@@ -26,17 +26,19 @@ export class DetalleEvolucionPage {
 
   async getDetalle(id): Promise<void> {
     let metodo = ': metodo getDetalle';
-    this.serviApp.activarProgreso(true,this.TAG + metodo);
-    await this.detalleProv.get(id)
-      .subscribe(
-      (res)=>{
-        this.detalles = res['data'].detalles || [];
-        this.serviApp.activarProgreso(false,this.TAG + metodo);
-      },
-      (error)=>{
-        this.serviApp.errorConeccion(error);
-      }
-    );  
+    if ( id != '[object Object]' ){
+      this.serviApp.activarProgreso(true,this.TAG + metodo);
+      await this.detalleProv.get(id)
+        .subscribe(
+        (res)=>{
+          this.detalles = res['data'].detalles || [];
+          this.serviApp.activarProgreso(false,this.TAG + metodo);
+        },
+        (error)=>{
+          this.serviApp.errorConeccion(error);
+        }
+      );  
+    }
   }
 
   verNotificaciones(){

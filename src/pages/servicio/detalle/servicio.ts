@@ -9,6 +9,8 @@ import { TiporeclamosProvider } from '../../../providers/tiporeclamos/tiporeclam
 import { MiordenserviciosProvider } from '../../../providers/miordenservicios/miordenservicios';
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 
+import * as moment from 'moment';
+
 @IonicPage()
 @Component({
   selector: 'page-detalle-servicio',
@@ -17,6 +19,8 @@ import { AppservicioProvider } from '../../../providers/appservicio/appservicio'
 export class ServicioDetallePage {
   public TAG: string = 'ServicioDetallePage';
   public servicio: any = null;
+  public promocion: any = null;
+  public tipo_notificacion: any = null;
   public titulo_servicio: any = 'Servicios';
   public id_cliente: string = '';
   public id_orden_servicio: string = '';
@@ -32,14 +36,20 @@ export class ServicioDetallePage {
     public serviApp: AppservicioProvider) {
 
     let data = navParams.data;
-    console.log(JSON.stringify(data));
     if (JSON.stringify(data) != {})
     {
       this.servicio = data.servicio;
-      let titilo = navParams.data.titulo_servicio;
+      this.promocion = data.promocion;
+      this.tipo_notificacion = data.tipo_notificacion;
+      if ( this.promocion != null ){
+        console.log(JSON.stringify(this.promocion));
+        this.promocion.valido_desde = moment(this.promocion.valido_desde).format("DD/MM/YYYY");
+        this.promocion.valido_hasta = moment(this.promocion.hasta).format("DD/MM/YYYY");
+      }
+      let titilo = data.titulo_servicio;
       if ( titilo == "Mi Servicio") this.titulo_servicio = "Mi Servicio"
       else if ( titilo == "Mis Servicios") this.titulo_servicio = "Mi Servicio"
-      else this.titulo_servicio = navParams.data.titulo_servicio;
+      else this.titulo_servicio = titilo;
     }
   }
 
@@ -52,7 +62,10 @@ export class ServicioDetallePage {
   }
 
   solicitar(servicio){
-    this.navCtrl.push( 'SolicitudPage', servicio );
+    this.navCtrl.push( 'SolicitudPage', {
+      "servicio": servicio,
+      "tipo_notificacion": this.tipo_notificacion || null
+    } );
   }
 
   async getCliente(){

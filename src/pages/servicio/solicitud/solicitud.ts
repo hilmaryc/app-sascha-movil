@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, ModalController, NavController, ViewController, NavParams } from 'ionic-angular';
 
+import { ServicioPage } from '../servicio';
+
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 import { BloquehorariosProvider } from '../../../providers/bloquehorarios/bloquehorarios';
 import { EmpleadosProvider } from '../../../providers/empleados/empleados';
@@ -35,6 +37,8 @@ export class SolicitudPage {
   private diaSemana = this.fecha.getUTCDay();
   private dia_laborables: any[] = []; 
 
+  public tipo_notificacion: any = null;
+
 	constructor(
     private storage: Storage,
 		public alertCtrl: AlertController,
@@ -47,7 +51,8 @@ export class SolicitudPage {
 		public empleadosProv: EmpleadosProvider,
 		public motivosSolicitudProv: MotivosSolicitudProvider,
     public solicitudesProv: SolicitudesProvider) {
-		this.solicitudes[0].servicio = navParams.data;
+		this.solicitudes[0].servicio = navParams.data.servicio;
+    this.tipo_notificacion = navParams.data.tipo_notificacion;
 	}
 
   ionViewDidLoad(): void {
@@ -249,11 +254,11 @@ export class SolicitudPage {
 
   async peticionSolicitud(): Promise<any> {
      this.serviApp.activarProgreso(true,'solicitud: metodo peticionSolicitud');
-     this.solicitudesProv.create(this.solicitudes[0])
+     this.solicitudesProv.create(this.solicitudes[0],this.tipo_notificacion)
       .subscribe(
         (res)=>{
           this.serviApp.alecrtMsg(res['data'].mensaje);
-          this.dismiss();
+          this.navCtrl.push(ServicioPage);
         },
         (error)=>{
           this.serviApp.errorConeccion(error);

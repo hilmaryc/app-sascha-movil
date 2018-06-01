@@ -13,28 +13,42 @@
     <h2 align="center">Mis Notificaciones</h2>
   </ion-item>
   <br>
-  <ion-list *ngFor="let noti of notificaciones">
-      <ion-item>
-        <ion-thumbnail item-start align-items-center>
-          <h1 align="center" style="margin: auto; padding: 20%;">
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 1" name="medkit"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 2" name="pricetags"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 3" name="start"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 4" name="warning"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 5" name="calendar"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 6" name="quote"></ion-icon> 
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 7" name="ribbon"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 8" name="text"></ion-icon>
-            <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 9" name="chatbubbles"></ion-icon>
-          </h1>
-        </ion-thumbnail>
-        <div>
-          <h2 style="font-weight: bold;" align="center" text-wrap>{{noti.titulo}}</h2>
-        </div>
-        <div>
-           <h3 text-wrap align="center">{{noti.mensaje}}</h3>
-        </div>
-      </ion-item> 
-  </ion-list>
+  <ion-card *ngFor="let noti of notificaciones">
+    <ion-item>
+      <ion-thumbnail item-start align-items-center>
+        <h1 align="center" style="margin: auto; padding: 20%;">
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 1" name="medkit"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 2" name="pricetags"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 3" name="start"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 4" name="warning"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 5" name="calendar"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 6" name="quote"></ion-icon> 
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 7" name="ribbon"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 8" name="text"></ion-icon>
+          <ion-icon style="margin: auto; padding: 20%;" *ngIf="noti.tipo_notificacion == 9" name="chatbubbles"></ion-icon>
+        </h1>
+        <br>
+        <br>
+      </ion-thumbnail>
+      <div>
+        <h2 style="font-weight: bold;" align="center" text-wrap>{{noti.titulo}}</h2>
+      </div>
+      <div>
+         <h3 text-wrap align="center">{{noti.mensaje}}</h3>
+      </div>
+    </ion-item> 
+    <ion-item>
+      <div align="center" >
+        <ion-buttons>
+          <button ion-button color="danger" (click)="limpiar(noti.id_notificacion)">
+            <ion-icon name="trash"></ion-icon>Remover
+          </button>
+          <button ion-button color="primary" *ngIf=" noti.tipo_notificacion == 2; else noti.tipo_notificacion == 7" (click)="solicitar(noti)">
+          <ion-icon name="checkmark"></ion-icon>Solicitar
+          </button>
+        </ion-buttons>
+      </div>
+    </ion-item>
+  </ion-card>
 </ion-content>
 

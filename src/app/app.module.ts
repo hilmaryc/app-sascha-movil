@@ -45,6 +45,7 @@ import { TipoincideciasProvider } from '../providers/tipoincidecias/tipoincideci
 import { ProximavisitaProvider } from '../providers/proximavisita/proximavisita';
 import { ProximacitaProvider } from '../providers/proximacita/proximacita';
 import { AgendareproProvider } from '../providers/agendarepro/agendarepro';
+import { NotifiProvider } from '../providers/notifi/notifi';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { AgendareproProvider } from '../providers/agendarepro/agendarepro';
     ProximavisitaProvider,
     ProximacitaProvider,
     NotificacionesProvider,
-    AgendareproProvider
+    AgendareproProvider,
+    NotifiProvider
   ]
 })
 export class AppModule {}

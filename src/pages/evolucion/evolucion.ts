@@ -104,10 +104,12 @@ export class EvolucionPage {
 
   async getVisitas(id_cliente,id_orden_servicio): Promise<void> {
     this.serviApp.activarProgreso(true,'EvolucionPage: metodo getVisitas');
-    await this.visitasProv.getBody({
+    let body = {
         "id_cliente": id_cliente,
         "id_orden_servicio": id_orden_servicio
-      })
+      };
+    console.log(JSON.stringify(body))
+    await this.visitasProv.getBody(body)
       .subscribe(
       (res)=>{
         this.visitas = res['data'];
@@ -141,6 +143,10 @@ export class EvolucionPage {
   }
 
   doCheckbox(visita) {
+
+    this.navCtrl.push('DetalleEvolucionPage',visita.id_visita);
+
+/*
     let alert = this.alertCtrl.create();
     alert.setTitle('¡Por favor valore su visita realizada!');
 
@@ -182,14 +188,15 @@ export class EvolucionPage {
     alert.present().then(() => {
       this.testCheckboxOpen = true;
     });
+    */
   }
 
   verNotificaciones(){
      this.navCtrl.push('NotificacionesPage');
   }
 
-  verMeta(metas){
-     this.navCtrl.push('MetaPage',metas);
+  verMeta(){
+     this.navCtrl.push('MetaPage',this.visitas[0].metas);
   }
 
   irReprogramar(visita){

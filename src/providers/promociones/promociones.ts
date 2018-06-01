@@ -12,4 +12,8 @@ export class PromocionesProvider extends GeneralService {
     return super.getAll();
   }
 
+  get(id){
+    return super.get(id);
+  }  
+
 }
