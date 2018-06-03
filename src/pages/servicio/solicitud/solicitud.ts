@@ -253,8 +253,33 @@ export class SolicitudPage {
   }
 
   async peticionSolicitud(): Promise<any> {
-     this.serviApp.activarProgreso(true,'solicitud: metodo peticionSolicitud');
-     this.solicitudesProv.create(this.solicitudes[0],this.tipo_notificacion)
+    this.serviApp.activarProgreso(true,'solicitud: metodo peticionSolicitud');
+    let condicion: any = this.tipo_notificacion;
+    let data: any = this.solicitudes[0];
+    let body: any = null;
+    if ( condicion != null ){
+      body = {
+        "id_empleado": data.empleado.id_empleado,
+        "id_cliente": data.cliente.id_cliente,
+        "id_servicio": data.servicio.id_servicio,
+        "id_motivo": data.motivo.id_motivo,
+        "id_bloque_horario": data.bloque_horario.id_bloque_horario,
+        "fecha": data.fecha,
+        "acepto_precio": data.acepto_precio,
+        "tipo_notificacion": condicion
+      };  
+    } else {
+      body = {
+        "id_empleado": data.empleado.id_empleado,
+        "id_cliente": data.cliente.id_cliente,
+        "id_servicio": data.servicio.id_servicio,
+        "id_motivo": data.motivo.id_motivo,
+        "id_bloque_horario": data.bloque_horario.id_bloque_horario,
+        "fecha": data.fecha,
+        "acepto_precio": data.acepto_precio
+      };
+    }
+    this.solicitudesProv.create(body)
       .subscribe(
         (res)=>{
           this.serviApp.alecrtMsg(res['data'].mensaje);

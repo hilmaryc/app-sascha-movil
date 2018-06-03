@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, Platform, NavParams, ViewController } from 'ionic-angular';
+import { AlertController, IonicPage, Platform, NavParams, ViewController, NavController } from 'ionic-angular';
+
+import { ServicioPage } from '../../../pages/servicio/servicio';
 
 import { EspecialidadesProvider } from '../../../providers/especialidades/especialidades';
 import { TipoparametrosProvider } from '../../../providers/tipoparametros/tipoparametros';
@@ -49,6 +51,7 @@ export class FiltroPage {
   constructor(
     public platform: Platform,
     public alertCtrl: AlertController,
+    public navCtrl: NavController,
     public params: NavParams,
     public viewCtrl: ViewController,
     public filtrablesProv: TipoparametrosProvider,
@@ -124,7 +127,7 @@ export class FiltroPage {
       buttons: [{
         text: 'Cancelar',
         handler: data => {
-          console.log('Cancelar clicked' + JSON.stringify(data) );
+          console.log('Cancelar clicked');
         }
       } , {
         text: 'Ok',
@@ -155,7 +158,7 @@ export class FiltroPage {
   }
 
   dismiss() {
-   this.viewCtrl.dismiss();
+   this.navCtrl.push(ServicioPage);
   }
 
   aceptar(){
@@ -237,7 +240,7 @@ export class FiltroPage {
       buttons: [{
         text: 'Cancelar',
         handler: data => {
-          console.log('Cancelar clicked' + JSON.stringify(data) );
+          console.log('Cancelar clicked');
         }
       } , {
         text: 'Ok',
