@@ -13,7 +13,7 @@ export class ValoracionPage {
   public TAG:string = 'ValoracionPage';
   public criterios: any[]=[];
   public calificacion: any[]=[];
-  
+
   constructor(public navCtrl: NavController,
   			  public navParams: NavParams,
   			  public valoracionesProv: ValoracionesProvider,
@@ -38,7 +38,7 @@ export class ValoracionPage {
   }
 
 
-  aceptar(){
+  enviar(){
 
   	this.navCtrl.push('DetalleEvolucionPage');
   }
