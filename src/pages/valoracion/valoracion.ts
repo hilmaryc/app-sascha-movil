@@ -37,7 +37,6 @@ export class ValoracionPage {
     ); 
   }
 
-
   enviar(){
 
   	this.navCtrl.push('DetalleEvolucionPage');
