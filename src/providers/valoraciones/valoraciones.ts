@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GeneralService } from './../general.service'; 
 
-/*
-  Generated class for the ValoracionesProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
-export class ValoracionesProvider {
+export class ValoracionesProvider extends GeneralService {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ValoracionesProvider Provider');
+  constructor(protected http: HttpClient) {
+    super(http,'criterios/visita', '')
   }
 
+  getAll(){
+    return super.getAll();
+  }
+
+  get(id){
+    return super.get(id);
+  }
 }

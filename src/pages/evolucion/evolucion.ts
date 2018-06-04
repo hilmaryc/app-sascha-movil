@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
+import { ValoracionPage } from '../valoracion/valoracion';
 import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
 import { ProximavisitaProvider } from '../../providers/proximavisita/proximavisita';
 import { VisitasProvider } from '../../providers/visitas/visitas';
@@ -140,6 +141,11 @@ export class EvolucionPage {
         this.serviApp.errorConeccion(error);
       }
     );  
+  }
+
+  abrirValoracion(){
+
+    this.navCtrl.push('ValoracionPage');
   }
 
   doCheckbox(visita) {

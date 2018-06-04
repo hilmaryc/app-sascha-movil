@@ -60,11 +60,11 @@
     </ion-item>
   </div>
     <ion-item *ngFor="let v of visitas" >
-      <ion-card class="anterior" (click)="doCheckbox(v)">
-        <br>
+      <ion-card class="anterior" (click)="abrirValoracion()">
+        
         <h2 ion-button clear style="color: white">VISITA #{{v.numero}}</h2>
         <br>
-        <p align="center" style="color: white">{{ v.fecha_atencion }}</p>
+        <h2 align="center" style="color: white">{{ v.fecha_atencion }}</h2>
       </ion-card>
     </ion-item>
   </ion-list>

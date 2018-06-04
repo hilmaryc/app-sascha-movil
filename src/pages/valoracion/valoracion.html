@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Valoracion</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+<div>
+   <ion-item>
+     <div>
+	   <ion-card *ngFor="let c of criterios">
+	       <br>
+           <h2 align="center" text-wrap>{{ c.descripcion }}</h2>
+           <ion-item *ngFor="let ca of c.valoraciones"> 
+	           <ion-label>{{ ca.nombre}}</ion-label>
+  		   	   <ion-checkbox></ion-checkbox>
+           </ion-item>
+        </ion-card>
+     </div>
+   </ion-item>
+	<ion-row>
+		<ion-col center text-center>
+    		<button ion-button color="third" block (click)="dismiss()" >Cancelar</button>
+  	 	</ion-col>
+  	 	<ion-col center text-center>
+  			<button ion-button color="primary" block (click)="aceptar()" >Enviar</button>
+  	 	</ion-col>
+    </ion-row>
+</div>
+</ion-content>
