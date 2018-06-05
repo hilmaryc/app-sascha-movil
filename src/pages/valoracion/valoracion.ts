@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ViewController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ValoracionesProvider } from '../../providers/valoraciones/valoraciones';
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 
@@ -12,12 +12,14 @@ export class ValoracionPage {
 
   public TAG:string = 'ValoracionPage';
   public criterios: any[]=[];
-  public calificacion: any[]=[];
+  public calificaciones: any[]=[];
 
-  constructor(public navCtrl: NavController,
-  			  public navParams: NavParams,
-  			  public valoracionesProv: ValoracionesProvider,
-  			  public serviApp: AppservicioProvider) { }
+  constructor(
+    public navCtrl: NavController,
+    public viewCtrl: ViewController, 
+  	public navParams: NavParams,
+  	public valoracionesProv: ValoracionesProvider,
+  	public serviApp: AppservicioProvider) { }
 
   ngOnInit(){
     this.getCriterios();
@@ -29,7 +31,31 @@ export class ValoracionPage {
     await this.valoracionesProv.getAll()
     .subscribe(
       (res)=>{
-        this.criterios = res['data'];
+        let _criterios = res['data'];
+
+        let nuevo_criterios: any[]=[];
+
+        for( let i in _criterios ){
+          let c = _criterios[i];
+          let valoraciones: any[]=[];
+          for( let y in _criterios[i].valoraciones ){
+            let id_criterio_valoracion = _criterios[i].id_criterio + '-' +_criterios[i].valoraciones[y].id_valoracion;
+            valoraciones.push({
+              "id_criterio_valoracion": id_criterio_valoracion,
+              "id_criterio": _criterios[i].id_criterio,
+              "id_valoracion": _criterios[i].valoraciones[y].id_valoracion,
+              "nombre": _criterios[i].valoraciones[y].nombre
+            });
+          }
+          nuevo_criterios.push({
+            "id_criterio": c.id_criterio,
+            "descripcion": c.descripcion,
+            "tipo_criterio": c.tipo_criterio,
+            "tipo_valoracion": c.tipo_valoracion,
+            "valoraciones": valoraciones
+          });
+        }
+        this.criterios = nuevo_criterios;
         console.log(JSON.stringify(this.criterios))
         this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
@@ -40,11 +66,30 @@ export class ValoracionPage {
   }
 
   selectView(entidad,data){
-    console.log(JSON.stringify(data))
+    let enc: boolean = false;
+    for( let i in this.calificaciones ){
+      if( this.calificaciones[i].id_criterio == data.id_criterio ){
+        this.calificaciones[i] = data
+        enc = true;
+        break;
+      }
+    }
+    if(!enc) this.calificaciones.push({
+      "id_criterio":  data.id_criterio,
+      "id_valoracion": data.id_valoracion
+    });
+    console.log(JSON.stringify(this.calificaciones));
   }
 
   enviar(){
-  	this.navCtrl.push('DetalleEvolucionPage');
+    this.viewCtrl.dismiss({
+      "calificaciones": this.calificaciones
+    }); 
+  	//this.navCtrl.push('DetalleEvolucionPage');
+  }
+
+  dismiss() {
+   this.viewCtrl.dismiss();
   }
 
 }

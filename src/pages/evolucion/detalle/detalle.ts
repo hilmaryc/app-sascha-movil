@@ -12,23 +12,24 @@ import { AppservicioProvider } from '../../../providers/appservicio/appservicio'
 export class DetalleEvolucionPage {
 
   public TAG:string = 'DetalleEvolucionPage';
-  public id_visita:string=null;
-  public detalles: any=null;
+  public detalles: any[]=[];
   
   constructor(
     public navParams: NavParams,
     public detalleProv: VisitadetallesProvider,
     public serviApp: AppservicioProvider
     ) {
-    this.detalles = navParams.data;
-   // if (this.id_visita != null ) this.getDetalle(this.id_visita);
+    if (this.id_visita != null ) this.getDetalle(
+      navParams.data.visita.id_visita, navParams.data.id_orden_servicio);
   }
-/*
-  async getDetalle(id): Promise<void> {
+
+  async getDetalle(id_visita,id_orden_servicio): Promise<void> {
     let metodo = ': metodo getDetalle';
     if ( id != '[object Object]' ){
       this.serviApp.activarProgreso(true,this.TAG + metodo);
-      await this.detalleProv.get(id)
+      await this.detalleProv.getBody(id,{
+        "id_orden_servicio": id_orden_servicio
+      })
         .subscribe(
         (res)=>{
           this.detalles = res['data'].detalles || [];
@@ -40,7 +41,7 @@ export class DetalleEvolucionPage {
       );  
     }
   }
-*/
+
   verNotificaciones(){
     
   }

@@ -7,7 +7,7 @@ export class OrdenProvider extends GeneralService {
   constructor(protected http: HttpClient) {
     super(http,'ordenservicio','s')
   }
-
+  
   update(id,data){
     return super.update(id,data);
   }

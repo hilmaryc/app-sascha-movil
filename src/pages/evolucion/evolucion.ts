@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import {  ViewController,IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
+import { ModalController, ViewController ,IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
 import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
 import { ProximavisitaProvider } from '../../providers/proximavisita/proximavisita';
@@ -28,6 +28,7 @@ export class EvolucionPage {
   public id_cliente:string = null;
   public perfiles: any[]=[];
   public visitas: any[]=[];
+  public id_orden_servicio: string = null;
   public proximaVisita: any=null;
   public numeroVisita: number = 1;
 
@@ -36,6 +37,7 @@ export class EvolucionPage {
     public navCtrl: NavController, 
     public viewCtrl: ViewController,
     public navParams: NavParams, 
+    public modalCtrl: ModalController, 
     public alertCtrl: AlertController,
     public perfilesProv: PerfilesProvider,
     public calificacionesProv: CalificacionesProvider,
@@ -96,7 +98,8 @@ export class EvolucionPage {
         (res)=>{
           let orden_servicios = res['data'];
           if ( this.id_cliente || orden_servicios[0] )
-            this.getVisitas(this.id_cliente,orden_servicios[0]);
+            this.getVisitas(this.id_cliente,orden_servicios[0].id_orden_servicio);
+            this.id_orden_servicio = orden_servicios[0].id_orden_servicio;
         },
         (error)=>{
           this.serviApp.errorConeccion(error);
@@ -145,11 +148,34 @@ export class EvolucionPage {
     );  
   }
 
-  abrirValoracion(visita){
+ abrirValoracion(visita){
+  let metodo =':metodo abrirValoracion';
+  console.log(JSON.stringify(visita))
     if (visita.calificada){
-      this.navCtrl.push('DetalleEvolucionPage',visita);
+      this.navCtrl.push('DetalleEvolucionPage',{
+        "visita": visita,
+        "id_orden_servicio": id_orden_servicio
+      });
     } else {
-      this.navCtrl.push('ValoracionPage');
+      let modal = this.modalCtrl.create('ValoracionPage');
+      modal.onDidDismiss(data => {
+        if( '['+JSON.stringify(data)+']' != '[undefined]' ){
+          if( data.length != 0 ){
+            this.serviApp.activarProgreso(true,this.TAG + metodo);
+            this.calificacionesProv.createId(data,visita.id_visita)
+            .subscribe(
+            (res)=>{
+              this.serviApp.alecrtMsg('Tu valoracion es muy importante gracias por tu ayuda');
+              window.location.reload();
+            },
+            (error)=>{
+              this.serviApp.errorConeccion(error);
+            });  
+          }
+        }
+      });
+      modal.present();
+      //this.navCtrl.push('ValoracionPage');
     }
   }
 

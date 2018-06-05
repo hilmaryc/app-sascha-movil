@@ -8,8 +8,8 @@ export class VisitadetallesProvider extends GeneralService {
     super(http,'detalles/visita','')
   }
 
-  get(id){
-    return super.get(id);
+  getBody(id,body){
+    return super.getBodyId(id,body);
   }
 
 }

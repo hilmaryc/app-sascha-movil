@@ -5,7 +5,7 @@ import { GeneralService } from './../general.service';
 export class CalificacionesProvider  extends GeneralService {
 
   constructor(protected http: HttpClient) {
-    super(http,'/calificaciones/visita','')
+    super(http,'calificaciones/visita','')
   }
 
   createId(body,id){

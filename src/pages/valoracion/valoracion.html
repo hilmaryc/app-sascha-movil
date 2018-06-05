@@ -5,13 +5,13 @@
 </ion-header>
 <ion-content padding>
 <div>
-   <ion-item>
+   <ion-item >
     <ion-card *ngFor="let c of criterios">
       <ion-label text-wrap>{{c.descripcion}}</ion-label>
       <ion-item>
         <ion-label text-wrap>Valoracion</ion-label>
-        <ion-select [(ngModel)]="tipo_valoracion">
-          <ion-option  *ngFor="let ca of c.valoraciones" (ionSelect)="selectView('c.valoraciones',ca);" value="{{ca.id_valoracion}}">{{ca.nombre}}
+        <ion-select>
+          <ion-option *ngFor="let ca of c.valoraciones" (ionSelect)="selectView('c.valoraciones',ca);" value="{{ca.id_criterio_valoracion}}">{{ca.nombre}}
           </ion-option>
         </ion-select>
       </ion-item>

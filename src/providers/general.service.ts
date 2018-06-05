@@ -24,6 +24,10 @@ export class GeneralService {
     return this.http.post(this.getUrl(),body);
   }
 
+  public getBodyId(id,body): Observable<any> {
+    return this.http.post(this.getUrlById(id),body);
+  }
+
   public create (data): Observable<any> {
     return this.http.post(this.getUrl(),data);
   }
