@@ -20,10 +20,10 @@ export class DetalleEvolucionPage {
     public detalleProv: VisitadetallesProvider,
     public serviApp: AppservicioProvider
     ) {
-    this.id_visita = navParams.data;
-    if (this.id_visita != null ) this.getDetalle(this.id_visita);
+    this.detalles = navParams.data;
+   // if (this.id_visita != null ) this.getDetalle(this.id_visita);
   }
-
+/*
   async getDetalle(id): Promise<void> {
     let metodo = ': metodo getDetalle';
     if ( id != '[object Object]' ){
@@ -40,7 +40,7 @@ export class DetalleEvolucionPage {
       );  
     }
   }
-
+*/
   verNotificaciones(){
     
   }

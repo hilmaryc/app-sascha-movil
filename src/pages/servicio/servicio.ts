@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ModalController, NavController } from 'ionic-angular';
+import { ModalController, NavController, AlertController } from 'ionic-angular';
 
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 import { FiltrablesProvider } from '../../providers/filtrables/filtrables';
 import { ServiciosProvider } from '../../providers/servicios/servicios';
 import { MiserviciosProvider } from '../../providers/miservicios/miservicios';
 import { PromocionesProvider } from '../../providers/promociones/promociones';
+import { ReclamosProvider } from '../../providers/reclamos/reclamos';
+import { TiporeclamosProvider } from '../../providers/tiporeclamos/tiporeclamos';
+import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
 
 @Component({
   selector: 'page-servicio',
@@ -38,19 +41,27 @@ export class ServicioPage {
 
   public tipo_servicio: any=null;
 
+  public id_cliente: string = '';
+  public id_orden_servicio: string = '';
+
   constructor(
     private storage: Storage,
+    public alertCtrl: AlertController,
     public navCtrl: NavController,
     public modalCtrl: ModalController, 
     public serviApp: AppservicioProvider,
     public filtrablesProv: FiltrablesProvider,
     public serviciosProv: ServiciosProvider,
     public miserviciosProv: MiserviciosProvider,
-    public promocionesProv: PromocionesProvider) { }
+    public promocionesProv: PromocionesProvider,
+    public tiporeclamosProv: TiporeclamosProvider,
+    public reclamosProv: ReclamosProvider,
+    public ordenServiciosProv: MiordenserviciosProvider) { }
 
   ngOnInit(){
     this.seg_servicio = "servi";
     this.getServicios();
+    this.promos=[];
   }
 
   async getServicios(): Promise<void> {
@@ -234,6 +245,97 @@ export class ServicioPage {
   onCancel(ev: any){
     this.myInput = '';
     this.services = this.aux_services;
+  }
+
+  async getTipoReclamos(): Promise<void> {
+    let metodo = ': metodo getTipoReclamos';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.tiporeclamosProv.getAll()
+      .subscribe(
+      (res)=>{
+        let objetos: any[] = res['data'].motivos || [];
+        if (objetos.length != 0){
+          let myImputs:any =[];
+          for ( let i in objetos ){
+            let data:any = { 
+              type: 'radio',
+              label: objetos[i].descripcion,
+              value: objetos[i]
+            };
+            myImputs.push(data);
+          }
+          this.alertSelection(myImputs);
+        }
+      this.serviApp.activarProgreso(false,this.TAG + metodo);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
+  }
+
+  alertSelection(myImputs){
+   let editar = this.alertCtrl.create({
+      title: 'Por que deseas reclamar el servicio?',
+      inputs: myImputs,
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancelar clicked' + JSON.stringify(data) );
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            if( '['+JSON.stringify(data)+']' != '[undefined]') this.Reclamar(data);
+            else this.serviApp.alecrtMsg('Seleccione un motivo');
+          }
+        }
+      ]
+    });
+    editar.present();
+  }
+
+  async Reclamar(data){
+    await this.getMiOrdenServicios(this.id_cliente,data.id_motivo);
+  }
+
+  async getMiOrdenServicios(id_cliente, id_motivo): Promise<void> {
+    let metodo = ': metodo getMiOrdenServicios';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.ordenServiciosProv.get(id_cliente)
+      .subscribe(
+      (res)=>{
+        let orden_servicios = res['data'];
+        this.id_orden_servicio = orden_servicios[0];
+        if ( this.id_cliente != '' && this.id_orden_servicio != '' ){
+          this.reclamar({
+            "id_motivo": id_motivo,
+            "id_orden_servicio": this.id_orden_servicio
+          });
+        }
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );  
+  }
+
+  async reclamar(body){
+    let metodo = ': metodo reclamar';
+    this.serviApp.activarProgreso(true,this.TAG + metodo);
+    await this.reclamosProv.create(body).subscribe(
+      (res)=>{
+        this.serviApp.activarProgreso(false,this.TAG + metodo);
+        this.serviApp.alecrtMsg('Su reclamo ya fue enviado');
+        this.navCtrl.push(ServicioPage);
+      },
+      (error)=>{
+        this.serviApp.errorConeccion(error);
+      }
+    );
   }
 
 }

@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
-import { ValoracionPage } from '../valoracion/valoracion';
 import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
 import { ProximavisitaProvider } from '../../providers/proximavisita/proximavisita';
 import { VisitasProvider } from '../../providers/visitas/visitas';
 import { PerfilesProvider } from '../../providers/perfiles/perfiles';
+import { CalificacionesProvider } from '../../providers/calificaciones/calificaciones';
 import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 
 import * as moment from 'moment';
@@ -37,6 +37,7 @@ export class EvolucionPage {
     public navParams: NavParams, 
     public alertCtrl: AlertController,
     public perfilesProv: PerfilesProvider,
+    public calificacionesProv: CalificacionesProvider,
     public visitasProv: VisitasProvider,
     public proximaVisitaProv: ProximavisitaProvider,
     public ordenServiciosProv: MiordenserviciosProvider,
@@ -143,58 +144,12 @@ export class EvolucionPage {
     );  
   }
 
-  abrirValoracion(){
-
-    this.navCtrl.push('ValoracionPage');
-  }
-
-  doCheckbox(visita) {
-
-    this.navCtrl.push('DetalleEvolucionPage',visita.id_visita);
-
-/*
-    let alert = this.alertCtrl.create();
-    alert.setTitle('¡Por favor valore su visita realizada!');
-
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Excelente',
-      value: 'value1',
-      checked: true
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Bueno',
-      value: 'value2'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Regular',
-      value: 'value3'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Deficiente',
-      value: 'value4'
-    });
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'ENVIAR',
-      handler: data => {
-        console.log('Checkbox data:', data);
-        this.testCheckboxOpen = false;
-        this.testCheckboxResult = data;
-        this.navCtrl.push('DetalleEvolucionPage',visita.id_visita);
-      }
-    });
-    alert.present().then(() => {
-      this.testCheckboxOpen = true;
-    });
-    */
+  abrirValoracion(visita){
+    if (visita.calificada){
+      this.navCtrl.push('DetalleEvolucionPage',visita);
+    } else {
+      this.navCtrl.push('ValoracionPage');
+    }
   }
 
   verNotificaciones(){
@@ -212,4 +167,19 @@ export class EvolucionPage {
       "id_cliente": this.id_cliente
     });
   }
+
+  async peticionCalificacion(body): Promise<any> {
+    this.serviApp.activarProgreso(true,'solicitud: metodo peticionSolicitud');
+    this.calificacionesProv.createId(body)
+      .subscribe(
+        (res)=>{
+          this.serviApp.alecrtMsg(res['data'].mensaje);
+          this.dismiss();
+        },
+        (error)=>{
+          this.serviApp.errorConeccion(error);
+        }
+      );
+  }
+
 }

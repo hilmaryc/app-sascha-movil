@@ -14,13 +14,13 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card>
+  <ion-card *ngIf="promo != null">
     <ion-item>
       <h2 align="center">{{ promo.nombre }}</h2>
     </ion-item>
     <ion-item>
       <ion-thumbnail item-start align-items-center>
-        <img src="{{url_imagen}}" >
+        <img src="{{promo.url_imagen}}" >
       </ion-thumbnail>
       <p text-wrap>{{ promo.descripcion }}</p>
     </ion-item>

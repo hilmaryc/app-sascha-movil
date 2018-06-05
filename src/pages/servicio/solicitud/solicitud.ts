@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, ModalController, NavController, ViewController, NavParams } from 'ionic-angular';
 
-import { ServicioPage } from '../servicio';
-
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 import { BloquehorariosProvider } from '../../../providers/bloquehorarios/bloquehorarios';
 import { EmpleadosProvider } from '../../../providers/empleados/empleados';
@@ -51,6 +49,7 @@ export class SolicitudPage {
 		public empleadosProv: EmpleadosProvider,
 		public motivosSolicitudProv: MotivosSolicitudProvider,
     public solicitudesProv: SolicitudesProvider) {
+    this.tipo_notificacion = null;
 		this.solicitudes[0].servicio = navParams.data.servicio;
     this.tipo_notificacion = navParams.data.tipo_notificacion;
 	}
@@ -226,7 +225,6 @@ export class SolicitudPage {
 	}
 
   solicitar() {   
-    console.log(this.TAG,JSON.stringify(this.solicitudes[0]));
     if(this.esValido(this.solicitudes[0]) == true){
     var msg = 'El servicio tiene un costo por ' + this.solicitudes[0].servicio.precio + ' BsS'  + ' Desea solicitarlo?';
     let alert = this.alertCtrl.create({
@@ -247,17 +245,14 @@ export class SolicitudPage {
       }]
     });
     alert.present();
-    } else {
-      console.log(this.TAG,JSON.stringify(this.solicitudes[0]));
-    }
+    } else console.log(this.TAG,JSON.stringify(this.solicitudes[0]));
   }
 
   async peticionSolicitud(): Promise<any> {
     this.serviApp.activarProgreso(true,'solicitud: metodo peticionSolicitud');
-    let condicion: any = this.tipo_notificacion;
     let data: any = this.solicitudes[0];
     let body: any = null;
-    if ( condicion != null ){
+    if ( this.tipo_notificacion != null ){
       body = {
         "id_empleado": data.empleado.id_empleado,
         "id_cliente": data.cliente.id_cliente,
@@ -266,8 +261,8 @@ export class SolicitudPage {
         "id_bloque_horario": data.bloque_horario.id_bloque_horario,
         "fecha": data.fecha,
         "acepto_precio": data.acepto_precio,
-        "tipo_notificacion": condicion
-      };  
+        "tipo_notificacion": this.tipo_notificacion
+      };
     } else {
       body = {
         "id_empleado": data.empleado.id_empleado,
@@ -277,13 +272,14 @@ export class SolicitudPage {
         "id_bloque_horario": data.bloque_horario.id_bloque_horario,
         "fecha": data.fecha,
         "acepto_precio": data.acepto_precio
-      };
-    }
+    };
+  }
+    
     this.solicitudesProv.create(body)
       .subscribe(
         (res)=>{
           this.serviApp.alecrtMsg(res['data'].mensaje);
-          this.navCtrl.push(ServicioPage);
+          this.dismiss();
         },
         (error)=>{
           this.serviApp.errorConeccion(error);

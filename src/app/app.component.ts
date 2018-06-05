@@ -144,6 +144,7 @@ export class MyApp {
     this.logoutUser();
     this.showMenu = 0;
     this.stopTheIterations();
+    this.nav.setRoot(ServicioPage);
     window.location.reload();
   }
 

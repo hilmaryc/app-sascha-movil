@@ -28,6 +28,10 @@ export class GeneralService {
     return this.http.post(this.getUrl(),data);
   }
 
+  public createId (data): Observable<any> {
+    return this.http.post(this.getUrlById(),data);
+  }
+
   public delete(id): Observable<any> {
 		return this.http.delete(this.getUrlById(id));  	
   }

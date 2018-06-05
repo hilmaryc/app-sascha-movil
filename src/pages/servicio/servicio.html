@@ -40,7 +40,10 @@
             <p text-wrap>{{ s.servicio.descripcion }}</p>
           </ion-item>
           <ion-item *ngIf="esMiServicio == true">
-            <h2 align="center" *ngIf="s.estado_orden_servicio == 1" style="color: #35d503;"> En Proceso </h2>
+            <div *ngIf="s.estado_orden_servicio == 1">
+              <h2 align="center" style="color: #35d503;"> En Proceso </h2>
+              <button ion-button color="f83c1d" block clear (click)="getTipoReclamos()" >Reclamar Servicio</button>
+            </div>
             <h2 align="center" *ngIf="s.estado_orden_servicio == 2" style="color: #d3e00d;"> De Promocion  </h2>
             <h2 align="center" *ngIf="s.estado_orden_servicio == 3" style="color: #0d78e0;"> Por Garantia </h2>
             <h2 align="center" *ngIf="s.estado_orden_servicio == 4" style="color: #f83c1d;"> Fue Reclamada </h2>

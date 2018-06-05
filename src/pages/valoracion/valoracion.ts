@@ -17,10 +17,11 @@ export class ValoracionPage {
   constructor(public navCtrl: NavController,
   			  public navParams: NavParams,
   			  public valoracionesProv: ValoracionesProvider,
-  			  public serviApp: AppservicioProvider) {
-  	this.getCriterios();
-  }
+  			  public serviApp: AppservicioProvider) { }
 
+  ngOnInit(){
+    this.getCriterios();
+  }
 
   async getCriterios():Promise<void>{
     let metodo = ': metodo getCriterios';
@@ -29,6 +30,7 @@ export class ValoracionPage {
     .subscribe(
       (res)=>{
         this.criterios = res['data'];
+        console.log(JSON.stringify(this.criterios))
         this.serviApp.activarProgreso(false,this.TAG + metodo);
       },
       (error)=>{
@@ -37,8 +39,11 @@ export class ValoracionPage {
     ); 
   }
 
-  enviar(){
+  selectView(entidad,data){
+    console.log(JSON.stringify(data))
+  }
 
+  enviar(){
   	this.navCtrl.push('DetalleEvolucionPage');
   }
 

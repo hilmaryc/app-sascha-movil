@@ -8,7 +8,7 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 })
 export class PromocionesPage {
 
-   public promo: any;
+   public promo:any = null;
    private url_imagen = '';
   
   itemSelected(item: string) {
@@ -19,15 +19,11 @@ export class PromocionesPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    public viewCtrl: ViewController) {
-    this.promo = navParams.data;
-    let servicio:any = navParams.data.servicio;
-    console.log(servicio.url_imagen);
-    this.url_imagen = servicio.url_imagen
-  }
+    public viewCtrl: ViewController) { }
 
-  ionViewDidEnter(){
-    console.log('ionViewDidLoad NotificacionesPage');
+  ngOnInit(){
+    this.promo = this.navParams.data;
+    console.log(JSON.stringify(this.promo))
   }
 
   solicitar(){
