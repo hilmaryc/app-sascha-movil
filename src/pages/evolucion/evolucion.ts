@@ -98,8 +98,8 @@ export class EvolucionPage {
         (res)=>{
           let orden_servicios = res['data'];
           if ( this.id_cliente || orden_servicios[0] )
-            this.getVisitas(this.id_cliente,orden_servicios[0].id_orden_servicio);
-            this.id_orden_servicio = orden_servicios[0].id_orden_servicio;
+            this.getVisitas(this.id_cliente,orden_servicios[0]);
+            this.id_orden_servicio = orden_servicios[0];
         },
         (error)=>{
           this.serviApp.errorConeccion(error);
@@ -154,7 +154,7 @@ export class EvolucionPage {
     if (visita.calificada){
       this.navCtrl.push('DetalleEvolucionPage',{
         "visita": visita,
-        "id_orden_servicio": id_orden_servicio
+        "id_orden_servicio": this.id_orden_servicio
       });
     } else {
       let modal = this.modalCtrl.create('ValoracionPage');

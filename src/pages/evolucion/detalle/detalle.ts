@@ -13,6 +13,7 @@ export class DetalleEvolucionPage {
 
   public TAG:string = 'DetalleEvolucionPage';
   public detalles: any[]=[];
+  public id_visita:string = null;
   
   constructor(
     public navParams: NavParams,
@@ -25,9 +26,9 @@ export class DetalleEvolucionPage {
 
   async getDetalle(id_visita,id_orden_servicio): Promise<void> {
     let metodo = ': metodo getDetalle';
-    if ( id != '[object Object]' ){
+    if ( id_visita != '[object Object]' ){
       this.serviApp.activarProgreso(true,this.TAG + metodo);
-      await this.detalleProv.getBody(id,{
+      await this.detalleProv.getBodyId(id_visita,{
         "id_orden_servicio": id_orden_servicio
       })
         .subscribe(

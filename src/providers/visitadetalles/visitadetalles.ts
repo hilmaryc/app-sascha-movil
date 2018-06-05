@@ -8,7 +8,7 @@ export class VisitadetallesProvider extends GeneralService {
     super(http,'detalles/visita','')
   }
 
-  getBody(id,body){
+  getBodyId(id,body){
     return super.getBodyId(id,body);
   }
 
