@@ -182,4 +182,7 @@ export class EvolucionPage {
       );
   }
 
+  dismiss(){
+    this.navCtrl.dismiss();
+  }
 }

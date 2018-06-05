@@ -8,8 +8,8 @@ export class CalificacionesProvider  extends GeneralService {
     super(http,'/calificaciones/visita','')
   }
 
-  createId(body){
-    return super.createId(body);
+  createId(body,id){
+    return super.createId(body,id);
   }
 
 }
