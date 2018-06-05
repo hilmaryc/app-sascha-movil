@@ -11,7 +11,7 @@ import { AppservicioProvider } from '../../providers/appservicio/appservicio';
 export class ValoracionPage {
 
   public TAG:string = 'ValoracionPage';
-  public criterios: any[]=[];
+  public criterios: any[]=[]; 
   public calificaciones: any[]=[];
 
   constructor(
@@ -81,7 +81,7 @@ export class ValoracionPage {
     console.log(JSON.stringify(this.calificaciones));
   }
 
-  enviar(){
+  enviar(visita){
     this.viewCtrl.dismiss({
       "calificaciones": this.calificaciones
     }); 
