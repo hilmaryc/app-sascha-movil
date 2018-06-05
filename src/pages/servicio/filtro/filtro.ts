@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, Platform, NavParams, ViewController, NavController } from 'ionic-angular';
 
-import { ServicioPage } from '../../../pages/servicio/servicio';
-
 import { EspecialidadesProvider } from '../../../providers/especialidades/especialidades';
 import { TipoparametrosProvider } from '../../../providers/tipoparametros/tipoparametros';
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
@@ -158,7 +156,7 @@ export class FiltroPage {
   }
 
   dismiss() {
-   this.navCtrl.push(ServicioPage);
+   this.viewCtrl.dismiss();
   }
 
   aceptar(){

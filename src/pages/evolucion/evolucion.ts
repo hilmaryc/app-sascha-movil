@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
+import {  ViewController,IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
 import { MiordenserviciosProvider } from '../../providers/miordenservicios/miordenservicios';
 import { ProximavisitaProvider } from '../../providers/proximavisita/proximavisita';
@@ -34,6 +34,7 @@ export class EvolucionPage {
   constructor(
     private storage: Storage,
     public navCtrl: NavController, 
+    public viewCtrl: ViewController,
     public navParams: NavParams, 
     public alertCtrl: AlertController,
     public perfilesProv: PerfilesProvider,
@@ -168,9 +169,9 @@ export class EvolucionPage {
     });
   }
 
-  async peticionCalificacion(body): Promise<any> {
+  async peticionCalificacion(body,id): Promise<any> {
     this.serviApp.activarProgreso(true,'solicitud: metodo peticionSolicitud');
-    this.calificacionesProv.createId(body)
+    this.calificacionesProv.createId(body,id)
       .subscribe(
         (res)=>{
           this.serviApp.alecrtMsg(res['data'].mensaje);
@@ -182,7 +183,7 @@ export class EvolucionPage {
       );
   }
 
-  dismiss(){
-    this.navCtrl.dismiss();
+  dismiss() {
+   this.viewCtrl.dismiss();
   }
 }

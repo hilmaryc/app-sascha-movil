@@ -9,7 +9,6 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 export class PromocionesPage {
 
    public promo:any = null;
-   private url_imagen = '';
   
   itemSelected(item: string) {
     console.log("Selected Item", item);

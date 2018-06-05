@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ServicioPage } from '../../../pages/servicio/servicio';
-
 import { AppservicioProvider } from '../../../providers/appservicio/appservicio';
 
 import * as moment from 'moment';
